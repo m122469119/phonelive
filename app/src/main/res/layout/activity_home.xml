@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+   >
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--头部-->
+            <include layout="@layout/view_home_page_head" />
+            <!--选项卡按钮-->
+            <com.zhy.autolayout.AutoLinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/tv_home_page_index_btn"
+                    android:textColor="@color/global"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/home"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/tv_home_page_video_btn"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/live"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1"
+                style="@style/v_line" />
+            <!--直播录像-->
+            <include layout="@layout/view_home_page_video" />
+            <!--主页-->
+            <include layout="@layout/view_home_page_index" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/view_home_page_bottom_menu" />
+
+
+
+</com.zhy.autolayout.AutoRelativeLayout>

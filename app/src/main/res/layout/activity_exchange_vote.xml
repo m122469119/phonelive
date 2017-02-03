@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    tools:context="com.bolema.phonelive.ui.ExchangeVoteActivity">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="30px"
+        android:orientation="horizontal"
+        android:layout_height="100px"
+        android:layout_width="match_parent"
+        >
+       <TextView
+           android:layout_gravity="left|center_vertical"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/tv_exchange_note" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+
+        android:id="@+id/rl_message"
+        android:orientation="horizontal"
+        android:layout_height="100px"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+         >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#858585"
+            android:layout_weight="1.74"
+            android:layout_marginLeft="22px"
+            android:textSize="36px"
+            android:gravity="right"
+            android:lines="1"
+            android:text="魅力值余额：" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content">
+
+            <!--
+            <ImageView
+                android:src="@drawable/me_myaccount_reddiamond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+             -->
+            <TextView
+                android:id="@+id/tv_coin"
+                android:layout_marginLeft="4dp"
+                android:textSize="40px"
+                android:text="0"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_10"
+                android:gravity="right" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+   </com.zhy.autolayout.AutoLinearLayout>
+  <com.zhy.autolayout.AutoLinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:gravity="center_vertical"
+       >
+    <TextView
+        android:textColor="#858585"
+        android:textSize="36px"
+        android:text="播币数量："
+        android:gravity="right"
+        android:layout_weight="1.5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        />
+    <EditText
+        android:inputType="number"
+        android:digits="1234567890"
+        android:maxLength="9"
+        android:id="@+id/et_diamonds_num"
+        android:textColorHint="#E2E2E5"
+        android:background="@null"
+        android:hint="请填写播币数量"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="100px" />
+    <TextView
+        android:textColor="#858585"
+        android:textSize="36px"
+        android:text="魅力值数"
+        android:id="@+id/tv_exchange_rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:textColor="#858585"
+            android:textSize="36px"
+            android:text="消耗数量："
+            android:gravity="right"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:background="@null"
+            android:textSize="36px"
+            android:id="@+id/tv_votes_num"
+            android:gravity="left|center_vertical"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="100px" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <Button
+        android:layout_marginTop="40px"
+        android:id="@+id/btn_exchange_vote"
+        android:textSize="@dimen/text_size_17"
+        android:text="立刻兑换"
+        android:textColor="@color/pink_text"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_yzm_background"
+        android:layout_width="@dimen/space_240"
+        android:layout_height="80px" />
+
+</com.zhy.autolayout.AutoLinearLayout>

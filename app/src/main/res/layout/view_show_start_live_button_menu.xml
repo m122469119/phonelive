@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.zhy.autolayout.AutoFrameLayout
+        android:layout_marginBottom="@dimen/space_10"
+        android:id="@+id/fl_bottom_menu"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/ll_bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_live_chat"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginBottom="@dimen/space_10"
+                android:background="@drawable/btn_show_live_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_marginRight="@dimen/space_10"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/iv_live_new_message"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/icon_new"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/iv_live_privatechat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_show_live_message"/>
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <!--
+                <ImageView
+                    android:id="@+id/iv_show_connect_request"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_show_live_music"/>
+                    -->
+                <ImageView
+                    android:id="@+id/iv_live_music"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                
+                    android:background="@drawable/btn_show_live_music"/>
+                <ImageView
+                    android:id="@+id/iv_live_meiyan"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_show_live_meiyan"/>
+                <ImageView
+                    android:id="@+id/iv_live_camera_control"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/btn_show_live_switch_carmera"/>
+                <ImageView
+                    android:id="@+id/iv_live_back"
+                    android:layout_marginLeft="@dimen/space_10"
+                    android:layout_marginBottom="@dimen/space_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_show_live_back"/>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:visibility="gone"
+            android:background="@color/white"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/ll_live_chat_edit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_50"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="@dimen/space_60"
+                android:layout_height="@dimen/space_30"
+                android:layout_marginLeft="7dp"
+                android:id="@+id/tglbtn_danmu_setting"
+                android:background="@drawable/tglbtn_live_danmu_setting"
+                />
+
+            <EditText
+                android:textSize="@dimen/text_size_12"
+                android:padding="4dp"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:textColor="@color/gray"
+                android:paddingLeft="@dimen/space_5"
+                android:id="@+id/et_live_chat_input"
+                android:layout_weight="12"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent" />
+            <Button
+                android:background="@color/global"
+                android:id="@+id/bt_send_chat"
+                android:textColor="@color/white"
+                android:text="@string/sendchat"
+                android:layout_width="@dimen/space_70"
+                android:layout_height="match_parent" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoFrameLayout>
+</merge>

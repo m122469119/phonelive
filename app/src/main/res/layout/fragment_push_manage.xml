@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/space_20">
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:padding="@dimen/space_10"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_60">
+        <TextView
+            android:gravity="center_vertical"
+            android:text="@string/livestartpush"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageButton
+            android:id="@+id/ib_push_manage_start_or_close"
+            android:background="@drawable/global_switch_off"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>

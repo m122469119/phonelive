@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_50">
+
+        <View
+            android:layout_height="1px"
+            android:background="@color/global"
+            style="@style/h_line" />
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_home_page_bottom_menu"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:weightSum="3">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_home_page_menu_follow"
+                style="@style/home_page_user_info_bottom_menu"
+                android:weightSum="1">
+                <ImageView
+                    android:id="@+id/iv_un_follow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/yiguanzhu"
+                    android:layout_weight="0.03" />
+                <TextView
+                    android:textSize="@dimen/text_size_15"
+                    android:id="@+id/tv_home_page_menu_follow"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:text="已关注"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.zhy.autolayout.AutoLinearLayout>
+            <View
+                android:layout_width="1px"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:layout_height="@dimen/space_5"
+                style="@style/v_line"/>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_home_page_menu_privatechat"
+                style="@style/home_page_user_info_bottom_menu">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sixinfollow"/>
+                <TextView
+                    android:textSize="@dimen/text_size_15"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:text="@string/privatechat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.zhy.autolayout.AutoLinearLayout>
+            <View
+                android:layout_width="1px"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:layout_height="@dimen/space_5"
+                style="@style/v_line"/>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_home_page_menu_lahei"
+                style="@style/home_page_user_info_bottom_menu">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sixinlahei"/>
+                <TextView
+                    android:id="@+id/tv_home_page_black_state"
+                    android:textSize="@dimen/text_size_15"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:text="@string/lahei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+</merge>

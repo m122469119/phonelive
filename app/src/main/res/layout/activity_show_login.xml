@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root">
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_select_login_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:layout_marginBottom="@dimen/space_20"
+        android:layout_above="@+id/ll_login_select"
+        android:textSize="@dimen/space_25"
+        android:textColor="#FFFFFF"
+        android:text="请选择登录方式"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_login_select"
+        android:layout_marginBottom="@dimen/space_50"
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_qqlogin"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_50"
+            android:src="@drawable/icon_def_qq"/>
+        <ImageView
+            android:id="@+id/iv_sllogin"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_50"
+            android:src="@drawable/icon_def_xl"/>
+        <ImageView
+            android:id="@+id/iv_wxlogin"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_50"
+            android:src="@drawable/icon_def_wx"/>
+        <ImageView
+            android:id="@+id/iv_mblogin"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_50"
+            android:src="@drawable/icon_def_mobil"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

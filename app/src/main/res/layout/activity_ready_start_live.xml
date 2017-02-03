@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--创建直播遮罩层-->
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/rl_start_live_bg"
+        android:background="@drawable/create_room_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_live_exit"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/room_btn_x_h"/>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginTop="@dimen/space_150"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+           <EditText
+                android:id="@+id/et_start_live_title"
+                android:gravity="center"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:background="@null"
+                android:hint="@string/createedittexthint"
+                android:layout_gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:id="@+id/tv_add_topic"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="#添加话题#"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_marginTop="@dimen/space_10"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_live_share_weibo"
+                    android:src="@drawable/room_weibo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv_live_share_timeline"
+                    android:src="@drawable/room_timeline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv_live_share_wechat"
+                    android:src="@drawable/room_wechat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv_live_share_qq"
+                    android:src="@drawable/room_qq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv_live_share_qqzone"
+                    android:src="@drawable/room_qqzone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <Button
+                android:id="@+id/btn_start_live"
+                android:textColor="@color/backgroudcolor"
+                android:text="@string/startLive"
+                android:textSize="@dimen/space_18"
+                android:layout_marginTop="@dimen/space_10"
+                android:background="@drawable/me_button"
+                android:layout_width="@dimen/space_220"
+                android:layout_height="@dimen/space_50" />
+
+            <!--HHH 2016-09-13 -->
+            <CheckBox
+                    android:id="@+id/chk_front_mirro"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="开启镜像"/>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

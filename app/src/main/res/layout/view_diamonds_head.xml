@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="@dimen/space_15"
+        android:background="@color/white"
+        android:id="@+id/rl_message"
+        style="@style/option_item_rl" >
+
+        <TextView
+            style="@style/option_item_text"
+            android:textSize="@dimen/space_14"
+            android:text="@string/balance" />
+        <ImageView
+            android:src="@drawable/me_myaccount_reddiamond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_coin"
+            android:layout_marginLeft="4dp"
+            android:textSize="@dimen/space_14"
+            android:text="0播币"
+            android:textColor="@color/thirty_eight_color"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_10"
+            android:gravity="right" />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <TextView
+        android:layout_marginLeft="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_20"
+        style="@style/option_item_text"
+        android:id="@+id/tv_payment_type"
+        android:textColor="#201f1f"
+        android:textSize="28px"
+        android:text="@string/select_pay"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="19px"
+        android:orientation="horizontal">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_wxpay"
+            android:layout_marginLeft="@dimen/space_15"
+            android:background="@drawable/wechat_pay"
+            android:layout_width="300px"
+            android:layout_height="108px" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/space_1" />
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_alipay"
+            android:layout_marginRight="@dimen/space_15"
+            android:background="@drawable/alipay"
+            android:layout_width="300px"
+            android:layout_height="108px" />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <!--<TextView-->
+        <!--style="@style/option_item_text"-->
+        <!--android:layout_marginLeft="@dimen/space_10"-->
+        <!--android:id="@+id/tv_payname"-->
+        <!--android:layout_marginTop="@dimen/space_20"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--android:text="支付方式:微信支付"/>-->
+
+     <include  layout="@layout/item_diamond_custom"
+         android:visibility="gone"/>
+
+</com.zhy.autolayout.AutoLinearLayout>

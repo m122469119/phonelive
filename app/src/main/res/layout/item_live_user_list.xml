@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/space_1"
+    android:paddingRight="@dimen/space_1">
+
+        <com.bolema.phonelive.widget.AvatarView
+            android:id="@+id/av_userHead"
+            android:layout_width="@dimen/space_35"
+            android:layout_height="@dimen/space_35" />
+        <com.bolema.phonelive.widget.AvatarView
+            android:layout_marginTop="@dimen/space_25"
+            android:layout_marginLeft="@dimen/space_25"
+            android:id="@+id/item_live_user_list_level"
+            android:layout_width="@dimen/space_10"
+            android:layout_height="@dimen/space_10" />
+
+
+</com.zhy.autolayout.AutoRelativeLayout>

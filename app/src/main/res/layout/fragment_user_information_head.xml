@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frame_container"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/space_250"
+    android:orientation="vertical">
+
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/rl_user_unlogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_150"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <com.bolema.phonelive.widget.CircleImageView
+            android:id="@+id/iv_avatar1"
+            android:layout_width="@dimen/space_48"
+            android:layout_height="@dimen/space_48"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space_20"
+            android:contentDescription="@null"
+            android:src="@drawable/null_blacklist"
+            app:border_color="@color/white"
+            app:border_width="3dip" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_avatar1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space_5"
+            android:text="@string/my_information_unlogin_tips"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_user_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_250"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_user_center"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true" >
+
+            <include layout="@layout/view_info_detail_data" />
+
+
+
+            <ImageView
+                android:id="@+id/iv_info_private_core"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingTop="@dimen/space_9"
+                android:paddingBottom="@dimen/space_9"
+                android:paddingLeft="@dimen/space_9"
+                android:paddingStart="@dimen/space_9"
+                android:paddingEnd="@dimen/space_18"
+                android:paddingRight="@dimen/space_18"
+                android:clickable="true"
+                android:src="@drawable/sixinchat"
+                android:layout_alignParentRight="true" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_hot_new_message"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginRight="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_10"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/icon_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="3px"
+            android:background="#E2E2E2" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_live"
+                style="@style/uset_information_ll"
+               >
+                <TextView
+                    android:id="@+id/tv_info_u_live_num"
+                    android:text="0"
+                    style="@style/user_formation_num" />
+                <TextView
+                    style="@style/user_formation_info"
+                    android:text="@string/user_live" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_following"
+                style="@style/uset_information_ll" >
+                <TextView
+                    android:id="@+id/tv_info_u_follow_num"
+                    style="@style/user_formation_num"
+                    android:text="0" />
+                <TextView
+                    style="@style/user_formation_info"
+                    android:text="@string/following" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_fans"
+                style="@style/uset_information_ll" >
+
+                <TextView
+                    android:id="@+id/tv_info_u_fans_num"
+                    style="@style/user_formation_num"
+                    android:text="0" />
+                <TextView
+                    style="@style/user_formation_info"
+                    android:text="@string/follower" />
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+</com.zhy.autolayout.AutoFrameLayout>

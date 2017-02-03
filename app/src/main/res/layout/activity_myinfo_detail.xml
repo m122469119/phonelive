@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <View
+        android:layout_marginTop="@dimen/space_20"
+        style="@style/h_line" />
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/rl_userHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_16" >
+
+        <TextView
+            android:id="@+id/tv_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_4"
+            android:text="头像"
+            android:textSize="@dimen/text_size_16" />
+        <com.bolema.phonelive.widget.AvatarView
+            android:layout_marginRight="@dimen/space_20"
+            android:layout_alignParentRight="true"
+            android:id="@+id/av_userHead"
+            android:layout_width="@dimen/space_30"
+            android:layout_height="@dimen/space_30" />
+
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/me_next"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <View
+        style="@style/h_line" />
+
+    <View
+        android:layout_marginTop="@dimen/space_30"
+        style="@style/h_line" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/rl_userNick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_16" >
+
+        <TextView
+            android:id="@+id/tv_qiaming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_4"
+            android:text="昵称"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/space_20"
+            android:id="@+id/tv_userNick"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="@dimen/space_80"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16" />
+        <ImageView
+            android:id="@+id/iv_nick2"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/me_next"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <View
+        style="@style/h_line" />
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/rl_userSign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_16" >
+
+        <TextView
+            android:id="@id/tv_qiaming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_4"
+            android:text="签名"
+            android:textSize="@dimen/text_size_16"
+            />
+
+        <TextView
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="@dimen/space_80"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/space_20"
+            android:id="@+id/tv_userSign"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16" />
+        <ImageView
+            android:id="@+id/iv_sign3"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/me_next"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <View
+        style="@style/h_line" />
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/rl_userSex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_16" >
+
+        <TextView
+            android:id="@id/tv_qiaming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_4"
+            android:text="性别"
+            android:textSize="@dimen/text_size_16"
+            />
+
+        <ImageView
+            android:layout_marginRight="@dimen/space_20"
+            android:src="@drawable/global_female"
+            android:layout_alignParentRight="true"
+            android:id="@+id/iv_info_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/me_next"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <View
+        style="@style/h_line" />
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/rl_userBirthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_16" >
+
+        <TextView
+            android:id="@+id/tv_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_4"
+            android:text="生日"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_size_16"
+            />
+
+        <EditText
+            android:layout_alignParentRight="true"
+            android:id="@+id/et_info_birthday"
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/space_100"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:hint="请输入生日"
+            android:textColorHint="#E2E2E5"
+            android:layout_height="wrap_content" />
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <View
+        style="@style/h_line" />
+</com.zhy.autolayout.AutoLinearLayout>

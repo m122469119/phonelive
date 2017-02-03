@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/globalback">
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <EditText
+            android:paddingLeft="10px"
+            android:minEms="1"
+            android:id="@+id/edit_input"
+            android:layout_marginTop="60px"
+            android:background="@drawable/edit_background"
+            android:layout_width="600px"
+            android:layout_height="100px" />
+        <ImageView
+            android:id="@+id/iv_editInfo_clean"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="96px"
+            android:layout_alignRight="@id/edit_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_cancel"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <TextView
+        android:textSize="30px"
+        android:layout_marginTop="40px"
+        android:layout_gravity="center"
+        android:id="@+id/tv_prompt"
+        android:layout_width="600px"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginTop="40px"
+        android:id="@+id/btn_edit_save"
+        android:textSize="34px"
+        android:text="保存"
+        android:textColor="@color/tab_text_selected"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_yzm_background"
+        android:layout_width="480px"
+        android:layout_height="80px" />
+</com.zhy.autolayout.AutoLinearLayout>

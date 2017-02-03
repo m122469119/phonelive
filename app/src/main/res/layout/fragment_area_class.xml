@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/choice_sex_top"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_60" />
+        <TextView
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_19"
+            android:text="性别"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/choice_area_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_marginBottom="3dp"
+            android:textColor="@color/home_page_text_color"
+            android:text="地区"
+            android:textSize="@dimen/text_size_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+    <ImageView
+        android:visibility="gone"
+        android:src="@drawable/choice_area_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="-60px"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_120"
+        android:weightSum="3">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginTop="@dimen/space_10"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_choice_femal"
+                android:src="@drawable/choice_sex_un_femal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_choice_femal"
+                android:layout_marginTop="@dimen/space_5"
+                android:textSize="@dimen/text_size_10"
+                android:textColor="@color/home_page_text_color"
+                android:text="♡ 只看女"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginTop="@dimen/space_5"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_choice_all"
+                android:src="@drawable/choice_sex_all"
+                android:layout_marginTop="60px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_choice_all"
+                android:layout_marginTop="@dimen/space_5"
+                android:textSize="@dimen/text_size_10"
+                android:textColor="@color/global"
+                android:text="♡ 看全部"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginTop="@dimen/space_10"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_choice_male"
+                android:src="@drawable/choice_sex_un_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_choice_male"
+                android:layout_marginTop="@dimen/space_5"
+                android:textSize="@dimen/text_size_10"
+                android:textColor="@color/home_page_text_color"
+                android:text="♡ 只看男"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <ListView
+        android:visibility="invisible"
+        android:id="@+id/lv_area"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_270">
+    </ListView>
+    <Button
+        android:layout_marginTop="@dimen/space_80"
+        android:id="@+id/btn_area_complete"
+        android:textColor="@color/tab_text_selected"
+        android:layout_gravity="center"
+        android:text="@string/complete"
+        android:background="@drawable/room_button"
+        android:layout_width="@dimen/space_100"
+        android:layout_height="@dimen/space_30" />
+
+</com.zhy.autolayout.AutoLinearLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F0">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="40px"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="30px"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textColor="#858585"
+                android:textSize="36px"
+                android:text="旧密码"
+                android:layout_width="165px"
+                android:layout_height="wrap_content" />
+            <!-- android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ" -->
+            <EditText
+                android:id="@+id/et_old_pass"
+                android:textColorHint="#E2E2E5"
+                android:background="@null"
+                android:hint="请输入旧密码"
+                android:inputType="textPassword"
+                android:layout_width="495px"
+                android:layout_height="100px" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:background="#F0F0F0" />
+        <!-- HHH 2016-09-09 -->
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textColor="#858585"
+                android:textSize="36px"
+                android:text="新密码"
+
+                android:layout_width="165px"
+                android:layout_height="wrap_content"
+          />
+            <!-- android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ" -->
+            <EditText
+                android:id="@+id/et_new_pass"
+                android:textColorHint="#E2E2E5"
+                android:background="@null"
+                android:hint="请输入新密码"
+                android:inputType="textPassword"
+                android:layout_width="495px"
+                android:layout_height="100px" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/space_1"
+            android:background="#F0F0F0" />
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textColor="#858585"
+                android:textSize="36px"
+                android:text="确认密码"
+                android:layout_width="165px"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_second_pass"
+                android:textColorHint="#E2E2E5"
+                android:background="@null"
+                android:hint="请再次输入密码"
+                android:inputType="textPassword"
+                android:layout_width="495px"
+                android:layout_height="100px" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <Button
+        android:id="@+id/btn_change_pass"
+        android:textColor="@color/tab_text_selected"
+        android:layout_marginTop="40px"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_yzm_background"
+        android:text="确认修改"
+        android:textSize="@dimen/space_16"
+        android:layout_width="480px"
+        android:layout_height="80px" />
+
+</com.zhy.autolayout.AutoLinearLayout>

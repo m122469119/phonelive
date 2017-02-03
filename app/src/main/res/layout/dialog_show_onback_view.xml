@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:padding="@dimen/space_15"
+    >
+
+    <TextView
+        android:id="@+id/tv_dialog_msg"
+        android:textSize="@dimen/text_size_20"
+        android:text="是否退出"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginTop="@dimen/space_30"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:textColor="@color/gray"
+            android:text="取消"
+            android:id="@+id/btn_dialog_cancel"
+            android:background="@drawable/btn_live_room_pop_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="@dimen/space_20"
+            android:layout_height="@dimen/space_1"></View>
+        <Button
+            android:textColor="@color/gray"
+            android:text="确定"
+            android:id="@+id/btn_dialog_determine"
+            android:background="@drawable/btn_live_room_pop_purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

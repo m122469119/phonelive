@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    >
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_width="@dimen/space_200"
+        android:layout_height="@dimen/space_40"
+        android:background="@drawable/background_gift_item">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--用户头像-->
+            <com.bolema.phonelive.widget.AvatarView
+                android:src="@drawable/icon_def_mobil"
+                android:id="@+id/av_gift_uhead"
+                android:layout_width="@dimen/space_40"
+                android:layout_height="@dimen/space_40" />
+            <!--礼物名称和用户昵称显示-->
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:textSize="@dimen/text_size_12"
+                    android:textColor="@color/white"
+                    android:id="@+id/tv_gift_uname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="@dimen/text_size_12"
+                    android:textColor="@color/brightyellow"
+                    android:id="@+id/tv_gift_gname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+        <!--礼物图片-->
+        <com.bolema.phonelive.widget.AvatarView
+            android:id="@+id/av_gift_icon"
+            android:layout_marginLeft="-80px"
+            android:src="@drawable/icon_def_phone"
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40" />
+
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <com.bolema.phonelive.widget.StrokeTextView
+        android:textColor="@color/transparent"
+        android:id="@+id/tv_show_gift_num"
+        android:layout_marginLeft="@dimen/space_190"
+        android:textSize="@dimen/text_size_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</com.zhy.autolayout.AutoRelativeLayout>

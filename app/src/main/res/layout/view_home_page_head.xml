@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/head_layout"
+        android:background="@color/global"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_220"
+        android:gravity="center_horizontal">
+        <!--顶部播币-->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_marginTop="@dimen/space_10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_30">
+            <ImageView
+                android:id="@+id/iv_home_page_back"
+                android:layout_marginLeft="@dimen/space_15"
+                android:src="@drawable/icon_arrow_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/space_15"
+                    android:layout_height="@dimen/space_15"
+                    android:src="@drawable/me_myaccount_reddiamond"/>
+                <TextView
+                    android:id="@+id/tv_home_page_send_num"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <!--头像-->
+        <com.bolema.phonelive.widget.AvatarView
+            android:id="@+id/av_home_page_uhead"
+            android:layout_width="@dimen/space_70"
+            android:layout_height="@dimen/space_70" />
+        <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tv_home_page_uname"
+                android:textSize="@dimen/text_size_15"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_home_page_sex"
+                style="@style/live_sex_style" />
+            <ImageView
+                android:id="@+id/iv_home_page_level"
+                style="@style/live_level_style"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginTop="@dimen/space_10"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_home_page_follow"
+                android:textColor="@color/white"
+                android:text="关注 0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_marginRight="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_10"
+                style="@style/h_line"
+                android:layout_width="@dimen/space_1"
+                android:layout_height="@dimen/space_20" />
+            <TextView
+                android:id="@+id/tv_home_page_fans"
+                android:textColor="@color/white"
+                android:text="粉丝 0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+        <TextView
+            android:id="@+id/tv_home_page_sign"
+            android:layout_marginTop="@dimen/space_10"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+</merge>

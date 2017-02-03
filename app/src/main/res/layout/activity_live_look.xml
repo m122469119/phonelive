@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl_live_root">
+
+    <com.bolema.phonelive.widget.VideoSurfaceView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view_live_content">
+        <!--加载背景图-->
+        <com.bolema.phonelive.widget.LoadUrlImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/iv_live_look_loading_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+            <!--cotnent-->
+            <include layout="@layout/view_live_content"/>
+
+            <!--底部菜单-->
+        <include layout="@layout/view_show_button_menu" />
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <!-- HHH 2016-09-13 -->
+
+    <com.bolema.phonelive.widget.LoadUrlImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_live_look_loading_pre"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent" />
+    <com.bolema.phonelive.widget.LoadUrlImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_live_look_loading_next"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent" />
+
+
+
+</com.zhy.autolayout.AutoRelativeLayout>

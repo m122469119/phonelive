@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/skywheel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"/>
+
+    <ImageView
+        android:background="@drawable/gift_fell_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_iv_live_gift_feel"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_centerHorizontal="true"/>
+</com.zhy.autolayout.AutoRelativeLayout>

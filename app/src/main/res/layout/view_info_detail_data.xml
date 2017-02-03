@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/bg_icon_linearlayout"
+    android:layout_width="match_parent"
+    android:background="@color/personal_center_black"
+
+    android:layout_height="match_parent">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/edit_linearLayout"
+        android:layout_margin="@dimen/space_10"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.bolema.phonelive.widget.AvatarView
+            android:layout_gravity="center"
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/space_70"
+            android:layout_height="@dimen/space_70"
+            android:layout_marginTop="@dimen/space_7"
+            android:contentDescription="@null"
+            android:src="@drawable/null_blacklist"
+            app:border_color="@color/white"
+            app:border_width="2px" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28px"
+            android:orientation="vertical">
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="450px"
+                android:layout_height="wrap_content"
+               >
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15" />
+                <ImageView
+                    android:id="@+id/iv_gender"
+                    android:layout_marginLeft="@dimen/space_7"
+                    style="@style/live_sex_style"
+                    android:src="@drawable/choice_sex_male"
+                    android:layout_toRightOf="@id/tv_name"
+                    android:layout_width="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv_editInfo"
+                    android:layout_width="35px"
+                    android:layout_height="35px"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/me_btn_bianji"
+                    android:layout_toRightOf="@id/iv_gender"
+                    />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_15"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+            <TextView
+                android:id="@+id/tv_signature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowColor="@color/black"
+                android:layout_marginTop="@dimen/space_15"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+            <com.zhy.autolayout.AutoLinearLayout
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/space_5"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15" />
+                <ImageView
+                    android:layout_marginTop="@dimen/space_7"
+                    android:layout_marginLeft="@dimen/space_2"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/redpacket_diamond"/>
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

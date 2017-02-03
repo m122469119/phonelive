@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent_blank">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/space_170"
+        android:layout_marginRight="@dimen/space_20"
+        android:id="@+id/iv_show_send_gift_lian"
+        android:background="@drawable/background_show_send_gift"
+        android:layout_height="wrap_content"
+        >
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_10"
+                android:text="@string/liansendgift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/tv_show_gift_outtime"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/space_10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_gift_page"
+            android:layout_height="@dimen/space_200"
+            android:layout_width="wrap_content">
+
+        </android.support.v4.view.ViewPager>
+
+        <View
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_1" />
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_show_gift_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_45">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="@dimen/text_size_15"
+                    android:textColor="@color/actionbarbackground"
+                    android:text="充值:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_show_select_user_coin"
+                    android:text="0"
+                    android:textColor="@color/light_gray2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_gravity="center"
+                    android:src="@drawable/redpacket_diamond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_gravity="center"
+                    android:src="@drawable/me_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <Button
+                android:id="@+id/btn_show_send_gift"
+                android:textColor="@color/tab_text_selected"
+                android:text="@string/sendgift"
+                android:textSize="@dimen/space_15"
+                android:background="@drawable/rectangle_button"
+                android:layout_marginRight="@dimen/space_5"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="@dimen/space_74"
+                android:layout_height="@dimen/space_26" />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

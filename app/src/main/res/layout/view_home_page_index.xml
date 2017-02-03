@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_home_page_index"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_home_pager_yi_order"
+            android:padding="@dimen/space_15"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_70">
+            <TextView
+                android:textColor="@color/gray"
+                android:layout_centerVertical="true"
+                android:text="@string/ticketorder"
+                android:layout_width="@dimen/space_100"
+                android:layout_height="wrap_content" />
+            <com.zhy.autolayout.AutoLinearLayout
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.bolema.phonelive.widget.AvatarView
+                    android:id="@+id/av_home_page_order1"
+                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="@dimen/space_40" />
+                <com.bolema.phonelive.widget.AvatarView
+                    android:id="@+id/av_home_page_order2"
+                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="@dimen/space_40" />
+                <com.bolema.phonelive.widget.AvatarView
+                    android:id="@+id/av_home_page_order3"
+                    android:layout_marginRight="@dimen/space_10"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="@dimen/space_40" />
+                <ImageView
+                    android:src="@drawable/me_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:orientation="horizontal"
+                android:padding="@dimen/space_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="@string/number"
+                    style="@style/home_user_info_item_labe"/>
+                <TextView
+                    android:id="@+id/tv_home_page_num"
+                    style="@style/home_user_info_item_content"
+                    />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:orientation="horizontal"
+                android:padding="@dimen/space_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/home_user_info_item_labe"
+                    android:text="@string/sign"
+                    />
+                <TextView
+                    android:id="@+id/tv_home_page_sign2"
+                    style="@style/home_user_info_item_content"
+                   />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</merge>

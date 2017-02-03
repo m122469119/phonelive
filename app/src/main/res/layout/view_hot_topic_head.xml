@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <GridView
+        android:id="@+id/gv_hot_topic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_80"
+        android:horizontalSpacing="@dimen/space_2"
+        android:numColumns="2"
+        android:padding="@dimen/space_2"
+        android:isScrollContainer="false"
+        android:verticalSpacing="@dimen/space_2"
+        android:visibility="visible">
+    </GridView>
+
+    <TextView
+        android:id="@+id/tv_more_topic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_50"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="更多话题" />
+</com.zhy.autolayout.AutoLinearLayout>

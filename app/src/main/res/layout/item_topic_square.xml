@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="0.0dip"
+    android:id="@+id/rl_topic_squares"
+     >
+    <!-- android:background="@color/griditems_bg" android:background="@drawable/bg_gv" -->
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:padding="12.0dip" >
+        <ImageView
+            android:id="@+id/iv_topic_image"
+            android:layout_width="35.0dip"
+            android:layout_height="35.0dip"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/tv_topic_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_topic_image"
+            android:layout_centerHorizontal="true"
+            android:maxLines="1"
+            android:textColor="@color/commo_text_color"
+            android:layout_marginTop="5.0dip"
+            android:textSize="14.0sp" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

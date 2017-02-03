@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <ImageView
+            style="@style/live_show_seawater"
+            android:layout_marginLeft="@dimen/space_10"
+            android:id="@+id/iv_live_water_one"
+            />
+        <ImageView
+            android:layout_marginRight="@dimen/space_10"
+            android:id="@+id/iv_live_water_one2"
+            style="@style/live_show_seawater" />
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_marginLeft="-300dp"
+            android:id="@+id/rl_live_cruises"
+            android:layout_marginTop="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/tv_live_cruises_uname"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_centerVertical="true"
+                android:src="@drawable/yacht_hull"
+                android:layout_width="300dp"
+                android:layout_height="200dp" />
+            <com.bolema.phonelive.widget.AvatarView
+                android:id="@+id/live_cruises_uhead"
+                android:layout_centerVertical="true"
+                android:src="@drawable/room_qq"
+                android:layout_marginLeft="@dimen/space_160"
+                android:layout_width="@dimen/space_60"
+                android:layout_height="@dimen/space_60" />
+            <ImageView
+                android:layout_marginTop="@dimen/space_170"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/yacht_shadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

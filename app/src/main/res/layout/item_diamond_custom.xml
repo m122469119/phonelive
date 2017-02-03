@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/space_70"
+        >
+        <com.zhy.autolayout.AutoLinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/space_15"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:src="@drawable/me_myaccount_reddiamond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_custom_diamondsnum"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+
+            android:layout_marginRight="@dimen/space_15"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent">
+            <EditText
+                android:id="@+id/et_custom_preice_text"
+                android:hint="请输入金额"
+                android:textColorHint="#E2E2E5"
+                android:background="@null"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/space_100"
+                android:layout_height="@dimen/space_40"
+                android:inputType="number"
+                android:digits="1234567890"
+                android:maxLength="8"
+               />
+            <Button
+                android:id="@+id/btn_buy_diamond"
+                android:textSize="@dimen/text_size_17"
+                android:text="立刻支付"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_yzm_background"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_40" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <!--<View-->
+        <!--style="@style/h_line"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--/>-->
+</com.zhy.autolayout.AutoLinearLayout>

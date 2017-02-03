@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--顶部菜单-->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_top_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!--主播头像观众人数-->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:background="@drawable/icon_room_top_pop"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/space_110"
+                android:scaleType="fitCenter"
+                android:layout_height="@dimen/space_40" />
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_live_room_info"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.bolema.phonelive.widget.AvatarView
+                    android:id="@+id/iv_live_emcee_head"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="@dimen/space_40"
+                    app:border_color="@color/white"
+                    app:border_width="2dip"
+                    />
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_marginTop="@dimen/space_5"
+                    android:layout_marginLeft="@dimen/space_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/live_anchor_name"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_11"
+                        android:text="直播Live"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/tv_live_num"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_14"
+                        android:gravity="center"
+                        android:text="0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.zhy.autolayout.AutoLinearLayout>
+                <ImageView
+                    android:layout_marginLeft="@dimen/space_2"
+                    android:id="@+id/iv_attention"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/me_guanzhu"
+                    android:visibility="gone"/>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/space_12"
+            android:id="@+id/hl_room_user_list"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_55" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+    <!--顶部菜单end-->
+
+    <!--魅力值labe-->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginLeft="@dimen/space_10"
+        android:id="@+id/ll_yp_labe"
+        android:background="@drawable/btn_ticket_labe"
+        android:layout_marginTop="@dimen/space_70"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_25"
+        android:paddingRight="@dimen/space_10">
+        <!--
+        <ImageView
+            android:src="@drawable/cunzaigan"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+            -->
+        <TextView
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/white"
+            android:text="@string/yingpiao"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_marginRight="@dimen/space_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/text_size_15"
+            android:id="@+id/tv_yingpiao_num"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_marginRight="@dimen/space_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/room_yingpiao_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <!--魅力值labe end-->
+    <!--映客号-->
+    <TextView
+        android:textSize="@dimen/text_size_14"
+        android:layout_marginRight="@dimen/space_10"
+        android:textColor="@color/white"
+        android:id="@+id/tv_live_number"
+        android:layout_marginTop="@dimen/space_80"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/space_60"
+        android:layout_alignParentBottom="true">
+
+
+        <!--弹幕显示-->
+
+        <master.flame.danmaku.ui.widget.DanmakuView
+            android:id="@+id/danmakuView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_80" />
+
+        <!--聊天listview-->
+        <ListView
+            android:padding="@dimen/space_10"
+            android:listSelector="@color/transparent"
+            android:divider="@null"
+            android:id="@+id/lv_live_room"
+            android:layout_width="@dimen/space_280"
+            android:layout_height="@dimen/space_150">
+
+        </ListView>
+
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <!--礼物动画显示start-->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="vertical"
+
+        android:id="@+id/ll_show_gift_animator"
+        android:layout_marginTop="200dp"
+        android:layout_width="@dimen/space_270"
+        android:layout_height="@dimen/space_100">
+
+    </com.zhy.autolayout.AutoLinearLayout>
+    <!--礼物动画显示end-->
+
+
+</merge>
