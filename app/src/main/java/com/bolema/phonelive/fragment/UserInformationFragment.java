@@ -331,13 +331,13 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
                 UIHelper.showPrivateChatSimple(getActivity(), mInfo.getId());
                 break;
 
-            case R.id.iv_avatar:
+            case R.id.iv_avatar: //个人信息
                 UIHelper.showMyInfoDetailActivity(getActivity());
                 break;
             case R.id.ll_live:  //直播记录
                 UIHelper.showLiveRecordActivity(getActivity(), mInfo.getId());
                 break;
-            case R.id.ll_following:
+            case R.id.ll_following:  //粉丝
                 UIHelper.showAttentionActivity(getActivity(), mInfo.getId());
                 break;
             case R.id.ll_fans:
@@ -346,7 +346,7 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
                   * */
                 UIHelper.showFansActivity(getActivity(), mInfo.getId());
                 break;
-            case R.id.ll_setting:
+            case R.id.ll_setting: //设置
                 UIHelper.showSetting(getActivity());
                 break;
             case R.id.ll_diamonds://我的播币
@@ -371,7 +371,7 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
                 pBundle.putString("votes", mInfo.getVotes());
                 UIHelper.showProfitActivity(getActivity(), pBundle);
                 break;
-            case R.id.ll_balance_detail:
+            case R.id.ll_balance_detail:  //收支明细
                 UIHelper.showWebView(getActivity(), AppConfig.MAIN_URL2 + "/index.php?g=user&m=List&a=index&uid=" + AppContext.getInstance().getLoginUid() + "&token=" + AppContext.getInstance().getToken(), "收支明细");
                 break;
             default:

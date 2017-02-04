@@ -1,7 +1,7 @@
 package com.bolema.phonelive.adapter;
 
 import android.content.Intent;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.bolema.phonelive.AppConfig;
 import com.bolema.phonelive.AppContext;
 import com.bolema.phonelive.R;
-import com.bolema.phonelive.bean.LocalMusicBean.DataBean.MusicBean;
-import com.bolema.phonelive.fragment.SearchMusicDialogFragment2;
+
+import com.bolema.phonelive.bean.LocalMusicBean.ShowapiResBodyBean.PagebeanBean.MusiclistBean;
+
+import com.bolema.phonelive.fragment.SearchMusicDialogFragment;
 import com.bolema.phonelive.ui.StartLiveActivity;
 import com.bolema.phonelive.utils.DBManager;
 import com.dd.CircularProgressButton;
@@ -24,17 +26,17 @@ import java.util.List;
  */
 
 public class MusicAdapter extends BaseAdapter{
-    private List<MusicBean> mMusicList;
-    private SearchMusicDialogFragment2 mFragment;
+    private List<MusiclistBean> mMusicList;
+    private SearchMusicDialogFragment mFragment;
     private DBManager mDbManager;
+    public MusicAdapter(List<MusiclistBean> MusicList, SearchMusicDialogFragment fragment, DBManager dbManager){
 
-    public MusicAdapter(List<MusicBean> MusicList, SearchMusicDialogFragment2 fragment, DBManager dbManager){
         this.mMusicList =  MusicList;
         this.mFragment = fragment;
         this.mDbManager = dbManager;
     }
 
-    public void notifyDataSetChangedMusicList(List<MusicBean> MusicList){
+    public void notifyDataSetChangedMusicList(List<MusiclistBean> MusicList){
         this.mMusicList =  MusicList;
         notifyDataSetChanged();
     }
@@ -62,14 +64,16 @@ public class MusicAdapter extends BaseAdapter{
         viewHolder.mMusicAuthor = (TextView) convertView.findViewById(R.id.item_tv_search_music_author);
         viewHolder.mBtnDownload = (CircularProgressButton) convertView.findViewById(R.id.item_btn_search_music_download);
 
-        final MusicBean music = mMusicList.get(position);
-        viewHolder.mMusicName.setText(music.getMc_name());
-        viewHolder.mMusicAuthor.setText(music.getSinger());
-        final File file = new File(AppConfig.DEFAULT_SAVE_MUSIC_PATH + music.getMc_name() + ".mp3");
+        final MusiclistBean music = mMusicList.get(position);
+        viewHolder.mMusicName.setText(music.getSongname());
+        viewHolder.mMusicAuthor.setText(music.getSingername());
+        Log.i("music_url", music.getM4a());
+        final File file = new File(AppConfig.DEFAULT_SAVE_MUSIC_PATH + music.getSongid() + ".m4a");
+
 
 
         //判断该音乐是否存在
-        if(mDbManager.queryFromEncryptedSongId(music.getId()).getCount() != 0){
+        if(mDbManager.queryFromEncryptedSongId(music.getSongid()).getCount() != 0){
             viewHolder.mBtnDownload.setText(R.string.select);
         }
         //点击下载或播放
@@ -78,7 +82,7 @@ public class MusicAdapter extends BaseAdapter{
             public void onClick(View v) {
                 Intent intent;
                 //判断该音乐是否存在,存在直接播放
-                if(mDbManager.queryFromEncryptedSongId(music.getId()).getCount() != 0){
+                if(mDbManager.queryFromEncryptedSongId(music.getSongid()).getCount() != 0){
                     intent = new Intent();
                     ((StartLiveActivity)mFragment.getActivity()).onSelectMusic(intent.putExtra("filepath",file.getPath()));
                 }else {

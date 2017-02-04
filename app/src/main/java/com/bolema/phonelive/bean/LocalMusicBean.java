@@ -9,127 +9,283 @@ import java.util.List;
 public class LocalMusicBean {
 
     /**
-     * ret : 200
-     * data : {"code":0,"msg":"","info":[{"id":"4","mc_name":"悟空","singer":"戴荃","url":"http://bolema.wanchuangzhongchou.com/data/upload/music/20170124/5886cd0563433.mp3","sort":"0"}]}
-     * msg :
+     * showapi_res_code : 0
+     * showapi_res_error :
+     * showapi_res_body : {"ret_code":0,"pagebean":{"allPages":4,"ret_code":0,"contentlist":[{"m4a":"http://ws.stream.qqmusic.qq.com/5205300.m4a?fromtag=46","media_mid":"003Ki8aT4KOyw9","songid":5205300,"singerid":11476,"albumname":"国色天香 第四期","downUrl":"http://dl.stream.qqmusic.qq.com/5205300.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"痒 (越剧)","strMediaMid":"003Ki8aT4KOyw9","albummid":"0035097R0abOsb","songmid":"003Ki8aT4KOyw9","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/s/b/0035097R0abOsb.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/s/b/0035097R0abOsb.jpg","albumid":457874},{"m4a":"http://ws.stream.qqmusic.qq.com/109580029.m4a?fromtag=46","media_mid":"003REXAS2XjlvV","songid":109580029,"singerid":4701,"albumname":"梦想的声音 第5期","downUrl":"http://dl.stream.qqmusic.qq.com/109580029.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"田馥甄","songname":"痒 (Live)","strMediaMid":"003REXAS2XjlvV","albummid":"0010UC5f4Bhd2n","songmid":"003REXAS2XjlvV","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/2/n/0010UC5f4Bhd2n.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/2/n/0010UC5f4Bhd2n.jpg","albumid":1729898},{"m4a":"http://ws.stream.qqmusic.qq.com/105499587.m4a?fromtag=46","media_mid":"000guRFk1gbF3c","songid":105499587,"singerid":1102710,"albumname":"排骨教主翻唱作品","downUrl":"http://dl.stream.qqmusic.qq.com/105499587.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"排骨教主","songname":"痒","strMediaMid":"000guRFk1gbF3c","albummid":"0011K2LD2aPDmu","songmid":"000guRFk1gbF3c","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/m/u/0011K2LD2aPDmu.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/m/u/0011K2LD2aPDmu.jpg","albumid":1393423},{"m4a":"http://ws.stream.qqmusic.qq.com/106707321.m4a?fromtag=46","media_mid":"000hqaY40eMqGx","songid":106707321,"singerid":12337,"albumname":"光荣绽放 十大新锐歌手演唱会","downUrl":"http://dl.stream.qqmusic.qq.com/106707321.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"孟楠","songname":"痒 (Live)","strMediaMid":"000hqaY40eMqGx","albummid":"001QXG9w2lqz1s","songmid":"000hqaY40eMqGx","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/1/s/001QXG9w2lqz1s.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/1/s/001QXG9w2lqz1s.jpg","albumid":930399},{"m4a":"http://ws.stream.qqmusic.qq.com/107870552.m4a?fromtag=46","media_mid":"002vNYE44Kh466","songid":107870552,"singerid":1108392,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/107870552.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"西瓜JUN","songname":"痒","strMediaMid":"002vNYE44Kh466","albummid":"001ZaCQY2OxVMg","songmid":"002vNYE44Kh466","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/106978600.m4a?fromtag=46","media_mid":"002O0ccu3q14hp","songid":106978600,"singerid":155147,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/106978600.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"戴荃","songname":"痒","strMediaMid":"002O0ccu3q14hp","albummid":"001ZaCQY2OxVMg","songmid":"002O0ccu3q14hp","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/4730889.m4a?fromtag=46","media_mid":"001rx40q42FtT6","songid":4730889,"singerid":157031,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/4730889.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"孟凡鹏","songname":"痒","strMediaMid":"001rx40q42FtT6","albummid":"001ZaCQY2OxVMg","songmid":"001rx40q42FtT6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/109916995.m4a?fromtag=46","media_mid":"00432kL73gjjAM","songid":109916995,"singerid":1327483,"albumname":"艾辰治愈系专辑","downUrl":"http://dl.stream.qqmusic.qq.com/109916995.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"艾辰","songname":"痒","strMediaMid":"00432kL73gjjAM","albummid":"000ZFfsq4A0X8E","songmid":"00432kL73gjjAM","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/8/E/000ZFfsq4A0X8E.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/8/E/000ZFfsq4A0X8E.jpg","albumid":1765154},{"m4a":"http://ws.stream.qqmusic.qq.com/107033625.m4a?fromtag=46","media_mid":"004INBzr3kTilp","songid":107033625,"singerid":19624,"albumname":"郁可唯电子唱片","downUrl":"http://dl.stream.qqmusic.qq.com/107033625.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"郁可唯","songname":"痒","strMediaMid":"004INBzr3kTilp","albummid":"003tAHad4WXz8m","songmid":"004INBzr3kTilp","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/8/m/003tAHad4WXz8m.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/8/m/003tAHad4WXz8m.jpg","albumid":1445226},{"m4a":"http://ws.stream.qqmusic.qq.com/393671.m4a?fromtag=46","media_mid":"000weCyk0dt2V6","songid":393671,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393671.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"High歌","strMediaMid":"000weCyk0dt2V6","albummid":"003ZgkGJ2DlCtc","songmid":"000weCyk0dt2V6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393676.m4a?fromtag=46","media_mid":"004PEVvx0sZKRu","songid":393676,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393676.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"一个人想你","strMediaMid":"004PEVvx0sZKRu","albummid":"003ZgkGJ2DlCtc","songmid":"004PEVvx0sZKRu","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393674.m4a?fromtag=46","media_mid":"000OyT0d0MB0Hu","songid":393674,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393674.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"玫瑰玫瑰我爱你","strMediaMid":"000OyT0d0MB0Hu","albummid":"003ZgkGJ2DlCtc","songmid":"000OyT0d0MB0Hu","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393677.m4a?fromtag=46","media_mid":"001qQNpT2KOU6i","songid":393677,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393677.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"魔鬼身材","strMediaMid":"001qQNpT2KOU6i","albummid":"003ZgkGJ2DlCtc","songmid":"001qQNpT2KOU6i","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393147.m4a?fromtag=46","media_mid":"000KviSW4cN9HJ","songid":393147,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393147.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"夜来香","strMediaMid":"000KviSW4cN9HJ","albummid":"003ZgkGJ2DlCtc","songmid":"000KviSW4cN9HJ","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393672.m4a?fromtag=46","media_mid":"000Jze5A1jBtjA","songid":393672,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393672.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"红眼睛","strMediaMid":"000Jze5A1jBtjA","albummid":"003ZgkGJ2DlCtc","songmid":"000Jze5A1jBtjA","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393673.m4a?fromtag=46","media_mid":"002v0jPa01QpP6","songid":393673,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393673.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"软绵绵","strMediaMid":"002v0jPa01QpP6","albummid":"003ZgkGJ2DlCtc","songmid":"002v0jPa01QpP6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393679.m4a?fromtag=46","media_mid":"000hpx3P01V3Tj","songid":393679,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393679.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"Ahiba","strMediaMid":"000hpx3P01V3Tj","albummid":"003ZgkGJ2DlCtc","songmid":"000hpx3P01V3Tj","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393675.m4a?fromtag=46","media_mid":"000ygk3P33KnFR","songid":393675,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393675.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"抬头我大牌","strMediaMid":"000ygk3P33KnFR","albummid":"003ZgkGJ2DlCtc","songmid":"000ygk3P33KnFR","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/107740890.m4a?fromtag=46","media_mid":"002s2MRd0kSzf7","songid":107740890,"singerid":1122408,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/107740890.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"痒局长","songname":"我在东北玩泥巴","strMediaMid":"002s2MRd0kSzf7","albummid":"001ZaCQY2OxVMg","songmid":"002s2MRd0kSzf7","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/103754379.m4a?fromtag=46","media_mid":"001HMgYv2A2Nq1","songid":103754379,"singerid":1020124,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/103754379.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"余泽雅","songname":"痒 (Live)","strMediaMid":"001HMgYv2A2Nq1","albummid":"001ZaCQY2OxVMg","songmid":"001HMgYv2A2Nq1","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/108436076.m4a?fromtag=46","media_mid":"004Lcyqk33mhsD","songid":108436076,"singerid":179724,"albumname":"&#44277;&#44592;&#45224;&#45376; Single 9","downUrl":"http://dl.stream.qqmusic.qq.com/108436076.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"&#44277;&#44592;&#45224;&#45376;","songname":"&#44036;&#51648;&#47084;&#50892;","strMediaMid":"004Lcyqk33mhsD","albummid":"001dPnHk288jyB","songmid":"004Lcyqk33mhsD","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/y/B/001dPnHk288jyB.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/y/B/001dPnHk288jyB.jpg","albumid":1597192},{"m4a":"http://ws.stream.qqmusic.qq.com/0.m4a?fromtag=46","songname":"痒 (伴奏)","albummid":"","songmid":"","songid":0,"singerid":0,"albumname":"","downUrl":"http://ws.stream.qqmusic.qq.com/TK60f6674a579ece48ad5e0b86ad8883e237.mp3?fromtag=0","singername":"黄龄","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/0.m4a?fromtag=46","songname":"痒 (伴奏)","albummid":"","songmid":"","songid":0,"singerid":0,"albumname":"","downUrl":"http://ws.stream.qqmusic.qq.com/TK60b999c1d55a2128773b8c363cc6438b35.mp3?fromtag=0","singername":"田馥甄","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/0.m4a?fromtag=46","songname":"痒 (伴奏)","albummid":"","songmid":"","songid":0,"singerid":0,"albumname":"","downUrl":"http://ws.stream.qqmusic.qq.com/TK60c119b014071c6265e8c28565bb83a360.mp3?fromtag=0","singername":"吴莫愁","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/109955277.m4a?fromtag=46","media_mid":"00170dAq17dFr6","songid":109955277,"singerid":89698,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/109955277.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"庄心妍","songname":"痒","strMediaMid":"00170dAq17dFr6","albummid":"001ZaCQY2OxVMg","songmid":"00170dAq17dFr6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/108835249.m4a?fromtag=46","media_mid":"001Zvri24cqecd","songid":108835249,"singerid":1259545,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/108835249.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"陈迁霞","songname":"痒","strMediaMid":"001Zvri24cqecd","albummid":"001ZaCQY2OxVMg","songmid":"001Zvri24cqecd","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/107741166.m4a?fromtag=46","media_mid":"000ozjAq3HFZYy","songid":107741166,"singerid":973351,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/107741166.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"NL不分","songname":"痒","strMediaMid":"000ozjAq3HFZYy","albummid":"001ZaCQY2OxVMg","songmid":"000ozjAq3HFZYy","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/102787311.m4a?fromtag=46","media_mid":"001Wrj0j3FhgWT","songid":102787311,"singerid":973054,"albumname":"有路弯弯","downUrl":"http://dl.stream.qqmusic.qq.com/102787311.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄珮舒","songname":"痒","strMediaMid":"001Wrj0j3FhgWT","albummid":"002cqLTa3wFSwC","songmid":"001Wrj0j3FhgWT","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/w/C/002cqLTa3wFSwC.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/w/C/002cqLTa3wFSwC.jpg","albumid":1032229},{"m4a":"http://ws.stream.qqmusic.qq.com/200250115.m4a?fromtag=46","media_mid":"004Q1UWB0XknPW","songid":200250115,"singerid":970668,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/200250115.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"玉璇玑","songname":"痒","strMediaMid":"004Q1UWB0XknPW","albummid":"001ZaCQY2OxVMg","songmid":"004Q1UWB0XknPW","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/200534889.m4a?fromtag=46","media_mid":"003KeMvS3qsXSQ","songid":200534889,"singerid":1011369,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/200534889.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"苏莘薇","songname":"痒","strMediaMid":"003KeMvS3qsXSQ","albummid":"001ZaCQY2OxVMg","songmid":"003KeMvS3qsXSQ","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0}],"currentPage":1,"notice":"","allNum":117,"maxResult":30}}
      */
 
-    private int ret;
-    private DataBean data;
-    private String msg;
+    private int showapi_res_code;
+    private String showapi_res_error;
+    private ShowapiResBodyBean showapi_res_body;
 
-    public int getRet() {
-        return ret;
+    public int getShowapi_res_code() {
+        return showapi_res_code;
     }
 
-    public void setRet(int ret) {
-        this.ret = ret;
+    public void setShowapi_res_code(int showapi_res_code) {
+        this.showapi_res_code = showapi_res_code;
     }
 
-    public DataBean getData() {
-        return data;
+    public String getShowapi_res_error() {
+        return showapi_res_error;
     }
 
-    public void setData(DataBean data) {
-        this.data = data;
+    public void setShowapi_res_error(String showapi_res_error) {
+        this.showapi_res_error = showapi_res_error;
     }
 
-    public String getMsg() {
-        return msg;
+    public ShowapiResBodyBean getShowapi_res_body() {
+        return showapi_res_body;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setShowapi_res_body(ShowapiResBodyBean showapi_res_body) {
+        this.showapi_res_body = showapi_res_body;
     }
 
-    public static class DataBean {
+    public static class ShowapiResBodyBean {
         /**
-         * code : 0
-         * msg :
-         * info : [{"id":"4","mc_name":"悟空","singer":"戴荃","url":"http://bolema.wanchuangzhongchou.com/data/upload/music/20170124/5886cd0563433.mp3","sort":"0"}]
+         * ret_code : 0
+         * pagebean : {"allPages":4,"ret_code":0,"contentlist":[{"m4a":"http://ws.stream.qqmusic.qq.com/5205300.m4a?fromtag=46","media_mid":"003Ki8aT4KOyw9","songid":5205300,"singerid":11476,"albumname":"国色天香 第四期","downUrl":"http://dl.stream.qqmusic.qq.com/5205300.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"痒 (越剧)","strMediaMid":"003Ki8aT4KOyw9","albummid":"0035097R0abOsb","songmid":"003Ki8aT4KOyw9","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/s/b/0035097R0abOsb.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/s/b/0035097R0abOsb.jpg","albumid":457874},{"m4a":"http://ws.stream.qqmusic.qq.com/109580029.m4a?fromtag=46","media_mid":"003REXAS2XjlvV","songid":109580029,"singerid":4701,"albumname":"梦想的声音 第5期","downUrl":"http://dl.stream.qqmusic.qq.com/109580029.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"田馥甄","songname":"痒 (Live)","strMediaMid":"003REXAS2XjlvV","albummid":"0010UC5f4Bhd2n","songmid":"003REXAS2XjlvV","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/2/n/0010UC5f4Bhd2n.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/2/n/0010UC5f4Bhd2n.jpg","albumid":1729898},{"m4a":"http://ws.stream.qqmusic.qq.com/105499587.m4a?fromtag=46","media_mid":"000guRFk1gbF3c","songid":105499587,"singerid":1102710,"albumname":"排骨教主翻唱作品","downUrl":"http://dl.stream.qqmusic.qq.com/105499587.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"排骨教主","songname":"痒","strMediaMid":"000guRFk1gbF3c","albummid":"0011K2LD2aPDmu","songmid":"000guRFk1gbF3c","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/m/u/0011K2LD2aPDmu.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/m/u/0011K2LD2aPDmu.jpg","albumid":1393423},{"m4a":"http://ws.stream.qqmusic.qq.com/106707321.m4a?fromtag=46","media_mid":"000hqaY40eMqGx","songid":106707321,"singerid":12337,"albumname":"光荣绽放 十大新锐歌手演唱会","downUrl":"http://dl.stream.qqmusic.qq.com/106707321.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"孟楠","songname":"痒 (Live)","strMediaMid":"000hqaY40eMqGx","albummid":"001QXG9w2lqz1s","songmid":"000hqaY40eMqGx","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/1/s/001QXG9w2lqz1s.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/1/s/001QXG9w2lqz1s.jpg","albumid":930399},{"m4a":"http://ws.stream.qqmusic.qq.com/107870552.m4a?fromtag=46","media_mid":"002vNYE44Kh466","songid":107870552,"singerid":1108392,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/107870552.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"西瓜JUN","songname":"痒","strMediaMid":"002vNYE44Kh466","albummid":"001ZaCQY2OxVMg","songmid":"002vNYE44Kh466","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/106978600.m4a?fromtag=46","media_mid":"002O0ccu3q14hp","songid":106978600,"singerid":155147,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/106978600.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"戴荃","songname":"痒","strMediaMid":"002O0ccu3q14hp","albummid":"001ZaCQY2OxVMg","songmid":"002O0ccu3q14hp","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/4730889.m4a?fromtag=46","media_mid":"001rx40q42FtT6","songid":4730889,"singerid":157031,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/4730889.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"孟凡鹏","songname":"痒","strMediaMid":"001rx40q42FtT6","albummid":"001ZaCQY2OxVMg","songmid":"001rx40q42FtT6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/109916995.m4a?fromtag=46","media_mid":"00432kL73gjjAM","songid":109916995,"singerid":1327483,"albumname":"艾辰治愈系专辑","downUrl":"http://dl.stream.qqmusic.qq.com/109916995.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"艾辰","songname":"痒","strMediaMid":"00432kL73gjjAM","albummid":"000ZFfsq4A0X8E","songmid":"00432kL73gjjAM","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/8/E/000ZFfsq4A0X8E.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/8/E/000ZFfsq4A0X8E.jpg","albumid":1765154},{"m4a":"http://ws.stream.qqmusic.qq.com/107033625.m4a?fromtag=46","media_mid":"004INBzr3kTilp","songid":107033625,"singerid":19624,"albumname":"郁可唯电子唱片","downUrl":"http://dl.stream.qqmusic.qq.com/107033625.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"郁可唯","songname":"痒","strMediaMid":"004INBzr3kTilp","albummid":"003tAHad4WXz8m","songmid":"004INBzr3kTilp","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/8/m/003tAHad4WXz8m.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/8/m/003tAHad4WXz8m.jpg","albumid":1445226},{"m4a":"http://ws.stream.qqmusic.qq.com/393671.m4a?fromtag=46","media_mid":"000weCyk0dt2V6","songid":393671,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393671.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"High歌","strMediaMid":"000weCyk0dt2V6","albummid":"003ZgkGJ2DlCtc","songmid":"000weCyk0dt2V6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393676.m4a?fromtag=46","media_mid":"004PEVvx0sZKRu","songid":393676,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393676.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"一个人想你","strMediaMid":"004PEVvx0sZKRu","albummid":"003ZgkGJ2DlCtc","songmid":"004PEVvx0sZKRu","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393674.m4a?fromtag=46","media_mid":"000OyT0d0MB0Hu","songid":393674,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393674.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"玫瑰玫瑰我爱你","strMediaMid":"000OyT0d0MB0Hu","albummid":"003ZgkGJ2DlCtc","songmid":"000OyT0d0MB0Hu","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393677.m4a?fromtag=46","media_mid":"001qQNpT2KOU6i","songid":393677,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393677.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"魔鬼身材","strMediaMid":"001qQNpT2KOU6i","albummid":"003ZgkGJ2DlCtc","songmid":"001qQNpT2KOU6i","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393147.m4a?fromtag=46","media_mid":"000KviSW4cN9HJ","songid":393147,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393147.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"夜来香","strMediaMid":"000KviSW4cN9HJ","albummid":"003ZgkGJ2DlCtc","songmid":"000KviSW4cN9HJ","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393672.m4a?fromtag=46","media_mid":"000Jze5A1jBtjA","songid":393672,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393672.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"红眼睛","strMediaMid":"000Jze5A1jBtjA","albummid":"003ZgkGJ2DlCtc","songmid":"000Jze5A1jBtjA","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393673.m4a?fromtag=46","media_mid":"002v0jPa01QpP6","songid":393673,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393673.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"软绵绵","strMediaMid":"002v0jPa01QpP6","albummid":"003ZgkGJ2DlCtc","songmid":"002v0jPa01QpP6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393679.m4a?fromtag=46","media_mid":"000hpx3P01V3Tj","songid":393679,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393679.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"Ahiba","strMediaMid":"000hpx3P01V3Tj","albummid":"003ZgkGJ2DlCtc","songmid":"000hpx3P01V3Tj","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393675.m4a?fromtag=46","media_mid":"000ygk3P33KnFR","songid":393675,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393675.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"抬头我大牌","strMediaMid":"000ygk3P33KnFR","albummid":"003ZgkGJ2DlCtc","songmid":"000ygk3P33KnFR","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/107740890.m4a?fromtag=46","media_mid":"002s2MRd0kSzf7","songid":107740890,"singerid":1122408,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/107740890.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"痒局长","songname":"我在东北玩泥巴","strMediaMid":"002s2MRd0kSzf7","albummid":"001ZaCQY2OxVMg","songmid":"002s2MRd0kSzf7","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/103754379.m4a?fromtag=46","media_mid":"001HMgYv2A2Nq1","songid":103754379,"singerid":1020124,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/103754379.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"余泽雅","songname":"痒 (Live)","strMediaMid":"001HMgYv2A2Nq1","albummid":"001ZaCQY2OxVMg","songmid":"001HMgYv2A2Nq1","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/108436076.m4a?fromtag=46","media_mid":"004Lcyqk33mhsD","songid":108436076,"singerid":179724,"albumname":"&#44277;&#44592;&#45224;&#45376; Single 9","downUrl":"http://dl.stream.qqmusic.qq.com/108436076.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"&#44277;&#44592;&#45224;&#45376;","songname":"&#44036;&#51648;&#47084;&#50892;","strMediaMid":"004Lcyqk33mhsD","albummid":"001dPnHk288jyB","songmid":"004Lcyqk33mhsD","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/y/B/001dPnHk288jyB.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/y/B/001dPnHk288jyB.jpg","albumid":1597192},{"m4a":"http://ws.stream.qqmusic.qq.com/0.m4a?fromtag=46","songname":"痒 (伴奏)","albummid":"","songmid":"","songid":0,"singerid":0,"albumname":"","downUrl":"http://ws.stream.qqmusic.qq.com/TK60f6674a579ece48ad5e0b86ad8883e237.mp3?fromtag=0","singername":"黄龄","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/0.m4a?fromtag=46","songname":"痒 (伴奏)","albummid":"","songmid":"","songid":0,"singerid":0,"albumname":"","downUrl":"http://ws.stream.qqmusic.qq.com/TK60b999c1d55a2128773b8c363cc6438b35.mp3?fromtag=0","singername":"田馥甄","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/0.m4a?fromtag=46","songname":"痒 (伴奏)","albummid":"","songmid":"","songid":0,"singerid":0,"albumname":"","downUrl":"http://ws.stream.qqmusic.qq.com/TK60c119b014071c6265e8c28565bb83a360.mp3?fromtag=0","singername":"吴莫愁","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/109955277.m4a?fromtag=46","media_mid":"00170dAq17dFr6","songid":109955277,"singerid":89698,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/109955277.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"庄心妍","songname":"痒","strMediaMid":"00170dAq17dFr6","albummid":"001ZaCQY2OxVMg","songmid":"00170dAq17dFr6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/108835249.m4a?fromtag=46","media_mid":"001Zvri24cqecd","songid":108835249,"singerid":1259545,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/108835249.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"陈迁霞","songname":"痒","strMediaMid":"001Zvri24cqecd","albummid":"001ZaCQY2OxVMg","songmid":"001Zvri24cqecd","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/107741166.m4a?fromtag=46","media_mid":"000ozjAq3HFZYy","songid":107741166,"singerid":973351,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/107741166.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"NL不分","songname":"痒","strMediaMid":"000ozjAq3HFZYy","albummid":"001ZaCQY2OxVMg","songmid":"000ozjAq3HFZYy","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/102787311.m4a?fromtag=46","media_mid":"001Wrj0j3FhgWT","songid":102787311,"singerid":973054,"albumname":"有路弯弯","downUrl":"http://dl.stream.qqmusic.qq.com/102787311.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄珮舒","songname":"痒","strMediaMid":"001Wrj0j3FhgWT","albummid":"002cqLTa3wFSwC","songmid":"001Wrj0j3FhgWT","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/w/C/002cqLTa3wFSwC.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/w/C/002cqLTa3wFSwC.jpg","albumid":1032229},{"m4a":"http://ws.stream.qqmusic.qq.com/200250115.m4a?fromtag=46","media_mid":"004Q1UWB0XknPW","songid":200250115,"singerid":970668,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/200250115.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"玉璇玑","songname":"痒","strMediaMid":"004Q1UWB0XknPW","albummid":"001ZaCQY2OxVMg","songmid":"004Q1UWB0XknPW","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/200534889.m4a?fromtag=46","media_mid":"003KeMvS3qsXSQ","songid":200534889,"singerid":1011369,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/200534889.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"苏莘薇","songname":"痒","strMediaMid":"003KeMvS3qsXSQ","albummid":"001ZaCQY2OxVMg","songmid":"003KeMvS3qsXSQ","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0}],"currentPage":1,"notice":"","allNum":117,"maxResult":30}
          */
 
-        private int code;
-        private String msg;
-        private List<MusicBean> info;
+        private int ret_code;
+        private PagebeanBean pagebean;
 
-        public int getCode() {
-            return code;
+        public int getRet_code() {
+            return ret_code;
         }
 
-        public void setCode(int code) {
-            this.code = code;
+        public void setRet_code(int ret_code) {
+            this.ret_code = ret_code;
         }
 
-        public String getMsg() {
-            return msg;
+        public PagebeanBean getPagebean() {
+            return pagebean;
         }
 
-        public void setMsg(String msg) {
-            this.msg = msg;
+        public void setPagebean(PagebeanBean pagebean) {
+            this.pagebean = pagebean;
         }
 
-        public List<MusicBean> getInfo() {
-            return info;
-        }
-
-        public void setInfo(List<MusicBean> info) {
-            this.info = info;
-        }
-
-        public static class MusicBean {
+        public static class PagebeanBean {
             /**
-             * id : 4
-             * mc_name : 悟空
-                 * singer : 戴荃
-             * url : http://bolema.wanchuangzhongchou.com/data/upload/music/20170124/5886cd0563433.mp3
-             * sort : 0
+             * allPages : 4
+             * ret_code : 0
+             * contentlist : [{"m4a":"http://ws.stream.qqmusic.qq.com/5205300.m4a?fromtag=46","media_mid":"003Ki8aT4KOyw9","songid":5205300,"singerid":11476,"albumname":"国色天香 第四期","downUrl":"http://dl.stream.qqmusic.qq.com/5205300.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"痒 (越剧)","strMediaMid":"003Ki8aT4KOyw9","albummid":"0035097R0abOsb","songmid":"003Ki8aT4KOyw9","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/s/b/0035097R0abOsb.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/s/b/0035097R0abOsb.jpg","albumid":457874},{"m4a":"http://ws.stream.qqmusic.qq.com/109580029.m4a?fromtag=46","media_mid":"003REXAS2XjlvV","songid":109580029,"singerid":4701,"albumname":"梦想的声音 第5期","downUrl":"http://dl.stream.qqmusic.qq.com/109580029.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"田馥甄","songname":"痒 (Live)","strMediaMid":"003REXAS2XjlvV","albummid":"0010UC5f4Bhd2n","songmid":"003REXAS2XjlvV","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/2/n/0010UC5f4Bhd2n.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/2/n/0010UC5f4Bhd2n.jpg","albumid":1729898},{"m4a":"http://ws.stream.qqmusic.qq.com/105499587.m4a?fromtag=46","media_mid":"000guRFk1gbF3c","songid":105499587,"singerid":1102710,"albumname":"排骨教主翻唱作品","downUrl":"http://dl.stream.qqmusic.qq.com/105499587.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"排骨教主","songname":"痒","strMediaMid":"000guRFk1gbF3c","albummid":"0011K2LD2aPDmu","songmid":"000guRFk1gbF3c","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/m/u/0011K2LD2aPDmu.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/m/u/0011K2LD2aPDmu.jpg","albumid":1393423},{"m4a":"http://ws.stream.qqmusic.qq.com/106707321.m4a?fromtag=46","media_mid":"000hqaY40eMqGx","songid":106707321,"singerid":12337,"albumname":"光荣绽放 十大新锐歌手演唱会","downUrl":"http://dl.stream.qqmusic.qq.com/106707321.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"孟楠","songname":"痒 (Live)","strMediaMid":"000hqaY40eMqGx","albummid":"001QXG9w2lqz1s","songmid":"000hqaY40eMqGx","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/1/s/001QXG9w2lqz1s.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/1/s/001QXG9w2lqz1s.jpg","albumid":930399},{"m4a":"http://ws.stream.qqmusic.qq.com/107870552.m4a?fromtag=46","media_mid":"002vNYE44Kh466","songid":107870552,"singerid":1108392,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/107870552.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"西瓜JUN","songname":"痒","strMediaMid":"002vNYE44Kh466","albummid":"001ZaCQY2OxVMg","songmid":"002vNYE44Kh466","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/106978600.m4a?fromtag=46","media_mid":"002O0ccu3q14hp","songid":106978600,"singerid":155147,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/106978600.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"戴荃","songname":"痒","strMediaMid":"002O0ccu3q14hp","albummid":"001ZaCQY2OxVMg","songmid":"002O0ccu3q14hp","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/4730889.m4a?fromtag=46","media_mid":"001rx40q42FtT6","songid":4730889,"singerid":157031,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/4730889.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"孟凡鹏","songname":"痒","strMediaMid":"001rx40q42FtT6","albummid":"001ZaCQY2OxVMg","songmid":"001rx40q42FtT6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/109916995.m4a?fromtag=46","media_mid":"00432kL73gjjAM","songid":109916995,"singerid":1327483,"albumname":"艾辰治愈系专辑","downUrl":"http://dl.stream.qqmusic.qq.com/109916995.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"艾辰","songname":"痒","strMediaMid":"00432kL73gjjAM","albummid":"000ZFfsq4A0X8E","songmid":"00432kL73gjjAM","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/8/E/000ZFfsq4A0X8E.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/8/E/000ZFfsq4A0X8E.jpg","albumid":1765154},{"m4a":"http://ws.stream.qqmusic.qq.com/107033625.m4a?fromtag=46","media_mid":"004INBzr3kTilp","songid":107033625,"singerid":19624,"albumname":"郁可唯电子唱片","downUrl":"http://dl.stream.qqmusic.qq.com/107033625.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"郁可唯","songname":"痒","strMediaMid":"004INBzr3kTilp","albummid":"003tAHad4WXz8m","songmid":"004INBzr3kTilp","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/8/m/003tAHad4WXz8m.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/8/m/003tAHad4WXz8m.jpg","albumid":1445226},{"m4a":"http://ws.stream.qqmusic.qq.com/393671.m4a?fromtag=46","media_mid":"000weCyk0dt2V6","songid":393671,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393671.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"High歌","strMediaMid":"000weCyk0dt2V6","albummid":"003ZgkGJ2DlCtc","songmid":"000weCyk0dt2V6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393676.m4a?fromtag=46","media_mid":"004PEVvx0sZKRu","songid":393676,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393676.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"一个人想你","strMediaMid":"004PEVvx0sZKRu","albummid":"003ZgkGJ2DlCtc","songmid":"004PEVvx0sZKRu","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393674.m4a?fromtag=46","media_mid":"000OyT0d0MB0Hu","songid":393674,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393674.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"玫瑰玫瑰我爱你","strMediaMid":"000OyT0d0MB0Hu","albummid":"003ZgkGJ2DlCtc","songmid":"000OyT0d0MB0Hu","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393677.m4a?fromtag=46","media_mid":"001qQNpT2KOU6i","songid":393677,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393677.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"魔鬼身材","strMediaMid":"001qQNpT2KOU6i","albummid":"003ZgkGJ2DlCtc","songmid":"001qQNpT2KOU6i","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393147.m4a?fromtag=46","media_mid":"000KviSW4cN9HJ","songid":393147,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393147.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"夜来香","strMediaMid":"000KviSW4cN9HJ","albummid":"003ZgkGJ2DlCtc","songmid":"000KviSW4cN9HJ","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393672.m4a?fromtag=46","media_mid":"000Jze5A1jBtjA","songid":393672,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393672.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"红眼睛","strMediaMid":"000Jze5A1jBtjA","albummid":"003ZgkGJ2DlCtc","songmid":"000Jze5A1jBtjA","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393673.m4a?fromtag=46","media_mid":"002v0jPa01QpP6","songid":393673,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393673.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"软绵绵","strMediaMid":"002v0jPa01QpP6","albummid":"003ZgkGJ2DlCtc","songmid":"002v0jPa01QpP6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393679.m4a?fromtag=46","media_mid":"000hpx3P01V3Tj","songid":393679,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393679.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"Ahiba","strMediaMid":"000hpx3P01V3Tj","albummid":"003ZgkGJ2DlCtc","songmid":"000hpx3P01V3Tj","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/393675.m4a?fromtag=46","media_mid":"000ygk3P33KnFR","songid":393675,"singerid":11476,"albumname":"痒","downUrl":"http://dl.stream.qqmusic.qq.com/393675.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄龄","songname":"抬头我大牌","strMediaMid":"000ygk3P33KnFR","albummid":"003ZgkGJ2DlCtc","songmid":"000ygk3P33KnFR","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/t/c/003ZgkGJ2DlCtc.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/t/c/003ZgkGJ2DlCtc.jpg","albumid":31744},{"m4a":"http://ws.stream.qqmusic.qq.com/107740890.m4a?fromtag=46","media_mid":"002s2MRd0kSzf7","songid":107740890,"singerid":1122408,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/107740890.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"痒局长","songname":"我在东北玩泥巴","strMediaMid":"002s2MRd0kSzf7","albummid":"001ZaCQY2OxVMg","songmid":"002s2MRd0kSzf7","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/103754379.m4a?fromtag=46","media_mid":"001HMgYv2A2Nq1","songid":103754379,"singerid":1020124,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/103754379.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"余泽雅","songname":"痒 (Live)","strMediaMid":"001HMgYv2A2Nq1","albummid":"001ZaCQY2OxVMg","songmid":"001HMgYv2A2Nq1","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/108436076.m4a?fromtag=46","media_mid":"004Lcyqk33mhsD","songid":108436076,"singerid":179724,"albumname":"&#44277;&#44592;&#45224;&#45376; Single 9","downUrl":"http://dl.stream.qqmusic.qq.com/108436076.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"&#44277;&#44592;&#45224;&#45376;","songname":"&#44036;&#51648;&#47084;&#50892;","strMediaMid":"004Lcyqk33mhsD","albummid":"001dPnHk288jyB","songmid":"004Lcyqk33mhsD","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/y/B/001dPnHk288jyB.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/y/B/001dPnHk288jyB.jpg","albumid":1597192},{"m4a":"http://ws.stream.qqmusic.qq.com/0.m4a?fromtag=46","songname":"痒 (伴奏)","albummid":"","songmid":"","songid":0,"singerid":0,"albumname":"","downUrl":"http://ws.stream.qqmusic.qq.com/TK60f6674a579ece48ad5e0b86ad8883e237.mp3?fromtag=0","singername":"黄龄","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/0.m4a?fromtag=46","songname":"痒 (伴奏)","albummid":"","songmid":"","songid":0,"singerid":0,"albumname":"","downUrl":"http://ws.stream.qqmusic.qq.com/TK60b999c1d55a2128773b8c363cc6438b35.mp3?fromtag=0","singername":"田馥甄","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/0.m4a?fromtag=46","songname":"痒 (伴奏)","albummid":"","songmid":"","songid":0,"singerid":0,"albumname":"","downUrl":"http://ws.stream.qqmusic.qq.com/TK60c119b014071c6265e8c28565bb83a360.mp3?fromtag=0","singername":"吴莫愁","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/109955277.m4a?fromtag=46","media_mid":"00170dAq17dFr6","songid":109955277,"singerid":89698,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/109955277.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"庄心妍","songname":"痒","strMediaMid":"00170dAq17dFr6","albummid":"001ZaCQY2OxVMg","songmid":"00170dAq17dFr6","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/108835249.m4a?fromtag=46","media_mid":"001Zvri24cqecd","songid":108835249,"singerid":1259545,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/108835249.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"陈迁霞","songname":"痒","strMediaMid":"001Zvri24cqecd","albummid":"001ZaCQY2OxVMg","songmid":"001Zvri24cqecd","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/107741166.m4a?fromtag=46","media_mid":"000ozjAq3HFZYy","songid":107741166,"singerid":973351,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/107741166.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"NL不分","songname":"痒","strMediaMid":"000ozjAq3HFZYy","albummid":"001ZaCQY2OxVMg","songmid":"000ozjAq3HFZYy","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/102787311.m4a?fromtag=46","media_mid":"001Wrj0j3FhgWT","songid":102787311,"singerid":973054,"albumname":"有路弯弯","downUrl":"http://dl.stream.qqmusic.qq.com/102787311.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"黄珮舒","songname":"痒","strMediaMid":"001Wrj0j3FhgWT","albummid":"002cqLTa3wFSwC","songmid":"001Wrj0j3FhgWT","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/w/C/002cqLTa3wFSwC.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/w/C/002cqLTa3wFSwC.jpg","albumid":1032229},{"m4a":"http://ws.stream.qqmusic.qq.com/200250115.m4a?fromtag=46","media_mid":"004Q1UWB0XknPW","songid":200250115,"singerid":970668,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/200250115.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"玉璇玑","songname":"痒","strMediaMid":"004Q1UWB0XknPW","albummid":"001ZaCQY2OxVMg","songmid":"004Q1UWB0XknPW","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0},{"m4a":"http://ws.stream.qqmusic.qq.com/200534889.m4a?fromtag=46","media_mid":"003KeMvS3qsXSQ","songid":200534889,"singerid":1011369,"albumname":"","downUrl":"http://dl.stream.qqmusic.qq.com/200534889.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044","singername":"苏莘薇","songname":"痒","strMediaMid":"003KeMvS3qsXSQ","albummid":"001ZaCQY2OxVMg","songmid":"003KeMvS3qsXSQ","albumpic_big":"http://i.gtimg.cn/music/photo/mid_album_300/M/g/001ZaCQY2OxVMg.jpg","albumpic_small":"http://i.gtimg.cn/music/photo/mid_album_90/M/g/001ZaCQY2OxVMg.jpg","albumid":0}]
+             * currentPage : 1
+             * notice :
+             * allNum : 117
+             * maxResult : 30
              */
 
-            private String id;
-            private String mc_name;
-            private String singer;
-            private String url;
-            private String sort;
+            private int allPages;
+            private int ret_code;
+            private int currentPage;
+            private String notice;
+            private int allNum;
+            private int maxResult;
+            private List<MusiclistBean> contentlist;
 
-            public String getId() {
-                return id;
+            public int getAllPages() {
+                return allPages;
             }
 
-            public void setId(String id) {
-                this.id = id;
+            public void setAllPages(int allPages) {
+                this.allPages = allPages;
             }
 
-            public String getMc_name() {
-                return mc_name;
+            public int getRet_code() {
+                return ret_code;
             }
 
-            public void setMc_name(String mc_name) {
-                this.mc_name = mc_name;
+            public void setRet_code(int ret_code) {
+                this.ret_code = ret_code;
             }
 
-            public String getSinger() {
-                return singer;
+            public int getCurrentPage() {
+                return currentPage;
             }
 
-            public void setSinger(String singer) {
-                this.singer = singer;
+            public void setCurrentPage(int currentPage) {
+                this.currentPage = currentPage;
             }
 
-            public String getUrl() {
-                return url;
+            public String getNotice() {
+                return notice;
             }
 
-            public void setUrl(String url) {
-                this.url = url;
+            public void setNotice(String notice) {
+                this.notice = notice;
             }
 
-            public String getSort() {
-                return sort;
+            public int getAllNum() {
+                return allNum;
             }
 
-            public void setSort(String sort) {
-                this.sort = sort;
+            public void setAllNum(int allNum) {
+                this.allNum = allNum;
+            }
+
+            public int getMaxResult() {
+                return maxResult;
+            }
+
+            public void setMaxResult(int maxResult) {
+                this.maxResult = maxResult;
+            }
+
+            public List<MusiclistBean> getContentlist() {
+                return contentlist;
+            }
+
+            public void setContentlist(List<MusiclistBean> contentlist) {
+                this.contentlist = contentlist;
+            }
+
+            public static class MusiclistBean {
+                /**
+                 * m4a : http://ws.stream.qqmusic.qq.com/5205300.m4a?fromtag=46
+                 * media_mid : 003Ki8aT4KOyw9
+                 * songid : 5205300
+                 * singerid : 11476
+                 * albumname : 国色天香 第四期
+                 * downUrl : http://dl.stream.qqmusic.qq.com/5205300.mp3?vkey=18DE7B3FAE960B55E6EFA4ACFDDD742EA6D02BA3635E5E0CC13EFD348FE56BD37B12EB116FF22991424CC92474F5FFA20D6DFCED845A63E2&guid=2718671044
+                 * singername : 黄龄
+                 * songname : 痒 (越剧)
+                 * strMediaMid : 003Ki8aT4KOyw9
+                 * albummid : 0035097R0abOsb
+                 * songmid : 003Ki8aT4KOyw9
+                 * albumpic_big : http://i.gtimg.cn/music/photo/mid_album_300/s/b/0035097R0abOsb.jpg
+                 * albumpic_small : http://i.gtimg.cn/music/photo/mid_album_90/s/b/0035097R0abOsb.jpg
+                 * albumid : 457874
+                 */
+
+                private String m4a;
+                private String media_mid;
+                private int songid;
+                private int singerid;
+                private String albumname;
+                private String downUrl;
+                private String singername;
+                private String songname;
+                private String strMediaMid;
+                private String albummid;
+                private String songmid;
+                private String albumpic_big;
+                private String albumpic_small;
+                private int albumid;
+
+                public String getM4a() {
+                    return m4a;
+                }
+
+                public void setM4a(String m4a) {
+                    this.m4a = m4a;
+                }
+
+                public String getMedia_mid() {
+                    return media_mid;
+                }
+
+                public void setMedia_mid(String media_mid) {
+                    this.media_mid = media_mid;
+                }
+
+                public int getSongid() {
+                    return songid;
+                }
+
+                public void setSongid(int songid) {
+                    this.songid = songid;
+                }
+
+                public int getSingerid() {
+                    return singerid;
+                }
+
+                public void setSingerid(int singerid) {
+                    this.singerid = singerid;
+                }
+
+                public String getAlbumname() {
+                    return albumname;
+                }
+
+                public void setAlbumname(String albumname) {
+                    this.albumname = albumname;
+                }
+
+                public String getDownUrl() {
+                    return downUrl;
+                }
+
+                public void setDownUrl(String downUrl) {
+                    this.downUrl = downUrl;
+                }
+
+                public String getSingername() {
+                    return singername;
+                }
+
+                public void setSingername(String singername) {
+                    this.singername = singername;
+                }
+
+                public String getSongname() {
+                    return songname;
+                }
+
+                public void setSongname(String songname) {
+                    this.songname = songname;
+                }
+
+                public String getStrMediaMid() {
+                    return strMediaMid;
+                }
+
+                public void setStrMediaMid(String strMediaMid) {
+                    this.strMediaMid = strMediaMid;
+                }
+
+                public String getAlbummid() {
+                    return albummid;
+                }
+
+                public void setAlbummid(String albummid) {
+                    this.albummid = albummid;
+                }
+
+                public String getSongmid() {
+                    return songmid;
+                }
+
+                public void setSongmid(String songmid) {
+                    this.songmid = songmid;
+                }
+
+                public String getAlbumpic_big() {
+                    return albumpic_big;
+                }
+
+                public void setAlbumpic_big(String albumpic_big) {
+                    this.albumpic_big = albumpic_big;
+                }
+
+                public String getAlbumpic_small() {
+                    return albumpic_small;
+                }
+
+                public void setAlbumpic_small(String albumpic_small) {
+                    this.albumpic_small = albumpic_small;
+                }
+
+                public int getAlbumid() {
+                    return albumid;
+                }
+
+                public void setAlbumid(int albumid) {
+                    this.albumid = albumid;
+                }
             }
         }
     }

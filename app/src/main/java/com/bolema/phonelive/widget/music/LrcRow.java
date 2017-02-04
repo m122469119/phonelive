@@ -65,7 +65,7 @@ public class LrcRow implements Comparable<LrcRow> {
             }
             return listTimes;
         }catch(Exception e){
-            Log.e(TAG,"createRows exception:" + e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }

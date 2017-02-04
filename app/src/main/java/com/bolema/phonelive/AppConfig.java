@@ -36,6 +36,10 @@ public class AppConfig {
     //分享
     public static String SHARE_URL = "";
 
+    //QQ音乐接口，APPID 以及 sign
+    public static String QQ_MUSIC_URL = "http://route.showapi.com/213-1";
+    public static String QQ_MUSIC_APPID = "31538";
+    public static String QQ_MUSIC_SIGN = "f3011077286b4e3d89199932415095b3";
 
     private final static String APP_CONFIG = "config";
 

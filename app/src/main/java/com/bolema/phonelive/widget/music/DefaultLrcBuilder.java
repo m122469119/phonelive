@@ -7,12 +7,16 @@ package com.bolema.phonelive.widget.music;
 
 import android.util.Log;
 
+import com.socks.library.KLog;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /** default lrc builder,convert raw lrc string to lrc rows */
 
@@ -29,21 +33,19 @@ public class DefaultLrcBuilder implements  ILrcBuilder{
         String line = null;
         List<LrcRow> rows = new ArrayList<LrcRow>();
         try{
-            do{
-                line = br.readLine();
-                Log.d(TAG,"lrc raw line:" + line);
+            ArrayList<String> list = revertStringList(br.readLine());
+            for (int i=0;i<list.size();i++) {
+                line = list.get(i);
                 if(line != null && line.length() > 0){
                     List<LrcRow> lrcRows = LrcRow.createRows(line);
 
                     if(lrcRows != null && lrcRows.size() > 0){
                         for(LrcRow row : lrcRows){
                             rows.add(row);
-
                         }
                     }
                 }
-                
-            }while(line != null);
+            }
             if( rows.size() > 0 ){
                 // sort by time:
                 Collections.sort(rows);
@@ -61,5 +63,15 @@ public class DefaultLrcBuilder implements  ILrcBuilder{
             reader.close();
         }
         return rows;
+    }
+
+    private static ArrayList<String> revertStringList(String s){
+        Pattern p = Pattern.compile("\\[[^\\[]*[\u4e00-\u9fa5\\]]");
+        Matcher m = p.matcher(s);
+        ArrayList<String> list = new ArrayList<>();
+        while(m.find()){
+            list.add(m.group());
+        }
+        return list;
     }
 }

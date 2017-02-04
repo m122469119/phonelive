@@ -6,7 +6,7 @@ import com.bolema.phonelive.fragment.HotFragment;
 import com.bolema.phonelive.fragment.MessageDetailFragment;
 import com.bolema.phonelive.fragment.PushManageFragment;
 import com.bolema.phonelive.fragment.SearchFragment;
-import com.bolema.phonelive.fragment.SearchMusicDialogFragment2;
+import com.bolema.phonelive.fragment.SearchMusicDialogFragment;
 import com.bolema.phonelive.viewpagerfragment.PrivateChatCorePagerFragment;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.fragment.SelectAreaFragment;
@@ -19,7 +19,7 @@ public enum SimpleBackPage {
     INDEX_SECREEN(5,R.string.search, SearchFragment.class),
     USER_BLACK_LIST(6,R.string.blacklist, BlackListFragment.class),
     USER_PUSH_MANAGE(7,R.string.push,PushManageFragment.class),
-    LIVE_START_MUSIC(8,R.string.diange,SearchMusicDialogFragment2.class);
+    LIVE_START_MUSIC(8,R.string.diange,SearchMusicDialogFragment.class);
     private int title;
     private Class<?> clz;
     private int value;

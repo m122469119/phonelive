@@ -10,9 +10,12 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.opengl.GLSurfaceView;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,16 +34,18 @@ import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
 import com.bolema.phonelive.base.ShowLiveActivityBase;
 import com.bolema.phonelive.bean.ChatBean;
+import com.bolema.phonelive.bean.MusicLrcBean;
 import com.bolema.phonelive.bean.SendGiftBean;
 import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.fragment.MusicPlayerDialogFragment;
-import com.bolema.phonelive.fragment.SearchMusicDialogFragment2;
+import com.bolema.phonelive.fragment.SearchMusicDialogFragment;
 import com.bolema.phonelive.fragment.UserInfoDialogFragment;
 import com.bolema.phonelive.interf.ChatServerInterface;
 import com.bolema.phonelive.interf.DialogInterface;
 import com.bolema.phonelive.ui.other.ChatServer;
 import com.bolema.phonelive.ui.other.LiveStream;
 import com.bolema.phonelive.utils.DialogHelp;
+import com.bolema.phonelive.utils.GsonTools;
 import com.bolema.phonelive.utils.InputMethodUtils;
 import com.bolema.phonelive.utils.LiveUtils;
 import com.bolema.phonelive.utils.ShareUtils;
@@ -54,6 +59,7 @@ import com.ksy.recordlib.service.core.KSYStreamerConfig;
 import com.ksy.recordlib.service.streamer.OnStatusListener;
 import com.ksy.recordlib.service.streamer.RecorderConstants;
 import com.ksy.recordlib.service.util.audio.KSYBgmPlayer;
+import com.socks.library.KLog;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -77,7 +83,7 @@ import okhttp3.Call;
  * 本页面包括点歌 分享 直播 聊天 僵尸粉丝 管理 点亮 歌词等功能详细参照每个方法的注释
  * 本页面继承基类和观看直播属于同一父类
  */
-public class StartLiveActivity extends ShowLiveActivityBase implements SearchMusicDialogFragment2.SearchMusicFragmentInterface, UserInfoDialogFragment.IsAttentionListener {
+public class StartLiveActivity extends ShowLiveActivityBase implements SearchMusicDialogFragment.SearchMusicFragmentInterface, UserInfoDialogFragment.IsAttentionListener {
 
     //渲染视频
     @InjectView(R.id.camera_preview)
@@ -392,8 +398,8 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
      */
     private void showSearchMusicDialog() {
 
-        SearchMusicDialogFragment2 musicFragment = new SearchMusicDialogFragment2();
-        musicFragment.setStyle(SearchMusicDialogFragment2.STYLE_NO_TITLE, 0);
+        SearchMusicDialogFragment musicFragment = new SearchMusicDialogFragment();
+        musicFragment.setStyle(SearchMusicDialogFragment.STYLE_NO_TITLE, 0);
         musicFragment.show(getSupportFragmentManager(), "SearchMusicDialogFragment");
     }
 
@@ -619,7 +625,10 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         String musicPath = data.getStringExtra("filepath");
 
         //获取歌词字符串
-        String lrcStr = LiveUtils.getFromFile(musicPath.substring(0, musicPath.length() - 3) + "lrc");
+        String lrcRes = LiveUtils.getFromFile(musicPath.substring(0, musicPath.length() - 3) + "lrc");
+        MusicLrcBean lrcBean = GsonTools.instance(lrcRes, MusicLrcBean.class);
+        String lrcStr = lrcBean.getShowapi_res_body().getLyric();
+        KLog.d(lrcStr);
         KSYBgmPlayer mKsyBgmPlayer = KSYBgmPlayer.getInstance();
         mKsyBgmPlayer.setOnBgmPlayerListener(new KSYBgmPlayer.OnBgmPlayerListener() {
             @Override
@@ -670,8 +679,17 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         }
 
         ILrcBuilder builder = new DefaultLrcBuilder();
-        List<LrcRow> rows = builder.getLrcRows(lrcStr);
 
+        Spanned lrc;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            lrc = Html.fromHtml(lrcStr, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            lrc = Html.fromHtml(lrcStr);
+        }
+        String temp = lrc.toString();
+        List<LrcRow> rows = builder.getLrcRows(temp);
+
+        int i = rows.size();
         //设置歌词
         mLrcView.setLrc(rows);
     }
@@ -714,9 +732,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
             }
 
         }
-    }
-
-    ;
+    };
 
     //返回键监听
     @Override
