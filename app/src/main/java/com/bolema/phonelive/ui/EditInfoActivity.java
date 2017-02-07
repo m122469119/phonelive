@@ -104,14 +104,11 @@ public class EditInfoActivity extends ToolBarBaseActivity {
             return;
         }
 
-
         // zxy 0418  判断输入长度
         PhoneLiveApi.saveInfo(key, value,
                 AppContext.getInstance().getLoginUid(),
                 AppContext.getInstance().getToken(),
                 callback);
-
-
     }
 
     @Override

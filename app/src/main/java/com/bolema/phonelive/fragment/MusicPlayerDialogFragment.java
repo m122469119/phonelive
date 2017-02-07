@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.SeekBar;
 
+import com.bolema.phonelive.AppConfig;
 import com.bolema.phonelive.ui.StartLiveActivity;
 import com.bolema.phonelive.ui.other.LiveStream;
 import com.ksy.recordlib.service.util.audio.KSYBgmPlayer;
@@ -89,7 +90,16 @@ public class MusicPlayerDialogFragment extends DialogFragment {
         mSbVoice.setProgress(mStream.getMvoice() == 0 ? 50:mStream.getMvoice());
 
         //伴奏调节
-
+        if (AppConfig.voiceLevel == 1) {
+            mStream.setReverbLevel(1);
+            switchSelectState(0);
+        } else if (AppConfig.voiceLevel == 2) {
+            mStream.setReverbLevel(2);
+            switchSelectState(1);
+        } else if (AppConfig.voiceLevel == 3) {
+            mStream.setReverbLevel(3);
+            switchSelectState(2);
+        }
         mSbBanZou.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -136,21 +146,22 @@ public class MusicPlayerDialogFragment extends DialogFragment {
             case R.id.dialog_music_btn_melodious:
                 mStream.setReverbLevel(1);
                 switchSelectState(0);
+                AppConfig.voiceLevel = 1;
                 break;
             case R.id.dialog_music_btn_ethereal:
                 mStream.setReverbLevel(2);
                 switchSelectState(1);
+                AppConfig.voiceLevel = 2;
                 break;
             case R.id.dialog_music_btn_ktv:
                 mStream.setReverbLevel(3);
                 switchSelectState(2);
+                AppConfig.voiceLevel = 3;
                 break;
             case R.id.iv_close:
                 dismiss();
                 break;
-
         }
-
     }
 
     //切换按钮状态

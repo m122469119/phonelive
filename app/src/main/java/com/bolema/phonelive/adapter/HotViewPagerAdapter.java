@@ -31,6 +31,10 @@ public class HotViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         newPosition = position % imageViews.size();
         View imageView = imageViews.get(newPosition);
+        ViewGroup parent = (ViewGroup) imageView.getParent();
+        if (parent != null) {
+            parent.removeAllViews();
+        }
         container.addView(imageView);
 
         return imageView;

@@ -238,8 +238,8 @@
     </style>
     <!--性别-->
     <style name="live_sex_style">
-        <item name="android:layout_width">@dimen/space_15</item>
-        <item name="android:layout_height">@dimen/space_20</item>
+        <item name="android:layout_width">@dimen/space_20</item>
+        <item name="android:layout_height">@dimen/space_25</item>
     </style>
     <!--等级-->
     <style name="live_level_style">

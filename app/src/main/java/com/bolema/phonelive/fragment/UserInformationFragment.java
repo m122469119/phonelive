@@ -1,6 +1,7 @@
 package com.bolema.phonelive.fragment;
 
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -290,11 +291,11 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
             mInfo = new Gson().fromJson(res, UserBean.class);
             AppContext.getInstance().updateUserInfo(mInfo);
             try {
-                mLiveNum.setText("" + mInfo.getLiverecordnum());
-                mFollowNum.setText("" + mInfo.getAttentionnum());
-                mFansNum.setText("" + mInfo.getFansnum());
+                mLiveNum.setText(mInfo.getLiverecordnum());
+                mFollowNum.setText(mInfo.getAttentionnum());
+                mFansNum.setText(mInfo.getFansnum());
                 mSendNum.setText("送出:  " + mInfo.getConsumption());
-            } catch (NullPointerException e) {
+            } catch (NullPointerException | Resources.NotFoundException e) {
                 e.printStackTrace();
             }
         }
@@ -303,8 +304,7 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
 
     @Override
     public void onClick(View v) {
-
-        final int id = v.getId();
+        int id = v.getId();
         switch (id) {
             case R.id.ll_exchange_vote: //兑换播币
                 UIHelper.showExchangeVoteActivity(getActivity(), mInfo.getId(), mInfo.getVotes());
@@ -312,15 +312,6 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
             //购买vip
             case R.id.ll_vip:
                 UIHelper.showBuyVipActivity(getActivity());
-                //if(SharedPreUtil.contains(getActivity().getApplicationContext(),"vip_type")
-                //        &&SharedPreUtil.getString(getActivity().getApplicationContext(),"vip_type").equals("1"))
-                //{
-                //    Toast.makeText(getActivity(),"您已是VIP会员",Toast.LENGTH_SHORT).show();
-
-                //}else{
-
-                //}
-                //UIHelper.showWebView(getActivity(),AppConfig.MAIN_URL2 + "/index.php?g=home&m=vip&a=index&uid="+ AppContext.getInstance().getLoginUid()+"&token="+AppContext.getInstance().getToken(),"购买VIP");
                 break;
             case R.id.ll_authenticate://申请认证
                 UIHelper.showWebView(getActivity(), AppConfig.MAIN_URL2 + "/index.php?g=User&m=Rz&a=auth&uid=" + AppContext.getInstance().getLoginUid(), "申请认证");
@@ -330,7 +321,6 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
                 mIvNewMessage.setVisibility(View.GONE);
                 UIHelper.showPrivateChatSimple(getActivity(), mInfo.getId());
                 break;
-
             case R.id.iv_avatar: //个人信息
                 UIHelper.showMyInfoDetailActivity(getActivity());
                 break;
@@ -357,7 +347,6 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
             case R.id.ll_level://我的等级
                 UIHelper.showLevel(getActivity(), AppContext.getInstance().getLoginUid());
                 break;
-
             case R.id.rl_user_unlogin: //登陆选择
                 AppManager.getAppManager().finishAllActivity();
                 UIHelper.showLoginSelectActivity(getActivity());
@@ -386,15 +375,12 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
         if (PhoneLivePrivateChat.getUnreadMsgsCount() > 0) {
             mIvNewMessage.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
     public void onResume() {
-
         super.onResume();
         PhoneLiveApi.getMyUserInfo(AppContext.getInstance().getLoginUid(), AppContext.getInstance().getToken(), stringCallback);
-
     }
 
     public void listenMessage() {
@@ -410,7 +396,6 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
                         mIvNewMessage.setVisibility(View.VISIBLE);
                     }
                 });
-
             }
 
             @Override
@@ -434,7 +419,6 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
             }
         };
         EMClient.getInstance().chatManager().addMessageListener(mMsgListener);
-
     }
 
     public void unListen() {

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -203,7 +204,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
         }
 
         class ViewHolder {
-            public TextView mLiveTime, mLiveNum, mLiveTitle;
+            TextView mLiveTime, mLiveNum, mLiveTitle;
         }
     }
 
@@ -211,7 +212,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
         mSendNum.setText(getString(R.string.send) + "" + mUserHomePageBean.getConsumption());
 
         mUNice.setText(mUserHomePageBean.getUser_nicename());
-        mUSex.setImageResource(mUserHomePageBean.getSex() == 1 ? R.drawable.global_male : R.drawable.global_female);
+        mUSex.setImageResource(mUserHomePageBean.getSex() == 1 ? R.drawable.choice_sex_male : R.drawable.choice_sex_femal);
         mULevel.setImageResource(DrawableRes.LevelImg[(mUserHomePageBean.getLevel() == 0 ? 0 : mUserHomePageBean.getLevel() - 1)]);
         mUFansNum.setText(getString(R.string.fans) + ":" + mUserHomePageBean.getFansnum());
         mUFollowNum.setText(getString(R.string.attention) + ":" + mUserHomePageBean.getAttentionnum());
@@ -247,7 +248,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
                                 bitmap));
                     }
                 });
-//        字体模糊化效果
+        //字体模糊化效果
         mSendNum.setShadowLayer(10F, 1F, 1F, Color.BLACK);
         mUNice.setShadowLayer(10F, 1F, 1F, Color.BLACK);
         mUFansNum.setShadowLayer(10F, 1F, 1F, Color.BLACK);
@@ -273,14 +274,14 @@ public class HomePageActivity extends ToolBarBaseActivity {
             case R.id.tv_home_page_index_btn:
                 mHomeIndexPage.setVisibility(View.VISIBLE);
                 mHomeVideoPage.setVisibility(View.GONE);
-                mPageIndexBtn.setTextColor(getResources().getColor(R.color.global));
-                mPageVideoBtn.setTextColor(getResources().getColor(R.color.black));
+                mPageIndexBtn.setTextColor(ContextCompat.getColor(this,R.color.global));
+                mPageVideoBtn.setTextColor(ContextCompat.getColor(this,R.color.black));
                 break;
             case R.id.tv_home_page_video_btn:
                 mHomeIndexPage.setVisibility(View.GONE);
                 mHomeVideoPage.setVisibility(View.VISIBLE);
-                mPageIndexBtn.setTextColor(getResources().getColor(R.color.black));
-                mPageVideoBtn.setTextColor(getResources().getColor(R.color.global));
+                mPageIndexBtn.setTextColor(ContextCompat.getColor(this,R.color.black));
+                mPageVideoBtn.setTextColor(ContextCompat.getColor(this,R.color.global));
                 //直播记录回放
                 requestData();
                 break;
@@ -322,12 +323,16 @@ public class HomePageActivity extends ToolBarBaseActivity {
                         for (int i = 0; i < liveRecordJsonArray.length(); i++) {
                             mRecordList.add(g.fromJson(liveRecordJsonArray.getString(i), LiveRecordBean.class));
                         }
+//                        mHomeVideoPage.setVisibility(View.GONE);
+//                        mHomeIndexPage.setVisibility(View.VISIBLE);
+                        mDefaultVideoBg.setVisibility(View.GONE);
+                    } else {
+                        mDefaultVideoBg.setVisibility(View.VISIBLE);
                     }
                     fillList();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }
     };

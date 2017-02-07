@@ -41,6 +41,9 @@ public class AppConfig {
     public static String QQ_MUSIC_APPID = "31538";
     public static String QQ_MUSIC_SIGN = "f3011077286b4e3d89199932415095b3";
 
+    //音效
+    public static int voiceLevel = 1;
+
     private final static String APP_CONFIG = "config";
 
     public final static String CONF_APP_UNIQUEID = "APP_UNIQUEID";

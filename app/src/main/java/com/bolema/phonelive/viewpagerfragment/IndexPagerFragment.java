@@ -1,20 +1,22 @@
 package com.bolema.phonelive.viewpagerfragment;
 
-import android.graphics.Color;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.  LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
-import com.bolema.phonelive.api.remote.PhoneLiveApi;
+import com.bolema.phonelive.broadcast.BroadCastManager;
+import com.bolema.phonelive.broadcast.PushReceiver;
 import com.bolema.phonelive.fragment.HotFragment;
-import com.bolema.phonelive.utils.DpOrSp2PxUtil;
-import com.bolema.phonelive.utils.TLog;
 import com.bolema.phonelive.utils.UIHelper;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
@@ -30,8 +32,6 @@ import com.bolema.phonelive.interf.ListenMessage;
 import com.bolema.phonelive.interf.PagerSlidingInterface;
 import com.bolema.phonelive.ui.other.PhoneLivePrivateChat;
 import com.bolema.phonelive.widget.PagerSlidingTabStrip;
-import com.hyphenate.util.DensityUtil;
-import com.zhy.autolayout.utils.AutoUtils;
 
 import org.kymjs.kjframe.utils.DensityUtils;
 
@@ -45,7 +45,7 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
 
     private View view;
     @InjectView(R.id.mviewpager)
-    ViewPager pager;
+    public ViewPager pager;
 
 
     @InjectView(R.id.tabs)
@@ -69,6 +69,8 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
 
     private  EMMessageListener mMsgListener;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -84,13 +86,15 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
             tabs.setViewPager(pager);
         }
 
-        int widthPixels =   getResources().getDisplayMetrics().widthPixels;
-
-        int scale =  widthPixels/720;
+//        int widthPixels =   getResources().getDisplayMetrics().widthPixels;
+//        int scale =  widthPixels/720;
 
         //flTabContainer.setLayoutParams(new ViewGroup.LayoutParams(DpOrSp2PxUtil.dp2pxConvertInt(getActivity(),scale*270), ViewGroup.LayoutParams.MATCH_PARENT));
 
-
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("skip_to_pager_1");
+        LocalReceiver receiver = new LocalReceiver();
+        BroadCastManager.getInstance().registerReceiver(getActivity(), receiver, intentFilter);
 
         return view;
     }
@@ -180,6 +184,9 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
 
         pager.setCurrentItem(1);
 
+
+
+
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -196,7 +203,6 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
 
             }
         });
-
 
     }
 
@@ -257,4 +263,16 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
 
        return bundle;
    }
+
+
+     class LocalReceiver extends BroadcastReceiver{
+
+         @Override
+         public void onReceive(Context context, Intent intent) {
+//             Bundle bundle = intent.getExtras();
+             if (intent.getAction().equals("skip_to_pager_1")) {
+                 pager.setCurrentItem(1);
+             }
+         }
+     }
 }

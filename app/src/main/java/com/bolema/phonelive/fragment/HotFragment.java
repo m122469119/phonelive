@@ -187,7 +187,7 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
         ArrayList<View> imageLists = new ArrayList<View>();
         ImageView imageView;
         for (int i = 0; i < imageUrls.length; i++) {
-            View pager = LayoutInflater.from(getContext()).inflate(R.layout.home_page_viewpager, null);
+            View pager = LayoutInflater.from(getContext()).inflate(R.layout.home_page_viewpager, null,false);
             //设置轮播图，奖轮播图片添加到链表中以便传入适配器
             imageView = (ImageView) pager.findViewById(R.id.imageView_pager);
 
@@ -203,8 +203,6 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
                     UIHelper.showWebView(getContext(), imageJumps[finalI],"hehe");
                 }
             });
-
-
             imageLists.add(pager);
         }
         Log.d("imageSize", imageLists.size() + "");

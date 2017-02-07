@@ -191,7 +191,6 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     private void initLivePlay() {
 
         //直播参数配置start
-
         KSYStreamerConfig.Builder builder = new KSYStreamerConfig.Builder();
         builder.setmUrl(AppConfig.RTMP_URL + stream + "?vhost=t.wanchuangzhongchou.com");//HHH 2016-09-09
         builder.setFrontCameraMirror(isFrontCameraMirro); //HHH 2016-09-13
@@ -322,8 +321,6 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     }
 
     private void showPopUp(View v) {
-
-
         View popView = getLayoutInflater().inflate(R.layout.pop_view_camera_control, null);
         LinearLayout llLiveCameraControl = (LinearLayout) popView.findViewById(R.id.ll_live_camera_control);
         llLiveCameraControl.measure(0, 0);
@@ -444,7 +441,6 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.inject(this);
     }
 
@@ -628,7 +624,6 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         String lrcRes = LiveUtils.getFromFile(musicPath.substring(0, musicPath.length() - 3) + "lrc");
         MusicLrcBean lrcBean = GsonTools.instance(lrcRes, MusicLrcBean.class);
         String lrcStr = lrcBean.getShowapi_res_body().getLyric();
-        KLog.d(lrcStr);
         KSYBgmPlayer mKsyBgmPlayer = KSYBgmPlayer.getInstance();
         mKsyBgmPlayer.setOnBgmPlayerListener(new KSYBgmPlayer.OnBgmPlayerListener() {
             @Override
@@ -688,8 +683,6 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         }
         String temp = lrc.toString();
         List<LrcRow> rows = builder.getLrcRows(temp);
-
-        int i = rows.size();
         //设置歌词
         mLrcView.setLrc(rows);
     }

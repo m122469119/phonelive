@@ -76,9 +76,9 @@ public class PushReceiver extends BroadcastReceiver {
         } else if(JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
         	boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
 			TLog.log(TAG, "[MyReceiver]" + intent.getAction() +" connected state change to "+connected);
-        } else {
+		} else {
 			TLog.log(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
-        }
+		}
 	}
 
 	// 打印所有的 intent extra 数据

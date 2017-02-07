@@ -17,10 +17,50 @@
 
 
     </android.support.v4.widget.SwipeRefreshLayout>
-    <TextView
-        android:gravity="center"
-        android:text="暂无关注主播直播"
-        android:id="@+id/tv_attention"
+    <!--<TextView-->
+        <!--android:gravity="center"-->
+        <!--android:text="暂无关注主播直播"-->
+        <!--android:id="@+id/tv_attention"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/layout_attention"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="@dimen/space_236"
+            android:layout_height="@dimen/space_130"
+            android:src="@drawable/star_no_live"
+            android:layout_marginTop="@dimen/space_90"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_anchor_live"
+            android:textColor="#a0a0a5"
+            android:textSize="@dimen/space_16"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/space_27"/>
+
+        <Button
+            android:id="@+id/btn_look_at_other_live"
+            android:layout_width="@dimen/space_338"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rount_rect"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/space_38"
+            android:text="去看看热门直播吧"
+            android:textColor="@color/white"
+            android:textSize="@dimen/space_16"
+            android:paddingTop="@dimen/space_16"
+            android:gravity="top|center_horizontal"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
 </com.zhy.autolayout.AutoRelativeLayout>
