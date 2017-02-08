@@ -93,6 +93,8 @@ dependencies {
     compile 'com.githang:status-bar-compat:0.5'  //设置状态栏颜色
 
     compile 'com.android.support:multidex:1.0.1'
+
+    compile 'com.google.android:flexbox:0.3.0-alpha2'
 }
 
 

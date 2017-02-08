@@ -60,6 +60,8 @@ public class AppContext extends BaseApplication {
     private Socket mSocket;
     private UserBean userBean;
 
+    public static String registrationId; //极光推送单一设备ID值
+
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
     //声明mLocationOption对象
@@ -136,6 +138,10 @@ public class AppContext extends BaseApplication {
         //初始化jpush
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        registrationId = JPushInterface.getRegistrationID(this);
+        Log.e("1099", "run:--------->registrationId： "+registrationId );
+//        AppContext.showToastShort(registrationId);
+
         try {
             mSocket  = IO.socket(AppConfig.CHAT_URL);
         } catch (URISyntaxException e) {

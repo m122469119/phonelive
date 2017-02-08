@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +99,6 @@ public class AttentionFragment extends BaseFragment {
         PhoneLiveApi.getAttentionLive(AppContext.getInstance().getLoginUid(), callback);
 
 
-
     }
 
     private StringCallback callback = new StringCallback() {
@@ -119,7 +119,12 @@ public class AttentionFragment extends BaseFragment {
                     if (0 == liveAndAttentionUserJson.length()) {
                         layoutAttention.setVisibility(View.VISIBLE);
                         mUserList.clear();
-//                        mAdapter.notifyDataSetChanged();
+                        try {
+                            mAdapter.notifyDataSetChanged();
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+
                         return;
                     }
                     Gson g = new Gson();
@@ -137,8 +142,6 @@ public class AttentionFragment extends BaseFragment {
             }
         }
     };
-
-
 
 
     private void fillUI() {
@@ -173,7 +176,6 @@ public class AttentionFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
-
 
 
 }

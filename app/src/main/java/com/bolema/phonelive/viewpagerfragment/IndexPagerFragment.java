@@ -15,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bolema.phonelive.broadcast.BroadCastManager;
-import com.bolema.phonelive.broadcast.PushReceiver;
 import com.bolema.phonelive.fragment.HotFragment;
 import com.bolema.phonelive.utils.UIHelper;
 import com.hyphenate.EMMessageListener;

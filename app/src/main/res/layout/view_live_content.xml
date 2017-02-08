@@ -130,7 +130,16 @@
         android:layout_height="wrap_content" />
 
 
+    <!--礼物动画显示start-->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="vertical"
 
+        android:id="@+id/ll_show_gift_animator"
+        android:layout_marginTop="200dp"
+        android:layout_width="@dimen/space_270"
+        android:layout_height="@dimen/space_100">
+
+    </com.zhy.autolayout.AutoLinearLayout>
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_height="wrap_content"
@@ -158,17 +167,6 @@
 
         </ListView>
 
-
-    </com.zhy.autolayout.AutoLinearLayout>
-
-    <!--礼物动画显示start-->
-    <com.zhy.autolayout.AutoLinearLayout
-        android:orientation="vertical"
-
-        android:id="@+id/ll_show_gift_animator"
-        android:layout_marginTop="200dp"
-        android:layout_width="@dimen/space_270"
-        android:layout_height="@dimen/space_100">
 
     </com.zhy.autolayout.AutoLinearLayout>
     <!--礼物动画显示end-->

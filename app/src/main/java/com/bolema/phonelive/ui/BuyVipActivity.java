@@ -84,6 +84,7 @@ public class BuyVipActivity extends ToolBarBaseActivity {
                             .crossFade()
                             .fitCenter()
                             .into(avVipThumb);
+
                     tvVipCoin.setText(jsonObject.getString("coin"));
 //                    tvVipName.setText(jsonObject.getString("name"));
                     //fillVipUI();

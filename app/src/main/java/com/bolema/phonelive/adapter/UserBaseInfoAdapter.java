@@ -1,5 +1,6 @@
 package com.bolema.phonelive.adapter;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -67,6 +68,7 @@ public class UserBaseInfoAdapter extends BaseAdapter {
         if (u.getId()==AppContext.getInstance().getLoginUid()){
             viewHolder.mIsFollow.setVisibility(View.GONE);
         }
+        Log.d("isattention", u.getIsattention() + "");
         viewHolder.mUSex.setImageResource(u.getSex() == 1 ? R.drawable.global_male : R.drawable.global_female);
         viewHolder.mIsFollow.setImageResource(u.getIsattention() == 1 ? R.drawable.me_following:R.drawable.me_follow);
         viewHolder.mULevel.setImageResource(DrawableRes.LevelImg[u.getLevel() == 0?0:u.getLevel()-1]);

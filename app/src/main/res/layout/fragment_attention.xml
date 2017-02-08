@@ -51,7 +51,7 @@
         <Button
             android:id="@+id/btn_look_at_other_live"
             android:layout_width="@dimen/space_338"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/space_75"
             android:background="@drawable/rount_rect"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/space_38"

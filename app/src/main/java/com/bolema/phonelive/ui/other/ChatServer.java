@@ -26,6 +26,7 @@ import com.bolema.phonelive.ui.DrawableRes;
 import com.bolema.phonelive.utils.StringUtils;
 import com.bolema.phonelive.utils.TDevice;
 import com.bolema.phonelive.utils.TLog;
+import com.socks.library.KLog;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
@@ -714,6 +715,8 @@ public class ChatServer {
         public void onResponse(String s) {
 
             String res = ApiUtils.checkIsSuccess(s);
+            KLog.json(res);
+
             if (res != null) {
                 try {
                     JSONObject infoJsonObj = new JSONObject(res);

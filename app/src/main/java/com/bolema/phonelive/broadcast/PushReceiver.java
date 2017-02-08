@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.bolema.phonelive.AppContext;
 import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.ui.MainActivity;
+import com.bolema.phonelive.utils.ExampleUtil;
 import com.bolema.phonelive.utils.TLog;
 import com.google.gson.Gson;
 
@@ -32,22 +34,26 @@ public class PushReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
 		TLog.log("[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
-		
+//		AppContext.showToastShort(printBundle(bundle));
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
             String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
 			TLog.log("[MyReceiver] 接收Registration Id : " + regId);
             //send the Registration Id to your server...
+
                         
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
 			TLog.log("[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+
         	processCustomMessage(context, bundle);
         
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
 			TLog.log("[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
 			TLog.log("[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-        	
-        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
+//			AppContext.showToastShort("有消息了");
+
+
+		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
 			//Toast.makeText(context,"用户点击打开了通知",Toast.LENGTH_LONG).show();
 			TLog.log(bundle.getString(JPushInterface.EXTRA_EXTRA));
 			try {
@@ -62,13 +68,10 @@ public class PushReceiver extends BroadcastReceiver {
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
 				context.startActivity(i);
-
 				//UIHelper.showMainActivity(context);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-
-        	
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
 			TLog.log(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
             //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
@@ -117,7 +120,7 @@ public class PushReceiver extends BroadcastReceiver {
 	
 	//send msg to MainActivity
 	private void processCustomMessage(Context context, Bundle bundle) {
-		/*if (MainActivity.isForeground) {
+		if (MainActivity.isForeground) {
 			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
 			Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
@@ -134,6 +137,6 @@ public class PushReceiver extends BroadcastReceiver {
 
 			}
 			context.sendBroadcast(msgIntent);
-		}*/
+		}
 	}
 }

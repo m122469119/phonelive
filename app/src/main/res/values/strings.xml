@@ -138,5 +138,5 @@
     <string name="paymethod_wechat">支付方式:微信支付</string>
     <string name="alipay_method">支付宝支付</string>
     <string name="wechat_pay_method">微信支付</string>
-    <string name="no_anchor_live">暂无主播直播</string>
+    <string name="no_anchor_live">暂无关注的主播</string>
 </resources>
