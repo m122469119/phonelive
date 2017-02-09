@@ -1354,6 +1354,9 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                 }
             }
         });
+        if (mUser.getVip_type() == null) {
+//            mUser.setVip_type();
+        }
         mChatServer.doSendMsg(mUser.getUser_nicename() + "关注了主播", mUser, 0);
 
     }

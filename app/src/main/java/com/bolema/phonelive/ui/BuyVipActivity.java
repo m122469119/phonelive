@@ -78,7 +78,7 @@ public class BuyVipActivity extends ToolBarBaseActivity {
                     //avVipThumb.setAvatarUrl(jsonObject.getString("thumb"));
 
                     Glide.with(BuyVipActivity.this)
-                            .load(jsonObject.getString("thumb"))
+                            .load(jsonObject.getString("img"))
                             .centerCrop()
                             .placeholder(R.drawable.null_blacklist)
                             .crossFade()

@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -55,13 +56,15 @@ public class MainActivity extends ToolBarBaseActivity implements
     @InjectView(android.R.id.tabhost)
     MyFragmentTabHost mTabHost;
 
-    public static boolean isForeground = false;
-    //for receive customer msg from jpush server
-    private MessageReceiver mMessageReceiver;
-    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_MESSAGE = "message";
-    public static final String KEY_EXTRAS = "extras";
+//    public static boolean isForeground = false;
+//    //for receive customer msg from jpush server
+//    private MessageReceiver mMessageReceiver;
+//    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+//    public static final String KEY_TITLE = "title";
+//    public static final String KEY_MESSAGE = "message";
+//    public static final String KEY_EXTRAS = "extras";
+
+
 
     @Override
     protected int getLayoutId() {
@@ -84,8 +87,9 @@ public class MainActivity extends ToolBarBaseActivity implements
         mTabHost.setCurrentTab(100);
         mTabHost.setOnTabChangedListener(this);
         mTabHost.setNoTabChangedTag("1");
-
+//        registerMessageReceiver();  // used for receive msg
     }
+
     private void initTabs() {
         final MainTab[] tabs = MainTab.values();
         final int size = tabs.length;
@@ -106,7 +110,7 @@ public class MainActivity extends ToolBarBaseActivity implements
 
             if (i == 1) {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0,17,2,0);
+                params.setMargins(0, 17, 2, 0);
                 tabImg.setLayoutParams(params);
             }
             tabImg.setImageDrawable(drawable);
@@ -146,11 +150,12 @@ public class MainActivity extends ToolBarBaseActivity implements
 
         Bundle bundle = getIntent().getBundleExtra("USER_INFO");
 
-        if(bundle != null){
-            UIHelper.showLookLiveActivity(this,bundle);
+        if (bundle != null) {
+            UIHelper.showLookLiveActivity(this, bundle);
         }
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -178,22 +183,31 @@ public class MainActivity extends ToolBarBaseActivity implements
                 break;
         }
     }
+
+
+//    public void registerMessageReceiver() {
+//        mMessageReceiver = new MessageReceiver();
+//        IntentFilter filter = new IntentFilter();
+//        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+//        filter.addAction(MESSAGE_RECEIVED_ACTION);
+//        registerReceiver(mMessageReceiver, filter);
+//    }
     //请求服务端开始直播
     private void requestStartLive() {
-        if(isStartingLive){
+        if (isStartingLive) {
             isStartingLive = false;
-            PhoneLiveApi.getLevelLimit(AppContext.getInstance().getLoginUid(),new StringCallback(){
+            PhoneLiveApi.getLevelLimit(AppContext.getInstance().getLoginUid(), new StringCallback() {
 
                 @Override
                 public void onError(Call call, Exception e) {
-                    AppContext.showToastAppMsg(MainActivity.this,"开始直播失败");
+                    AppContext.showToastAppMsg(MainActivity.this, "开始直播失败");
                     isStartingLive = true;
                 }
 
                 @Override
                 public void onResponse(String response) {
                     String res = ApiUtils.checkIsSuccess(response);
-                    if(null != res){
+                    if (null != res) {
                         UIHelper.showStartLiveActivity(MainActivity.this);
                     }
                 }
@@ -212,51 +226,51 @@ public class MainActivity extends ToolBarBaseActivity implements
         String uid = String.valueOf(AppContext.getInstance().getLoginUid());
 
         EMClient.getInstance().login(uid,
-                "fmscms" + uid,new EMCallBack() {//回调
-            @Override
-            public void onSuccess() {
-                Log.d("loginHy", "登录成功");
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        EMClient.getInstance().groupManager().loadAllGroups();
-                        EMClient.getInstance().chatManager().loadAllConversations();
+                "fmscms" + uid, new EMCallBack() {//回调
+                    @Override
+                    public void onSuccess() {
+                        Log.d("loginHy", "登录成功");
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                EMClient.getInstance().groupManager().loadAllGroups();
+                                EMClient.getInstance().chatManager().loadAllConversations();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message) {
+                        Log.d("loginHy", "登录失败");
+                        if (204 == code) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    AppContext.showToastAppMsg(MainActivity.this, "聊天服务器登录和失败,请重新登录");
+                                }
+                            });
+
+                        }
+                        TLog.log("环信[主页登录聊天服务器失败" + "code:" + code + "MESSAGE:" + message + "]");
                     }
                 });
-            }
-
-            @Override
-            public void onProgress(int progress, String status) {
-
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                Log.d("loginHy", "登录失败");
-                if(204 == code){
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            AppContext.showToastAppMsg(MainActivity.this,"聊天服务器登录和失败,请重新登录");
-                        }
-                    });
-
-                }
-                TLog.log("环信[主页登录聊天服务器失败" + "code:" +code + "MESSAGE:" + message + "]");
-            }
-        });
 
 
     }
 
     /**
-    * @dw 注册极光推送
-    * */
+     * @dw 注册极光推送
+     */
     private void registerJpush() {
         JPushInterface.setAlias(this, AppContext.getInstance().getLoginUid() + "PUSH",
                 new TagAliasCallback() {
                     @Override
                     public void gotResult(int i, String s, Set<String> set) {
-                        TLog.log("极光推送注册[" + i +"I" + "S:-----" +s + "]");
+                        TLog.log("极光推送注册[" + i + "I" + "S:-----" + s + "]");
                     }
                 });
 
@@ -264,7 +278,7 @@ public class MainActivity extends ToolBarBaseActivity implements
 
     /**
      * @dw 检查token是否过期
-     * */
+     */
     private void checkTokenIsOutTime() {
         LoginUtils.tokenIsOutTime(new StringCallback() {
             @Override
@@ -276,9 +290,9 @@ public class MainActivity extends ToolBarBaseActivity implements
             public void onResponse(String response) {
                 String res = ApiUtils.checkIsSuccess(response);
 
-                if(null == res)return;
-                if(res.equals(ApiUtils.TOKEN_TIMEOUT)){
-                    AppContext.showToastAppMsg(MainActivity.this,"登陆过期,请重新登陆");
+                if (null == res) return;
+                if (res.equals(ApiUtils.TOKEN_TIMEOUT)) {
+                    AppContext.showToastAppMsg(MainActivity.this, "登陆过期,请重新登陆");
                     UIHelper.showLoginSelectActivity(MainActivity.this);
                 }
             }
@@ -286,29 +300,33 @@ public class MainActivity extends ToolBarBaseActivity implements
     }
 
     /**
-    * @dw 检查是否有最新版本
-    * */
+     * @dw 检查是否有最新版本
+     */
     private void checkNewVersion() {
-        UpdateManager manager = new UpdateManager(this,false);
+        UpdateManager manager = new UpdateManager(this, false);
         manager.checkUpdate();
 
     }
 
     @Override
     protected void onResume() {
+//        isForeground = true;
         super.onResume();
         MobclickAgent.onPageStart("主页"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
         MobclickAgent.onResume(this);          //统计时长
 
     }
+
     public void onPause() {
+//        isForeground = false;
         super.onPause();
         MobclickAgent.onPageEnd("主页"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
         MobclickAgent.onPause(this);
     }
+
     //开始直播初始化
     public void startLive() {
-        if(android.os.Build.VERSION.SDK_INT >= 23) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
             //摄像头权限检测
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED ||
@@ -321,14 +339,14 @@ public class MainActivity extends ToolBarBaseActivity implements
                     ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                             != PackageManager.PERMISSION_GRANTED) {
                 //进行权限请求
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
                                 Manifest.permission.ACCESS_COARSE_LOCATION},
                         5);
 
-            }else{
+            } else {
                 requestStartLive();
             }
-        }else{
+        } else {
             requestStartLive();
         }
 
@@ -341,8 +359,6 @@ public class MainActivity extends ToolBarBaseActivity implements
 //            }
 //        }
 //    }
-
-
 
 
     @Override
@@ -362,21 +378,23 @@ public class MainActivity extends ToolBarBaseActivity implements
     public void onClick(View view) {
 
     }
-    public class MessageReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
-                String messge = intent.getStringExtra(KEY_MESSAGE);
-                String extras = intent.getStringExtra(KEY_EXTRAS);
-                StringBuilder showMsg = new StringBuilder();
-                showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
-                if (!ExampleUtil.isEmpty(extras)) {
-                    showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
-                }
-//                setCostomMsg(showMsg.toString());
-            }
-        }
-    }
+//
+//    public class MessageReceiver extends BroadcastReceiver {
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+//                String messge = intent.getStringExtra(KEY_MESSAGE);
+//                String extras = intent.getStringExtra(KEY_EXTRAS);
+//                StringBuilder showMsg = new StringBuilder();
+//                showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+//                if (!ExampleUtil.isEmpty(extras)) {
+//                    showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+//                }
+////                setCostomMsg(showMsg.toString());
+//                AppContext.showToastShort(showMsg.toString());
+//            }
+//        }
+//    }
 
 }

@@ -50,7 +50,8 @@ public class PushReceiver extends BroadcastReceiver {
 			TLog.log("[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
 			TLog.log("[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-//			AppContext.showToastShort("有消息了");
+
+
 
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
@@ -120,23 +121,23 @@ public class PushReceiver extends BroadcastReceiver {
 	
 	//send msg to MainActivity
 	private void processCustomMessage(Context context, Bundle bundle) {
-		if (MainActivity.isForeground) {
-			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-			Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
-			msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
-			if (!ExampleUtil.isEmpty(extras)) {
-				try {
-					JSONObject extraJson = new JSONObject(extras);
-					if (null != extraJson && extraJson.length() > 0) {
-						msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
-					}
-				} catch (JSONException e) {
-
-				}
-
-			}
-			context.sendBroadcast(msgIntent);
+//		if (MainActivity.isForeground) {
+//			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+//			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+//			Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
+//			msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
+//			if (!ExampleUtil.isEmpty(extras)) {
+//				try {
+//					JSONObject extraJson = new JSONObject(extras);
+//					if (null != extraJson && extraJson.length() > 0) {
+//						msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
+//					}
+//				} catch (JSONException e) {
+//
+//				}
+//
+//			}
+//			context.sendBroadcast(msgIntent);
 		}
-	}
+//	}
 }

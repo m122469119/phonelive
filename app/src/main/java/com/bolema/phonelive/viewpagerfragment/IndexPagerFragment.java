@@ -67,7 +67,7 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
     private boolean isPause = false;
 
     private  EMMessageListener mMsgListener;
-
+    private LocalReceiver receiver;
 
 
     @Override
@@ -92,7 +92,7 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("skip_to_pager_1");
-        LocalReceiver receiver = new LocalReceiver();
+        receiver = new LocalReceiver();
         BroadCastManager.getInstance().registerReceiver(getActivity(), receiver, intentFilter);
 
         return view;
@@ -272,6 +272,9 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
              if (intent.getAction().equals("skip_to_pager_1")) {
                  pager.setCurrentItem(1);
              }
+//             getContext().unregisterReceiver(this);
+//             BroadCastManager.getInstance().unregisterReceiver(getActivity(), receiver);
          }
+
      }
 }

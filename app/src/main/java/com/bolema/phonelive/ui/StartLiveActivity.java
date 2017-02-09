@@ -162,6 +162,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         super.initData();
 
         mUser = AppContext.getInstance().getLoginUser();
+
         mRoomNum = mUser.getId();
         liveAnchorName.setText(mUser.getUser_nicename());
         mTvLiveNumber.setText("ID号:" + mUser.getId());

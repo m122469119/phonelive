@@ -31,4 +31,13 @@ public class PrivateChatUserBean extends UserBean {
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
     }
+
+    @Override
+    public String toString() {
+        return "PrivateChatUserBean{" +
+                "lastMessage='" + lastMessage + '\'' +
+                ", unreadMessage=" + unreadMessage +
+                ", isattention2=" + isattention2 +
+                "} " + super.toString();
+    }
 }

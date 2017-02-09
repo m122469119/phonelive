@@ -15,6 +15,7 @@ import com.bolema.phonelive.api.remote.PhoneLiveApi;
 import com.bolema.phonelive.base.BaseApplication;
 import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.cache.DataCleanManager;
+import com.bolema.phonelive.model.MyNotifier;
 import com.bolema.phonelive.utils.CyptoUtils;
 import com.bolema.phonelive.utils.StringUtils;
 import com.bolema.phonelive.utils.TLog;
@@ -228,9 +229,9 @@ public class AppContext extends BaseApplication {
             Intent broadcastIntent = new Intent("com.bolema.phonelive");
             broadcastIntent.putExtra("cmd_value",messages.get(0));
             sendBroadcast(broadcastIntent, null);
-            //MyNotifier notifier = new MyNotifier();
-            //notifier.init(AppContext.getInstance());
-            //notifier.sendNotification(messages.get(0),false);
+//            MyNotifier notifier = new MyNotifier();
+//            notifier.init(AppContext.getInstance());
+//            notifier.sendNotification(messages.get(0),false);
 
             //收到消息
         }
@@ -370,6 +371,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.level", String.valueOf(user.getLevel()));
                 setProperty("user.birthday", String.valueOf(user.getBirthday()));
 
+                setProperty("user.viptype", user.getVip_type());
             }
         });
     }
@@ -399,6 +401,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.avatar_thumb",user.getAvatar_thumb() == null ? "" : user.getAvatar_thumb());
                 setProperty("user.level", String.valueOf(user.getLevel()));
                 setProperty("user.birthday", String.valueOf( user.getBirthday()));
+                setProperty("user.viptype", user.getVip_type());
 
             }
         });
@@ -428,6 +431,8 @@ public class AppContext extends BaseApplication {
         user.setLevel(Integer.parseInt(level == null?"0":level));
         user.setAvatar_thumb(getProperty("user.avatar_thumb"));
         user.setBirthday(getProperty("user.birthday"));
+        user.setVip_type(getProperty("user.viptype"));
+//        Log.d("userVip", getProperty("user.viplevel"));
 
         return user;
     }
@@ -438,7 +443,7 @@ public class AppContext extends BaseApplication {
     public void cleanLoginInfo() {
         this.loginUid = 0;
         this.login = false;
-        removeProperty("user.avatar_thumb","user.uid", "user.token", "user.name", "user.pwd", "user.avatar","user.sign","user.city","user.coin","user.sex","user.signature","user.signature","user.avatar","user.level");
+        removeProperty("user.avatar_thumb","user.uid", "user.token", "user.name", "user.pwd", "user.avatar","user.sign","user.city","user.coin","user.sex","user.signature","user.signature","user.avatar","user.level","user.viptype");
     }
 
     public int getLoginUid() {

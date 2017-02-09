@@ -81,6 +81,7 @@ public class SendSocketMessageBean {
         private String uhead;
         private String usign;
         private String evensend;
+        private int viptype;
 
         @Override
         public String toString() {
@@ -240,5 +241,12 @@ public class SendSocketMessageBean {
         public void setUsign(String usign) {
             this.usign = usign;
         }
+        public int getViptype(){
+            return viptype;
+        }
+        public void setViptype(int viptype){
+            this.viptype = viptype;
+        }
+
     }
 }

@@ -139,7 +139,9 @@ public class TopicSquaresFragment extends BaseFragment   {
         @Override
         public void onError(Call call, Exception e) {
             mSfTopicSquares.setRefreshing(false);
-            Toast.makeText(getActivity(),"获取信息失败,请检查网络设置",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(),"获取信息失败,请检查网络设置",Toast.LENGTH_SHORT).show();
+
+            AppContext.showToastShort("获取信息失败,请检查网络设置");
 
         }
 

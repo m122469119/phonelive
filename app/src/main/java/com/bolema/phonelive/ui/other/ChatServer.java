@@ -81,16 +81,19 @@ public class ChatServer {
         public void call(Object... args) {
             try {
                 String res = args[0].toString();
+                Log.d("vip_message", res);
                 if (res.equals("stopplay")) {
                     mChatServer.onSystemNot(1);
                     return;
                 }
+
                 JSONObject resJson = new JSONObject(res);
                 JSONArray msgArrayJson = resJson.getJSONArray("msg");
                 JSONObject contentJson = msgArrayJson.getJSONObject(0);
                 int msgType = contentJson.getInt("msgtype");
                 String method = contentJson.getString("_method_");
                 int action = contentJson.getInt("action");
+
 
                 //获取用户动作
                 switch (msgType) {
@@ -109,7 +112,9 @@ public class ChatServer {
                             //系统消息
                             onSystemMessage(contentJson);
 
-                        }else if(action == 7){
+                            KLog.json(contentJson.toString());
+
+                        } else if (action == 7) {
                             //弹幕
                             onDanmuMessage(contentJson, method);
                         }
@@ -117,6 +122,8 @@ public class ChatServer {
                     case NOTICE://通知
                         if (action == 0) {//上下线
                             JSONObject uInfo = contentJson.getJSONObject("ct");
+
+
                             ChatServer.LIVE_USER_NUMS += 1;
                             mChatServer.onUserStateChange(mGson.fromJson(uInfo.toString(), UserBean.class), true);
                         } else if (action == 1) {
@@ -133,7 +140,6 @@ public class ChatServer {
                         onPrivate(contentJson);
                         break;
                 }
-
 
 
             } catch (JSONException e) {
@@ -170,15 +176,17 @@ public class ChatServer {
         JSONObject jsonObject = new JSONObject(ct);
 
         c.setContent(jsonObject.getString("content"));
-        mChatServer.onMessageListen(1,c);
+        mChatServer.onMessageListen(1, c);
     }
 
     //系统消息
     private void onSystemMessage(JSONObject contentJson) throws JSONException {
         SpannableStringBuilder msg = new SpannableStringBuilder(contentJson.getString("ct"));
+        Log.d("contentJson", contentJson.getString("ct"));
         SpannableStringBuilder name = new SpannableStringBuilder("系统消息:");
         name.setSpan(new ForegroundColorSpan(Color.rgb(252, 221, 128)), 0, name.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         ChatBean c = new ChatBean();
         c.setType(13);
         c.setSendChatMsg(msg);
@@ -197,6 +205,7 @@ public class ChatServer {
         c.setSex(contentJson.getInt("sex"));
         c.setAvatar(contentJson.getString("uhead"));
 
+        c.setVip_type(contentJson.getString("viptype"));
 
         contentJson.getJSONObject("ct").put("evensend", contentJson.getString("evensend"));
 
@@ -207,7 +216,14 @@ public class ChatServer {
         SpannableStringBuilder msg = new SpannableStringBuilder("我送了" + mSendGiftInfo.getGiftcount() + "个" + mSendGiftInfo.getGiftname());
         SpannableStringBuilder name = new SpannableStringBuilder(uname);
 
-        Drawable d = context.getResources().getDrawable(DrawableRes.LevelImg[(level != 0 ? level - 1 : 0)]);
+        int viptype = Integer.parseInt(c.getVip_type());
+        Drawable d;
+        if (viptype == 1) {
+            d = context.getResources().getDrawable(DrawableRes.LevelVipImg[(level != 0 ? level - 1 : 0)]);
+        } else {
+            d = context.getResources().getDrawable(DrawableRes.LevelImg[(level != 0 ? level - 1 : 0)]);
+        }
+
         d.setBounds(0, 0, (int) TDevice.dpToPixel(30), (int) TDevice.dpToPixel(15));
         ImageSpan is = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
         name.setSpan(new ForegroundColorSpan(Color.rgb(252, 221, 128)), 1, name.length(),
@@ -236,16 +252,35 @@ public class ChatServer {
         c.setSex(contentJson.getInt("sex"));
         c.setAvatar(contentJson.getString("uhead"));
 
+        c.setVip_type(contentJson.getString("viptype"));
+//        c.setViplevel(contentJson.getString("viplevel"));
+
+//        KLog.json(contentJson.toString());
+
+//        String vip_level = contentJson.getString("viplevel");
 
         int level = c.getLevel();
+
         String uname = "_ " + c.getUser_nicename() + ":";
 
         SpannableStringBuilder msg = new SpannableStringBuilder(ct);
         SpannableStringBuilder name = new SpannableStringBuilder(uname);
         //添加等级图文混合
-        Drawable levelDrawable = context.getResources().getDrawable(DrawableRes.LevelImg[(level != 0 ? level - 1 : 0)]);
+        Drawable levelDrawable;
+
+//        KLog.d("" + vip_level + "vipthumb" + c.getVipthumb() + "viptype"+c.getVip_type());
+
+        int viptype = Integer.parseInt(c.getVip_type());
+        if (viptype == 1) {
+            levelDrawable = context.getResources().getDrawable(DrawableRes.LevelVipImg[(level != 0 ? level - 1 : 0)]);
+        } else {
+            levelDrawable = context.getResources().getDrawable(DrawableRes.LevelImg[(level != 0 ? level - 1 : 0)]);
+        }
+
         levelDrawable.setBounds(0, 0, (int) TDevice.dpToPixel(30), (int) TDevice.dpToPixel(15));
         ImageSpan levelImage = new ImageSpan(levelDrawable, ImageSpan.ALIGN_BASELINE);
+
+
         name.setSpan(new ForegroundColorSpan(Color.rgb(252, 221, 128)), 1, name.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -268,7 +303,7 @@ public class ChatServer {
             msg.append("❤");
             //添加点亮图文混合
             Drawable hearDrawable = context.getResources().getDrawable(heartImg[index]);
-            hearDrawable.setBounds(0,0, (int) TDevice.dpToPixel(10), (int) TDevice.dpToPixel(10));
+            hearDrawable.setBounds(0, 0, (int) TDevice.dpToPixel(10), (int) TDevice.dpToPixel(10));
             ImageSpan hearImage = new ImageSpan(hearDrawable, ImageSpan.ALIGN_BASELINE);
             msg.setSpan(hearImage, msg.length() - 1, msg.length(),
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -277,7 +312,7 @@ public class ChatServer {
         c.setUserNick(name);
 
 
-        mChatServer.onMessageListen(2,c);
+        mChatServer.onMessageListen(2, c);
     }
 
 
@@ -344,7 +379,7 @@ public class ChatServer {
      * @param handler 定时发送心跳包,在连接成功后调用
      */
     public void heartbeat(final Handler handler) {
-        if(handler != null){
+        if (handler != null) {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -389,7 +424,7 @@ public class ChatServer {
         }
         SendSocketMessageBean socketMessageBean = new SendSocketMessageBean();
         List<SendSocketMessageBean.MsgBean> msgBeanList = new ArrayList<>();
-        SendSocketMessageBean.MsgBean msgBean = getMsgBean("StartEndLive",context.getString(R.string.livestart),"18","1",0,null);
+        SendSocketMessageBean.MsgBean msgBean = getMsgBean("StartEndLive", context.getString(R.string.livestart), "18", "1", 0, null);
         msgBean.setTougood("");
         msgBean.setTouid(0);
         msgBean.setTouname("");
@@ -415,12 +450,14 @@ public class ChatServer {
         if (null != mSocket) {
             SendSocketMessageBean socketMessageBean = new SendSocketMessageBean();
             List<SendSocketMessageBean.MsgBean> msgBeanList = new ArrayList<>();
-            SendSocketMessageBean.MsgBean msgBean = getMsgBean("SendGift",token,"0","1",0,mUser);
+            SendSocketMessageBean.MsgBean msgBean = getMsgBean("SendGift", token, "0", "1", 0, mUser);
             msgBean.setTougood("");
             msgBean.setTouid(0);
             msgBean.setTouname("");
             msgBean.setUgood("");
             msgBean.setEvensend(evensend);
+            //判断是否为VIP会员
+            msgBean.setViptype(Integer.parseInt(mUser.getVip_type()));
             msgBeanList.add(msgBean);
             socketMessageBean.setMsg(msgBeanList);
             socketMessageBean.setRetcode("000000");
@@ -444,11 +481,13 @@ public class ChatServer {
 
             SendSocketMessageBean socketMessageBean = new SendSocketMessageBean();
             List<SendSocketMessageBean.MsgBean> msgBeanList = new ArrayList<>();
-            SendSocketMessageBean.MsgBean msgBean = getMsgBean("SendBarrage",token,"7","1",0,mUser);
+            SendSocketMessageBean.MsgBean msgBean = getMsgBean("SendBarrage", token, "7", "1", 0, mUser);
             msgBean.setTougood("");
             msgBean.setTouid(0);
             msgBean.setTouname("");
             msgBean.setUgood("");
+            //判断是否为VIP会员
+            msgBean.setViptype(Integer.parseInt(mUser.getVip_type()));
             msgBeanList.add(msgBean);
             socketMessageBean.setMsg(msgBeanList);
             socketMessageBean.setRetcode("000000");
@@ -504,10 +543,12 @@ public class ChatServer {
         }
         SendSocketMessageBean socketMessageBean = new SendSocketMessageBean();
         List<SendSocketMessageBean.MsgBean> msgBeanList = new ArrayList<>();
-        SendSocketMessageBean.MsgBean msgBean = getMsgBean("SystemNot",content,"13","4",0,user);
+        SendSocketMessageBean.MsgBean msgBean = getMsgBean("SystemNot", content, "13", "4", 0, user);
         msgBean.setTougood("");
         msgBean.setTouid(touser.getId());
         msgBean.setTouname(touser.getUser_nicename());
+        //判断是否为VIP会员
+        msgBean.setViptype(Integer.parseInt(user.getVip_type()));
         msgBeanList.add(msgBean);
         socketMessageBean.setMsg(msgBeanList);
         socketMessageBean.setRetcode("000000");
@@ -520,17 +561,20 @@ public class ChatServer {
         }
 
     }
+
     //发送系统消息
-    public void doSendSystemMessage(String msg,UserBean user){
+    public void doSendSystemMessage(String msg, UserBean user) {
         if (null == mSocket) {
             return;
         }
         SendSocketMessageBean socketMessageBean = new SendSocketMessageBean();
         List<SendSocketMessageBean.MsgBean> msgBeanList = new ArrayList<>();
-        SendSocketMessageBean.MsgBean msgBean = getMsgBean("SystemNot",msg,"13","4",0,user);
+        SendSocketMessageBean.MsgBean msgBean = getMsgBean("SystemNot", msg, "13", "4", 0, user);
         msgBean.setTougood("");
         msgBean.setTouid(0);
         msgBean.setTouname("");
+        //判断是否为VIP会员
+        msgBean.setViptype(Integer.parseInt(user.getVip_type()));
         msgBeanList.add(msgBean);
         socketMessageBean.setMsg(msgBeanList);
         socketMessageBean.setRetcode("000000");
@@ -554,11 +598,13 @@ public class ChatServer {
         }
         SendSocketMessageBean socketMessageBean = new SendSocketMessageBean();
         List<SendSocketMessageBean.MsgBean> msgBeanList = new ArrayList<>();
-        SendSocketMessageBean.MsgBean msgBean = getMsgBean("SendMsg",sendMsg,"0","2",reply,user);
+        SendSocketMessageBean.MsgBean msgBean = getMsgBean("SendMsg", sendMsg, "0", "2", reply, user);
         msgBean.setTougood("");
         msgBean.setTouid(reply);
         msgBean.setTouname("");
         msgBean.setUgood("");
+        //判断是否为VIP会员
+        msgBean.setViptype(Integer.parseInt(user.getVip_type()));
         msgBeanList.add(msgBean);
         socketMessageBean.setMsg(msgBeanList);
         socketMessageBean.setRetcode("000000");
@@ -569,7 +615,6 @@ public class ChatServer {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -581,6 +626,8 @@ public class ChatServer {
         if (null == mSocket) {
             return;
         }
+
+//        Log.d("userVip", user.getViplevel());
         JSONObject msgJson = new JSONObject();
         JSONObject msgJson2 = new JSONObject();
         JSONArray msgArrJson = new JSONArray();
@@ -597,6 +644,7 @@ public class ChatServer {
             msgJson2.put("touid", 0);
             msgJson2.put("ugood", "");
             msgJson2.put("city", AppContext.address);
+
             msgJson2.put("level", user.getLevel());
             msgJson2.put("uid", user.getId());
             msgJson2.put("sex", user.getSex());
@@ -609,14 +657,16 @@ public class ChatServer {
             msgJson.put("retcode", "000000");
             msgJson.put("retmsg", "ok");
 
+            msgJson2.put("viptype", user.getVip_type());
             mSocket.emit(EVENT_NAME, msgJson);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
+
     //获取发送消息bean对象
-    private SendSocketMessageBean.MsgBean getMsgBean(String method,String ct,String action,String msgType,int reply,UserBean mUser){
+    private SendSocketMessageBean.MsgBean getMsgBean(String method, String ct, String action, String msgType, int reply, UserBean mUser) {
         SendSocketMessageBean.MsgBean msgBean = new SendSocketMessageBean.MsgBean();
         msgBean.set_method_(method);
         msgBean.setAction(action);
@@ -624,7 +674,7 @@ public class ChatServer {
         msgBean.setMsgtype(msgType);
         msgBean.setTimestamp(millisToStringDate(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss"));
         msgBean.setCity(AppContext.address);
-        if(mUser != null){
+        if (mUser != null) {
             msgBean.setUgood(String.valueOf(mUser.getId()));
             msgBean.setLevel(mUser.getLevel());
             msgBean.setUid(mUser.getId());
@@ -636,6 +686,7 @@ public class ChatServer {
 
         return msgBean;
     }
+
     //获取僵尸粉丝
     public void getZombieFans() {
         if (null == mSocket) {
@@ -643,7 +694,7 @@ public class ChatServer {
         }
         SendSocketMessageBean socketMessageBean = new SendSocketMessageBean();
         List<SendSocketMessageBean.MsgBean> msgBeanList = new ArrayList<>();
-        SendSocketMessageBean.MsgBean msgBean = getMsgBean("requestFans","","","",0,null);
+        SendSocketMessageBean.MsgBean msgBean = getMsgBean("requestFans", "", "", "", 0, null);
         Log.d("msgBean", msgBean.toString());
         msgBean.setTougood("");
         msgBean.setTouid(0);
@@ -715,7 +766,7 @@ public class ChatServer {
         public void onResponse(String s) {
 
             String res = ApiUtils.checkIsSuccess(s);
-            KLog.json(res);
+//            KLog.json(res);
 
             if (res != null) {
                 try {

@@ -166,6 +166,7 @@ public class UserInfoDialogFragment extends DialogFragment {
                     mTvTicketNum.setText("魅力值:" + u.getVotestotal());
 
                     //等级
+
                     mIvLevel.setImageResource(DrawableRes.LevelImg[u.getLevel()==0?0:u.getLevel()-1]);
 
                     //位置信息 2016.09.06 wp

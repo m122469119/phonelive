@@ -291,10 +291,10 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
             mInfo = new Gson().fromJson(res, UserBean.class);
             AppContext.getInstance().updateUserInfo(mInfo);
             try {
-                mLiveNum.setText(mInfo.getLiverecordnum());
-                mFollowNum.setText(mInfo.getAttentionnum());
-                mFansNum.setText(mInfo.getFansnum());
-                mSendNum.setText("送出:  " + mInfo.getConsumption());
+                mLiveNum.setText(String.valueOf(mInfo.getLiverecordnum()));
+                mFollowNum.setText(String.valueOf(mInfo.getAttentionnum()));
+                mFansNum.setText(String.valueOf(mInfo.getFansnum()));
+                mSendNum.setText("送出:  " + String.valueOf(mInfo.getConsumption()));
             } catch (NullPointerException | Resources.NotFoundException e) {
                 e.printStackTrace();
             }

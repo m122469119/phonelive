@@ -36,6 +36,20 @@
                     android:layout_height="wrap_content" />
             </com.zhy.autolayout.AutoLinearLayout>
 
+            <TextView
+                android:id="@+id/tv_now_living"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_30"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@drawable/white_triangle"
+                android:text="正在直播"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_13"
+                android:paddingRight="@dimen/space_25"
+                android:paddingTop="@dimen/space_10"
+                android:drawablePadding="@dimen/space_5"
+                />
+
         </com.zhy.autolayout.AutoRelativeLayout>
         <!--头像-->
         <com.bolema.phonelive.widget.AvatarView

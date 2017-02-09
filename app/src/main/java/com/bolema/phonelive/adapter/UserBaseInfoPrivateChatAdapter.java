@@ -1,5 +1,6 @@
 package com.bolema.phonelive.adapter;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -60,8 +61,19 @@ public class UserBaseInfoPrivateChatAdapter extends BaseAdapter {
         PrivateChatUserBean u = users.get(position);
         Core.getKJBitmap().display(viewHolder.mUHead, u.getAvatar());
 
+
+
         viewHolder.mUSex.setImageResource(u.getSex() == 1 ? R.drawable.global_male : R.drawable.global_female);
-        viewHolder.mULevel.setImageResource(DrawableRes.LevelImg[u.getLevel()-1<0?0:u.getLevel()-1]);
+
+
+//        Log.e("isVip", u.getVip_type() + u.getViplevel() + u.getVipthumb());
+//        if (u.getViplevel()!=null) {
+//            viewHolder.mULevel.setImageResource(DrawableRes.LevelVipImg[u.getLevel()-1<0?0:u.getLevel()-1]);
+//        } else {
+            viewHolder.mULevel.setImageResource(DrawableRes.LevelImg[u.getLevel()-1<0?0:u.getLevel()-1]);
+//        }
+
+
         viewHolder.mUNice.setText(u.getUser_nicename());
         viewHolder.mULastMsg.setText(u.getLastMessage());
         viewHolder.mUnread.setVisibility(u.isUnreadMessage()?View.VISIBLE:View.GONE);
