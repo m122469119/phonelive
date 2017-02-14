@@ -1,5 +1,6 @@
 package com.bolema.phonelive;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -32,6 +33,7 @@ import com.bolema.phonelive.utils.MethodsCompat;
 import org.kymjs.kjframe.Core;
 
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
@@ -62,6 +64,7 @@ public class AppContext extends BaseApplication {
     private UserBean userBean;
 
     public static String registrationId; //极光推送单一设备ID值
+
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -557,5 +560,6 @@ public class AppContext extends BaseApplication {
         if(context == null) return;
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
     }
+
 
 }

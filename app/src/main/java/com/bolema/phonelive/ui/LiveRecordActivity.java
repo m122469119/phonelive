@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
@@ -49,6 +50,8 @@ public class LiveRecordActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
+
         mLiveRecordList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

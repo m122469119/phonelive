@@ -20,6 +20,9 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +32,7 @@ import android.widget.TextView;
 
 import com.bolema.phonelive.AppConfig;
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
@@ -59,7 +63,6 @@ import com.ksy.recordlib.service.core.KSYStreamerConfig;
 import com.ksy.recordlib.service.streamer.OnStatusListener;
 import com.ksy.recordlib.service.streamer.RecorderConstants;
 import com.ksy.recordlib.service.util.audio.KSYBgmPlayer;
-import com.socks.library.KLog;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -99,10 +102,11 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     @InjectView(R.id.fl_bottom_menu)
     FrameLayout mFlBottomMenu;
 
-    @InjectView(R.id.rl_live_music)
+
     LinearLayout mViewShowLiveMusicLrc;
     @InjectView(R.id.live_anchor_name)
     TextView liveAnchorName;
+
 
     private String stream;
 
@@ -131,7 +135,9 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     private MediaPlayer mPlayer;
 
     private boolean flashingLightOn;
+//    private LiveReceiver liveReceiver;
 
+    public static StartLiveActivity instance;
 
     @Override
     protected int getLayoutId() {
@@ -141,7 +147,9 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     @Override
     public void initView() {
         super.initView();
-
+        AppManager.getAppManager().addActivity(this);
+        instance = this;
+        mViewShowLiveMusicLrc = (LinearLayout) findViewById(R.id.rl_live_music);
         //防止聊天软键盘挤压屏幕
         mRoot.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -151,9 +159,28 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
                 }
             }
         });
-
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction("pullblack");
+//
+//        liveReceiver = new LiveReceiver();
+////        liveReceiver.setPullBlackListener(new PullBlackListener() {
+////            @Override
+////            public void pullblack() {
+////                videoPlayerEnd();
+////                showLiveEndDialog(mUser.getId(), mLiveEndYpNum);
+////            }
+////        });
+//        BroadCastManager.getInstance().registerReceiver(this, liveReceiver, intentFilter);
     }
 
+    /**
+     * 获得当前app运行的AppContext
+     *
+     * @return
+     */
+    public static StartLiveActivity getInstance() {
+        return instance;
+    }
 
     private boolean isFrontCameraMirro = false;
 
@@ -316,6 +343,8 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
                 break;
         }
     }
+
+
 
     private void showCameraControl(View v) {
         showPopUp(v);
@@ -556,8 +585,6 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
                     }
                 }
             });
-
-
         }
 
         //特权动作
@@ -726,7 +753,9 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
             }
 
         }
-    };
+    }
+
+    ;
 
     //返回键监听
     @Override
@@ -785,7 +814,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     }
 
     //关闭直播
-    private void videoPlayerEnd() {
+    public void videoPlayerEnd() {
         IS_START_LIVE = false;
 
         mGiftShowQueue.clear();
@@ -974,6 +1003,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
 
     @Override
     protected void onDestroy() {
+        videoPlayerEnd();
         mChatServer.close();
         if (mStreamer != null) {
             mStreamer.stopStream();
@@ -1037,5 +1067,32 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     public void share(View v) {
         ShareUtils.share(this, v.getId(), mUser);
     }
+//
+//    public class LiveReceiver extends BroadcastReceiver {
+//
+////    private PullBlackListener pullBlackListener;
+////
+////    public void setPullBlackListener(PullBlackListener pullBlackListener) {
+////        this.pullBlackListener = pullBlackListener;
+////    }
+//
+//
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (intent.getAction().equals("pullblack")) {
+//
+//                videoPlayerEnd();
+//
+//                Bundle bundle = intent.getExtras();
+//                bundle.putBoolean("out", true);
+//                setResultExtras(bundle);
+//                TLog.log("[MyReceiver]直播间");
+//            }
+//
+//        }
+//
+//
+//    }
 
 }

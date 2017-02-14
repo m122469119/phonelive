@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bolema.phonelive.AppManager;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,6 +57,7 @@ public class TopicSquaresActivity  extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         setActionBarTitle("最新话题");
         mRvTopicList.setLayoutManager(new LinearLayoutManager(this));
         mRvTopicList.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));

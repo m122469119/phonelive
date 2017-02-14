@@ -54,7 +54,7 @@ public class PhoneChangePassActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     @Override

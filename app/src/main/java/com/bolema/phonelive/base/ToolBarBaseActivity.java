@@ -1,7 +1,10 @@
 package com.bolema.phonelive.base;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -24,6 +27,7 @@ import com.bolema.phonelive.interf.BaseViewInterface;
 import com.bolema.phonelive.interf.DialogControl;
 import com.bolema.phonelive.ui.dialog.CommonToast;
 import com.bolema.phonelive.utils.DialogHelp;
+import com.bolema.phonelive.utils.LoginUtils;
 import com.bolema.phonelive.utils.StringUtils;
 import com.bolema.phonelive.utils.TDevice;
 import com.githang.statusbar.StatusBarCompat;
@@ -40,11 +44,13 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
 
     private Toolbar toolbar;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
 
     }
+
     public static final String INTENT_ACTION_EXIT_APP = "INTENT_ACTION_EXIT_APP";
 
     private boolean _isVisible;
@@ -81,14 +87,17 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.global));
 //        }
-        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this,R.color.global));
+        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.global));
         // 通过注解绑定控件
         ButterKnife.inject(this);
         init(savedInstanceState);
         initView();
         initData();
         _isVisible = true;
+
+
     }
+
     @Override
     public void setContentView(int layoutId) {
         setContentView(View.inflate(this, layoutId, null));
@@ -101,6 +110,7 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
         rootLayout.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         initToolbar();
     }
+
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvActionTitle = (TextView) findViewById(R.id.toolbar_title);
@@ -116,7 +126,8 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
     }
 
 
-    protected void onBeforeSetContentLayout() {}
+    protected void onBeforeSetContentLayout() {
+    }
 
     protected boolean hasActionBar() {
         return true;
@@ -138,7 +149,8 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
         return false;
     }
 
-    protected void init(Bundle savedInstanceState) {}
+    protected void init(Bundle savedInstanceState) {
+    }
 
     protected void initActionBar(ActionBar actionBar) {
         if (actionBar == null)
@@ -176,7 +188,7 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
 
     public void setToolbarColor(int colorId) {
         if (colorId != 0) {
-            mTvActionTitle.setTextColor(ContextCompat.getColor(getApplicationContext(),colorId));
+            mTvActionTitle.setTextColor(ContextCompat.getColor(getApplicationContext(), colorId));
         }
     }
 
@@ -202,15 +214,17 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
     }
-    public void showToast3(String msg,int time) {
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+
+    public void showToast3(String msg, int time) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     public void showToast(int msgResid, int icon, int gravity) {
         showToast(getString(msgResid), icon, gravity);
     }
-    public void showToast2(String msg){
-        AppContext.showToastAppMsg(this,msg);
+
+    public void showToast2(String msg) {
+        AppContext.showToastAppMsg(this, msg);
     }
 
     public void showToast(String message, int icon, int gravity) {
@@ -258,14 +272,12 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
         }
     }
 
-    protected int getUserID()
-    {
+    protected int getUserID() {
         return AppContext.getInstance().getLoginUid();
     }
 
 
-    protected String getUserToken()
-    {
+    protected String getUserToken() {
         return AppContext.getInstance().getToken();
     }
 
@@ -276,10 +288,15 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
         // setOverflowIconVisible(featureId, menu);
         return super.onMenuOpened(featureId, menu);
     }
+
     native int init(Context context);
 
 
     static {
         //System.loadLibrary("ksyaac");
     }
+
+
+
+
 }

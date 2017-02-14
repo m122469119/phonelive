@@ -19,6 +19,7 @@ import com.android.tedcoder.wkvideoplayer.model.VideoUrl;
 import com.android.tedcoder.wkvideoplayer.util.DensityUtil;
 import com.android.tedcoder.wkvideoplayer.view.MediaController;
 import com.android.tedcoder.wkvideoplayer.view.SuperVideoPlayer;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.bean.LiveRecordBean;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
@@ -58,6 +59,7 @@ public class VideoBackActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         mPlayBtnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

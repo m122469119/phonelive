@@ -145,7 +145,6 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
         //int sH = (int) (screenWidth / (3/1));
         //slideshowView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-
         // 异步任务获取图片
         PhoneLiveApi.getIndexHotRollpic(pagerCallBack);
     }

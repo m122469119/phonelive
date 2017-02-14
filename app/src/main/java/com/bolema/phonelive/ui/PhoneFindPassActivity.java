@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.bean.UserBean;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
@@ -51,10 +52,12 @@ public class PhoneFindPassActivity extends ToolBarBaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_find_pass;
+
     }
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         mBtnSendCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

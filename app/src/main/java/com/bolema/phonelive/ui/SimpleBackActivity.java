@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
 import com.bolema.phonelive.bean.SimpleBackPage;
 import com.bolema.phonelive.R;
@@ -28,7 +29,7 @@ public class SimpleBackActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     @Override

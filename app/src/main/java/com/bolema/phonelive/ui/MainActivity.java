@@ -22,11 +22,15 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.bolema.phonelive.broadcast.BroadCastManager;
+//import com.bolema.phonelive.broadcast.PullOutReceiver;
 import com.bolema.phonelive.interf.BaseViewInterface;
+import com.bolema.phonelive.interf.PullBlackListener;
 import com.bolema.phonelive.utils.ExampleUtil;
 import com.bolema.phonelive.utils.TLog;
 import com.bolema.phonelive.utils.UIHelper;
 import com.bolema.phonelive.utils.UpdateManager;
+import com.bolema.phonelive.viewpagerfragment.IndexPagerFragment;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.umeng.analytics.MobclickAgent;
@@ -55,6 +59,7 @@ public class MainActivity extends ToolBarBaseActivity implements
         View.OnTouchListener {
     @InjectView(android.R.id.tabhost)
     MyFragmentTabHost mTabHost;
+    private PullOutReceiver receiver;
 
 //    public static boolean isForeground = false;
 //    //for receive customer msg from jpush server
@@ -76,6 +81,8 @@ public class MainActivity extends ToolBarBaseActivity implements
     @Override
     public void initView() {
         AppManager.getAppManager().addActivity(this);
+
+
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
         if (android.os.Build.VERSION.SDK_INT > 10) {
             mTabHost.getTabWidget().setShowDividers(0);
@@ -88,6 +95,25 @@ public class MainActivity extends ToolBarBaseActivity implements
         mTabHost.setOnTabChangedListener(this);
         mTabHost.setNoTabChangedTag("1");
 //        registerMessageReceiver();  // used for receive msg
+
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("pullblack");
+        receiver = new PullOutReceiver();
+////        receiver.setPullBlackListener(new PullBlackListener() {
+////            @Override
+////            public void pullblack() {
+////                //拉黑退出登录
+////                LoginUtils.outLogin(MainActivity.this);
+////                finish();
+////            }
+////        });
+//
+//
+////        receiver.setActivity(this);
+////        receiver.closeOtherActivity(this);
+
+        BroadCastManager.getInstance().registerReceiver(this, receiver, intentFilter);
     }
 
     private void initTabs() {
@@ -396,5 +422,46 @@ public class MainActivity extends ToolBarBaseActivity implements
 //            }
 //        }
 //    }
+//public class PullOutReceiver extends BroadcastReceiver {
+//    //    private PullBlackListener pullBlackListener;
+////
+////    public void setPullBlackListener(PullBlackListener pullBlackListener) {
+////        this.pullBlackListener = pullBlackListener;
+////    }
+////    public Activity activity;
+//////    public PullOutReceiver(Activity activity) {
+//////        this.activity = activity;
+//////    }
+////
+////    public void setActivity(Activity activity) {
+////        this.activity = activity;
+////    }
+//    @Override
+//    public void onReceive(Context context, Intent intent) {
+//
+//        if (intent.getAction().equals("pullblack")) {
+//
+//
+//            LoginUtils.outLogin(context);
+//
+//            //拉黑退出登录
+////            LoginUtils.outLogin(context);
+//            abortBroadcast(); //切断广播
+//            TLog.log("[MyReceiver]主页面");
+//        }
+//    }
+//
+//
+//}
 
+    public class PullOutReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("pullblack")) {
+                LoginUtils.outLogin(context);
+                AppManager.getAppManager().finishAllActivity();
+            }
+        }
+    }
 }

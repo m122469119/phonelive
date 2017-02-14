@@ -40,7 +40,8 @@
                         android:id="@+id/live_anchor_name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_11"
-                        android:text="直播Live"
+                        android:text="直播"
+                        android:layout_marginRight="20px"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -155,6 +156,22 @@
             android:id="@+id/danmakuView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_80" />
+
+        <TextView
+            android:id="@+id/tv_welcome_vip"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_34"
+            android:text="天涯进入了房间"
+            android:textColor="#fe0048"
+            android:textSize="@dimen/space_15"
+            android:gravity="center|left"
+            android:paddingLeft="@dimen/space_45"
+            android:layout_marginTop="@dimen/space_22"
+            android:layout_marginBottom="@dimen/space_22"
+            android:layout_marginLeft="@dimen/space_13"
+            android:layout_marginRight="@dimen/space_21"
+            android:background="@drawable/welcome_vip" />
 
         <!--聊天listview-->
         <ListView

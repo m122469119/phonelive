@@ -157,6 +157,12 @@ public class LiveLoginSelectActivity extends ToolBarBaseActivity implements Plat
     };
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (bmp!=null)

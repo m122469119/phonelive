@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.bolema.phonelive.AppManager;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 import com.bolema.phonelive.AppContext;
@@ -49,6 +51,7 @@ public class DedicateOrderActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
 
     }
     @Override

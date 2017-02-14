@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bolema.phonelive.AppConfig;
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.adapter.GridViewAdapter;
 import com.bolema.phonelive.adapter.ViewPageGridViewAdapter;
@@ -174,6 +175,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
     @Override
     public void initView() {
         super.initView();
+        AppManager.getAppManager().addActivity(this);
         mLiveChat.setVisibility(View.VISIBLE);
         //startLoadingAnimation();
         mVideoSurfaceView.addOnLayoutChangeListener(this);

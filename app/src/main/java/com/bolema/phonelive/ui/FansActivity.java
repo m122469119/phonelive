@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.utils.UIHelper;
@@ -51,6 +52,8 @@ public class FansActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
+
         mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this,R.color.global));
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

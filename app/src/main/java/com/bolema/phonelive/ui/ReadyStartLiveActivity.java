@@ -15,6 +15,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.utils.InputMethodUtils;
@@ -61,6 +62,7 @@ public class ReadyStartLiveActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         //默认新浪微博share
         ImageView mSinnaWeiBoShare = (ImageView) findViewById(R.id.iv_live_share_weibo);
         mSinnaWeiBoShare.setOnClickListener(new View.OnClickListener() {

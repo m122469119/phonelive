@@ -53,6 +53,15 @@ public class LoginUtils {
         UIHelper.showLoginSelectActivity(context);
     }
 
+    public static void contextLoginOut(Context context) {
+        //环信退出登陆
+        EMClient.getInstance().logout(true);
+        AppContext.getInstance().Logout();
+        UIHelper.showLoginSelectActivity2(context);
+    }
+
+
+
     public static void tokenIsOutTime(StringCallback callback){
         PhoneLiveApi.tokenIsOutTime(AppContext.getInstance().getLoginUid(),AppContext.getInstance().getToken(),callback);
     }

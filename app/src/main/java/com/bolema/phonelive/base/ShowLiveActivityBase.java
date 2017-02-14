@@ -27,7 +27,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -157,6 +159,8 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
     @InjectView(R.id.tglbtn_danmu_setting)
     protected Button mBtnDanMu;
 
+    @InjectView(R.id.tv_welcome_vip)
+    TextView tvWelcomeVip;
 
     //弹幕控制 HHH
     protected DanmuControl mDanmuControl;
@@ -370,6 +374,8 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
             @Override
             public void onResponse(String response) {
                 String res = ApiUtils.checkIsSuccess(response);
+                KLog.json(res);
+
                 if(null != res){
                     try {
                         JSONObject jsonObj = new JSONObject(res);
@@ -988,14 +994,21 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
     //添加一条聊天
     protected void addChatMessage(ChatBean c){
         if(mChats.size()>30)mChats.remove(0);
-        mChats.add(c);
-        mChatListAdapter.setChats(mChats);
-        mChatListAdapter.notifyDataSetChanged();
-        //HHH 2016-09-08 Null指针退出
-        if(mLvChatList!=null)
-        {
-            mLvChatList.setSelection(mChats.size() - 1);
+
+        if (c.getSendChatMsg().toString().contains("欢迎VIP")) {
+            String msg = c.getSendChatMsg().toString().replace("欢迎VIP会员", "");
+            startAnimation(msg);
+        } else {
+            mChats.add(c);
+            mChatListAdapter.setChats(mChats);
+            mChatListAdapter.notifyDataSetChanged();
+            //HHH 2016-09-08 Null指针退出
+            if(mLvChatList!=null)
+            {
+                mLvChatList.setSelection(mChats.size() - 1);
+            }
         }
+
 
     }
 
@@ -1179,6 +1192,56 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         BitmapDrawable bd = new BitmapDrawable(getResources(), bm);
 
         return bd;
+    }
+
+    public void startAnimation(String msg) {
+        AnimationSet animationSet = new AnimationSet(true);
+        tvWelcomeVip.setText(msg);
+        TranslateAnimation translateAnimation = new TranslateAnimation(
+                //参数1～2：x轴的开始位置      
+                //参数3～4：y轴的开始位置     
+                //参数5～6：x轴的结束位置    
+                //参数7～8：y轴的结束位置
+                Animation.RELATIVE_TO_SELF, -1f,
+                Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 0f
+        );
+        translateAnimation.setDuration(1500);
+        TranslateAnimation translateAnimation2 = new TranslateAnimation(
+                //参数1～2：x轴的开始位置      
+                //参数3～4：y轴的开始位置     
+                //参数5～6：x轴的结束位置    
+                //参数7～8：y轴的结束位置
+                Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 0f
+        );
+        translateAnimation2.setDuration(2000);
+
+        animationSet.addAnimation(translateAnimation);
+
+        animationSet.addAnimation(translateAnimation2);
+
+        animationSet.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                tvWelcomeVip.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                tvWelcomeVip.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        tvWelcomeVip.startAnimation(animationSet);
     }
 
     //弹幕状态控制 HHH

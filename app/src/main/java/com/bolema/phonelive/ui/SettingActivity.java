@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bolema.phonelive.AppConfig;
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
 import com.bolema.phonelive.utils.LoginUtils;
@@ -38,6 +39,7 @@ public class SettingActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         bg_view = findViewById(R.id.bg_gone);
     }
 

@@ -3,6 +3,8 @@ package com.bolema.phonelive.ui;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
 
@@ -19,7 +21,7 @@ public class AlipayResultActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     @Override

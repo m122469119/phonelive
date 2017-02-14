@@ -47,7 +47,7 @@ import okhttp3.Call;
 /**
  * 直播间业务逻辑处理
  */
-public class ChatServer {
+public class  ChatServer {
     public static final int[] heartImg = new int[]{R.drawable.plane_heart_cyan, R.drawable.plane_heart_pink, R.drawable.plane_heart_red, R.drawable.plane_heart_yellow};
     private static final String EVENT_NAME = "broadcast";
     private static final int SEND_CHAT = 2;
@@ -109,6 +109,7 @@ public class ChatServer {
                             //房间关闭
                             mChatServer.onSystemNot(0);
                         } else if (action == 13) {
+
                             //系统消息
                             onSystemMessage(contentJson);
 

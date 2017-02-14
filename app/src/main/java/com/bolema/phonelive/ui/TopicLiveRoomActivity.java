@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.utils.UIHelper;
 import com.bolema.phonelive.widget.AvatarView;
@@ -63,7 +64,7 @@ public class TopicLiveRoomActivity extends ToolBarBaseActivity implements SwipeR
 
     @Override
     public void initView() {
-
+        AppManager.getAppManager().addActivity(this);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.global));
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mListUserRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -9,6 +9,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.google.gson.Gson;
 import com.bolema.phonelive.AppContext;
@@ -53,6 +54,7 @@ public class TopicTitleListActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         setActionBarTitle("今日话题");
         mSfTopicTitle.setColorSchemeColors(getResources().getColor(R.color.actionbarbackground));
         mSfTopicTitle.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

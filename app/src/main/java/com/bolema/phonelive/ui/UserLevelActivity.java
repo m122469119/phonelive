@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.bolema.phonelive.AppConfig;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.bolema.phonelive.R;
@@ -28,7 +29,7 @@ public class UserLevelActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     @Override

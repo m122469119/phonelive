@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
 import com.bolema.phonelive.bean.SimpleBackPage;
@@ -31,7 +32,7 @@ public class ActionBarSimpleBackActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
@@ -46,6 +47,8 @@ public class BuyVipActivity extends ToolBarBaseActivity {
     @Override
     public void initView() {
         setActionBarTitle("购买VIP");
+        AppManager.getAppManager().addActivity(this);
+
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.utils.ImageUtils;
@@ -58,7 +59,7 @@ public class UserSelectAvatarActivity extends ToolBarBaseActivity {
     private String theLarge;
     @Override
     public void initView() {
-
+        AppManager.getAppManager().addActivity(this);
     }
 
     @Override

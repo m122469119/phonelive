@@ -14,11 +14,15 @@
     <include  layout="@layout/view_live_content"/>
 
     <!--歌词提示start-->
-    <include  layout="@layout/view_live_music_lrc"/>
+    <include  layout="@layout/view_live_music_lrc"
+        android:id="@+id/include" />
     <!--歌词提示end-->
 
 
     <!--底部菜单-->
     <include layout="@layout/view_show_start_live_button_menu" />
+
+
+
 
 </com.zhy.autolayout.AutoRelativeLayout>

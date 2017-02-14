@@ -44,14 +44,26 @@ public class PushReceiver extends BroadcastReceiver {
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
 			TLog.log("[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
 
-        	processCustomMessage(context, bundle);
+
+//        	processCustomMessage(context, bundle);
         
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
 			TLog.log("[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+			String alert = bundle.getString(JPushInterface.EXTRA_ALERT);
 			TLog.log("[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+			TLog.log("[MyReceiver] 接收到推送下来的通知的alert: " + alert);
+			if (alert != null && alert.equals("您已被管理员拉黑，请与管理员联系")) {
+				Intent pullBlackIntent = new Intent();
+				pullBlackIntent.setAction("pullblack");
+//				TLog.log("[MyReceiver] 接收到推送下来的通知的alert: " + alert);
+				//发送有序广播,通知直播间，播放间和mainactivity关闭拉黑退出登录
+				context.sendBroadcast(pullBlackIntent);
+			}
 
 
+//			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+//			TLog.log("[MyReceiver] 接收到推送下来的通知的Message: " + message);
 
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
@@ -80,6 +92,7 @@ public class PushReceiver extends BroadcastReceiver {
         } else if(JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
         	boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
 			TLog.log(TAG, "[MyReceiver]" + intent.getAction() +" connected state change to "+connected);
+
 		} else {
 			TLog.log(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
 		}
@@ -139,5 +152,6 @@ public class PushReceiver extends BroadcastReceiver {
 //			}
 //			context.sendBroadcast(msgIntent);
 		}
-//	}
+
+
 }

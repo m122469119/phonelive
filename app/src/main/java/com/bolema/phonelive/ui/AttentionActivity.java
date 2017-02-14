@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.adapter.UserBaseInfoAdapter;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
@@ -43,6 +44,8 @@ public class AttentionActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
+
         mRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.actionbarbackground));
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

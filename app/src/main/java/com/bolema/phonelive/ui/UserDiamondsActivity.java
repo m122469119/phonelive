@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bolema.phonelive.AppManager;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -90,6 +91,7 @@ public class UserDiamondsActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         mHeadView = getLayoutInflater().inflate(R.layout.view_diamonds_head, null);
         mWxPay = (RelativeLayout) mHeadView.findViewById(R.id.rl_wxpay);
         mAliPay = (RelativeLayout) mHeadView.findViewById(R.id.rl_alipay);

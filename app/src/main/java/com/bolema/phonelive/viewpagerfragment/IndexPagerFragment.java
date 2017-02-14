@@ -264,7 +264,7 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
    }
 
 
-     class LocalReceiver extends BroadcastReceiver{
+   public   class LocalReceiver extends BroadcastReceiver{
 
          @Override
          public void onReceive(Context context, Intent intent) {

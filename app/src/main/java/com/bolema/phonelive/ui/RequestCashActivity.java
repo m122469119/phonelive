@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
@@ -25,11 +26,13 @@ public class RequestCashActivity extends ToolBarBaseActivity {
 
     @Override
     protected int getLayoutId() {
+
         return R.layout.activity_request_cash;
     }
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         setActionBarTitle("金额提现");
     }
 

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
 import com.bolema.phonelive.bean.UserBean;
@@ -55,6 +56,7 @@ public class PhoneRegActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         mBtnSendCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

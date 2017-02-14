@@ -2,49 +2,43 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bolema.phonelive">
 
-
-    <!--请求访问使用照相设备权限-->
+    <!-- 请求访问使用照相设备权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!--访问闪光灯权限-->
+    <!-- 访问闪光灯权限 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <!--震动权限？-->
+    <!-- 震动权限？ -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!--允许程序录制音频-->
+    <!-- 允许程序录制音频 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!--访问GMail账户列表-->
+    <!-- 访问GMail账户列表 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <!--允许一个程序通过账户验证方式访问账户管理ACCOUNT_MANAGER相关信息-->
+    <!-- 允许一个程序通过账户验证方式访问账户管理ACCOUNT_MANAGER相关信息 -->
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <!--允许一个程序广播常用intents-->
+    <!-- 允许一个程序广播常用intents -->
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
 
-    <!--拨打电话权限？？？  为啥要这个权限-->
-    <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
+    <!-- 拨打电话权限？？？  为啥要这个权限 -->
+    <!-- <uses-permission android:name="android.permission.CALL_PHONE" /> -->
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <!--允许一个程序打开窗口使用TYPE_SYSTEM_ALERT，显示在其他所有程序的顶层-->
+    <!-- 允许一个程序打开窗口使用TYPE_SYSTEM_ALERT，显示在其他所有程序的顶层 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <uses-permission android:name="android.permission.READ_PHONE_SINTERNETWIFI_STATE" />
 
-
-    <!--允许使用PowerManager的 WakeLocks保持进程在休眠时从屏幕消失-->
+    <!-- 允许使用PowerManager的 WakeLocks保持进程在休眠时从屏幕消失 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--允许程序修改全局音频设置-->
+    <!-- 允许程序修改全局音频设置 -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
+    <!-- 允许一个程序接收到ACTION_BOOT_COMPLETED广播在系统完成启动 强制自启动 -->
+    <!-- <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> -->
 
-    <!--允许一个程序接收到ACTION_BOOT_COMPLETED广播在系统完成启动 强制自启动-->
-    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
 
-
-    <!--允许程序管理AccountManager中的账户列表-->
+    <!-- 允许程序管理AccountManager中的账户列表 -->
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <!-- 蓝牙分享所需的权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -62,13 +56,13 @@
     <uses-permission android:name="com.bolema.phonelive.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--允许挂载和反挂载文件系统可移动存储-->
+    <!-- 允许挂载和反挂载文件系统可移动存储 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <!--允许程序读取或写入系统设置-->
+    <!-- 允许程序读取或写入系统设置 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <!--允许应用程序访问额外的位置提供命令-->
+    <!-- 允许应用程序访问额外的位置提供命令 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <!--允许程序改变网络连接状态-->
+    <!-- 允许程序改变网络连接状态 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <!-- jpush -->
 
@@ -90,8 +84,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
@@ -101,7 +93,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <!--适配 设计稿设计尺寸-->
+        <!-- 适配 设计稿设计尺寸 -->
         <meta-data
             android:name="design_width"
             android:value="720" />
@@ -165,6 +157,7 @@
             android:name=".ui.LiveLoginSelectActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="登陆选择"
+                android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.UserInfoDetailActivity"
@@ -424,6 +417,7 @@
 
         <!-- 腾讯Bugly配置 -->
 
+
         <!-- 配置APP ID -->
         <meta-data
             android:name="BUGLY_APPID"
@@ -436,29 +430,49 @@
         <meta-data
             android:name="BUGLY_APP_CHANNEL"
             android:value="myChannel" />
-        <!-- 配置Bugly调试模式（true或者false）-->
+        <!-- 配置Bugly调试模式（true或者false） -->
         <meta-data
             android:name="BUGLY_ENABLE_DEBUG"
             android:value="true" />
-
 
         <activity android:name=".ui.VideoBackActivity" />
         <activity
             android:name=".ui.ReadyStartLiveActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.BuyVipActivity" />
-        <activity android:name=".ui.ExchangeVoteActivity" />
+        <activity android:name=".ui.HomePageActivity$ExchangeVoteActivity" />
         <activity android:name=".ui.TopicListActivity" />
         <activity android:name=".ui.TopicTitleListActivity" />
         <activity android:name=".ui.TopicLiveRoomActivity" />
         <activity android:name=".ui.SplashActivity" />
         <activity android:name=".ui.PhoneChangePassActivity" />
         <activity android:name=".ui.RequestCashActivity" />
-        <activity android:name=".ui.TopicSquaresActivity" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".ui.TopicSquaresActivity" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <!--<receiver-->
+            <!--android:name=".ui.StartLiveActivity$LiveReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter android:priority="1000">-->
+                <!--<action android:name="pullblack" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--<receiver-->
+            <!--android:name=".ui.MainActivity$PullOutReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter android:priority="800">-->
+                <!--<action android:name="pullblack" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
     </application>
 
 </manifest>

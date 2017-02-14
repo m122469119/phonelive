@@ -14,6 +14,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bolema.phonelive.AppManager;
 import com.umeng.analytics.MobclickAgent;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
@@ -41,6 +43,7 @@ public class WebViewActivity extends ToolBarBaseActivity implements View.OnClick
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
 
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 

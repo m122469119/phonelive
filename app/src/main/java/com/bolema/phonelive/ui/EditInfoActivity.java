@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bolema.phonelive.AppManager;
 import com.umeng.analytics.MobclickAgent;
 import com.bolema.phonelive.AppContext;
 import com.bolema.phonelive.R;
@@ -60,6 +61,8 @@ public class EditInfoActivity extends ToolBarBaseActivity {
         mIvBack.setOnClickListener(this);
         mInfoClean.setOnClickListener(this);
         mBtnSave.setOnClickListener(this);
+        AppManager.getAppManager().addActivity(this);
+
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.utils.UIHelper;
 import com.bolema.phonelive.widget.AvatarView;
@@ -66,6 +67,7 @@ public class UserInfoDetailActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         mRlUserNick.setOnClickListener(this);
         mRlUserSign.setOnClickListener(this);
         mRlUserHead.setOnClickListener(this);

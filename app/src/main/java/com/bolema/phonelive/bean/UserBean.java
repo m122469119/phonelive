@@ -44,10 +44,18 @@ public class UserBean implements Serializable {
     private String stream;
     private String avatar_thumb;
     private String distance;
-
+    private int uid;
     private String viplevel; //HHH 2016-09-13
     private String vip_thumb;
     private String vip_type;
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid() {
+        this.uid = uid;
+    }
 
     public String getViplevel() {
         return viplevel;

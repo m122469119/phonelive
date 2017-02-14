@@ -21,7 +21,6 @@ import com.bolema.phonelive.bean.SimpleBackPage;
 import com.bolema.phonelive.ui.AttentionActivity;
 import com.bolema.phonelive.em.ChangInfo;
 import com.bolema.phonelive.ui.BuyVipActivity;
-import com.bolema.phonelive.ui.ExchangeVoteActivity;
 import com.bolema.phonelive.ui.PhoneChangePassActivity;
 import com.bolema.phonelive.ui.PhoneFindPassActivity;
 import com.bolema.phonelive.ui.PhoneRegActivity;
@@ -100,6 +99,13 @@ public class UIHelper {
      */
     public static void showLoginSelectActivity(Context context) {
         Intent intent = new Intent(context, LiveLoginSelectActivity.class);
+
+        context.startActivity(intent);
+
+    }
+    public static void showLoginSelectActivity2(Context context) {
+        Intent intent = new Intent(context, LiveLoginSelectActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
 
     }
@@ -333,7 +339,7 @@ public class UIHelper {
      * 兑换播币
      */
     public static void showExchangeVoteActivity(Context context, int uid,String votes) {
-        Intent intent = new Intent(context, ExchangeVoteActivity.class);
+        Intent intent = new Intent(context, HomePageActivity.ExchangeVoteActivity.class);
         intent.putExtra("uid",uid);
         context.startActivity(intent);
     }

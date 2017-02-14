@@ -5,16 +5,22 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
@@ -22,8 +28,12 @@ import com.bolema.phonelive.base.ToolBarBaseActivity;
 import com.bolema.phonelive.bean.LiveRecordBean;
 import com.bolema.phonelive.bean.OrderBean;
 import com.bolema.phonelive.bean.PrivateChatUserBean;
+import com.bolema.phonelive.bean.ProfitBean;
+import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.bean.UserHomePageBean;
+import com.bolema.phonelive.cache.DataSingleton;
 import com.bolema.phonelive.utils.BlurUtil;
+import com.bolema.phonelive.utils.GsonTools;
 import com.bolema.phonelive.utils.UIHelper;
 import com.bolema.phonelive.widget.AvatarView;
 import com.bumptech.glide.Glide;
@@ -103,6 +113,10 @@ public class HomePageActivity extends ToolBarBaseActivity {
     ImageView ivUnFollow;
     @InjectView(R.id.head_layout)
     AutoLinearLayout headLayout;
+    @InjectView(R.id.tv_now_living)
+    TextView tvNowLiving;
+
+    private List<UserBean> mUserList = new ArrayList<>();
 
     //当前选中的直播记录bean
     private LiveRecordBean mLiveRecordBean;
@@ -111,6 +125,9 @@ public class HomePageActivity extends ToolBarBaseActivity {
     private UserHomePageBean mUserHomePageBean;
     ArrayList<LiveRecordBean> mRecordList = new ArrayList<>();
 
+    private int live = 0;
+    private UserBean userBean = null;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_home;
@@ -118,6 +135,8 @@ public class HomePageActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
+
         mOrderTopNoThree[0] = (AvatarView) findViewById(R.id.av_home_page_order1);
         mOrderTopNoThree[1] = (AvatarView) findViewById(R.id.av_home_page_order2);
         mOrderTopNoThree[2] = (AvatarView) findViewById(R.id.av_home_page_order3);
@@ -146,10 +165,34 @@ public class HomePageActivity extends ToolBarBaseActivity {
             @Override
             public void onResponse(String response) {
                 String res = ApiUtils.checkIsSuccess(response);
+
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    JSONObject dataJson = json.getJSONObject("data");
+
+                    live = dataJson.getInt("live");
+
+                    JSONObject liveInfoJson = dataJson.getJSONObject("liveinfo");
+
+                    if (live == 1) {
+                        userBean = new Gson().fromJson(liveInfoJson.toString(), UserBean.class);
+                        userBean.setId(userBean.getUid());
+                        mUserList.add(userBean);
+                    } else {
+                        userBean = null;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 if (res != null) {
                     mUserHomePageBean = new Gson().fromJson(res, UserHomePageBean.class);
                     fillUI();
                 }
+
+
+
             }
         };
         //请求用户信息
@@ -226,6 +269,18 @@ public class HomePageActivity extends ToolBarBaseActivity {
         for (int i = 0; i < os.size(); i++) {
             mOrderTopNoThree[i].setAvatarUrl(os.get(i).getAvatar());
         }
+        tvNowLiving.setVisibility(userBean != null ? View.VISIBLE : View.INVISIBLE);
+
+        tvNowLiving.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
+                DataSingleton.getInstance().setPostion(0);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("USER_INFO",userBean);
+                UIHelper.showLookLiveActivity(HomePageActivity.this,bundle);
+            }
+        });
 //        获取头像
 //        mUHead.setAvatarUrl(mUserHomePageBean.getAvatar());
         Glide.with(this)
@@ -234,6 +289,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
                 .centerCrop()
                 .into(new SimpleTarget<Bitmap>() {
                     Bitmap bitmap;
+
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         mUHead.setImageBitmap(resource);
@@ -274,14 +330,14 @@ public class HomePageActivity extends ToolBarBaseActivity {
             case R.id.tv_home_page_index_btn:
                 mHomeIndexPage.setVisibility(View.VISIBLE);
                 mHomeVideoPage.setVisibility(View.GONE);
-                mPageIndexBtn.setTextColor(ContextCompat.getColor(this,R.color.global));
-                mPageVideoBtn.setTextColor(ContextCompat.getColor(this,R.color.black));
+                mPageIndexBtn.setTextColor(ContextCompat.getColor(this, R.color.global));
+                mPageVideoBtn.setTextColor(ContextCompat.getColor(this, R.color.black));
                 break;
             case R.id.tv_home_page_video_btn:
                 mHomeIndexPage.setVisibility(View.GONE);
                 mHomeVideoPage.setVisibility(View.VISIBLE);
-                mPageIndexBtn.setTextColor(ContextCompat.getColor(this,R.color.black));
-                mPageVideoBtn.setTextColor(ContextCompat.getColor(this,R.color.global));
+                mPageIndexBtn.setTextColor(ContextCompat.getColor(this, R.color.black));
+                mPageVideoBtn.setTextColor(ContextCompat.getColor(this, R.color.global));
                 //直播记录回放
                 requestData();
                 break;
@@ -314,6 +370,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
         @Override
         public void onResponse(String response) {
             String res = ApiUtils.checkIsSuccess(response);
+            mRecordList.clear();
             if (null != res) {
                 try {
                     JSONObject liveRecordJsonObj = new JSONObject(res);
@@ -462,5 +519,215 @@ public class HomePageActivity extends ToolBarBaseActivity {
     protected void onDestroy() {//BBB
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag("getHomePageUInfo");
+    }
+
+    /**
+     * 兑换播币
+     */
+    public static class ExchangeVoteActivity extends ToolBarBaseActivity {
+
+        @InjectView(R.id.tv_coin)
+        TextView tvCoin;
+        @InjectView(R.id.rl_message)
+        LinearLayout rlMessage;
+        @InjectView(R.id.tv_exchange_rate)
+        TextView tvExchangeRate;
+        @InjectView(R.id.et_diamonds_num)
+        EditText etDiamondsNum;
+        @InjectView(R.id.tv_votes_num)
+        TextView tvVotesNum;
+        @InjectView(R.id.btn_exchange_vote)
+        Button btnExchangeVote;
+        @InjectView(R.id.tv_exchange_note)
+        TextView tvExchangeNote;
+
+
+        private ProfitBean mProfitBean;
+        private int uid;
+        private int exRate;
+        private String votes;
+        private boolean isLoaded;
+
+        @Override
+        protected boolean hasActionBar() {
+            return true;
+        }
+
+        @Override
+        protected boolean hasBackButton() {
+            return true;
+        }
+
+        @Override
+        protected int getLayoutId() {
+            return R.layout.activity_exchange_vote;
+        }
+
+        private TextWatcher watcher = new TextWatcher() {
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+
+                tvVotesNum.setText("");
+                String diamondsNumStr = etDiamondsNum.getText().toString().trim();
+                if (diamondsNumStr.equals("")) {
+                    tvCoin.setText(votes);
+                    return;
+                }
+                int votesNum = Integer.parseInt(etDiamondsNum.getText().toString()) * exRate;
+                if (votesNum < 0 || votesNum > Integer.parseInt(votes)) {
+                    tvCoin.setText("0");
+                    tvVotesNum.setText(votes);
+                    btnExchangeVote.setEnabled(false);
+                    return;
+                } else {
+                    btnExchangeVote.setEnabled(true);
+                }
+                tvVotesNum.setText(String.valueOf(votesNum));
+                tvCoin.setText(String.valueOf(Integer.parseInt(votes) - votesNum));
+
+            }
+
+        };
+
+        @Override
+        public void initView() {
+
+            etDiamondsNum.addTextChangedListener(watcher);
+        }
+
+        @Override
+        public void initData() {
+            setActionBarTitle("兑换播币");
+            uid = getIntent().getIntExtra("uid", -1);
+            requestData();
+        }
+
+        private StringCallback getVoteRateConfigCallback = new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e) {
+                showToast2("获取信息失败,请检查网络设置");
+            }
+
+            @Override
+            public void onResponse(String response) {
+                String res = ApiUtils.checkIsSuccess(response);
+                Gson g = new Gson();
+                if (res != null) {
+                    try {
+                        JSONObject jsono = new JSONObject(res);
+                        if (jsono.has("ex_rate")) {
+                            exRate = jsono.getInt("ex_rate");
+                            tvExchangeNote.setText(exRate + "魅力值可兑换1播币");
+                            tvExchangeRate.setText("1:" + exRate);
+                        } else {
+                            Toast.makeText(ExchangeVoteActivity.this, "兑换比率获取异常", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        };
+
+        private StringCallback exchangVoteCallback = new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e) {
+                showToast2("获取信息失败,请检查网络设置");
+            }
+
+            @Override
+            public void onResponse(String response) {
+                String res = ApiUtils.checkIsSuccess(response);
+                Gson g = new Gson();
+                if (res != null) {
+
+                    Toast.makeText(ExchangeVoteActivity.this, res, Toast.LENGTH_SHORT).show();
+                    votes = tvCoin.getText().toString();
+                    etDiamondsNum.setText("");
+
+                }
+            }
+        };
+
+
+        private void requestData() {
+
+            StringCallback callback = new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e) {
+
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    String res = ApiUtils.checkIsSuccess(response);
+
+                    if (null != res) {
+                        mProfitBean = new Gson().fromJson(res, ProfitBean.class);
+                        votes = mProfitBean.getVotes();
+                        tvCoin.setText(mProfitBean.getVotes());
+                    }
+                }
+            };
+            PhoneLiveApi.getWithdraw(AppContext.getInstance().getLoginUid(), AppContext.getInstance().getToken(), callback);
+
+            PhoneLiveApi.getCharge(AppContext.getInstance().getLoginUid(), new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e) {
+
+                }
+
+                @Override
+                public void onResponse(String response) {
+
+                    String res = ApiUtils.checkIsSuccess(response);
+                    if (res != null) {
+                        try {
+                            JSONObject object = new JSONObject(res);
+                            //mCoin.setText(object.getString("coin"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            });
+
+            PhoneLiveApi.getConfig(getVoteRateConfigCallback);
+        }
+
+        @OnClick(R.id.btn_exchange_vote)
+        public void onClick(View v) {
+
+            switch (v.getId()) {
+                case R.id.btn_exchange_vote:
+                    PhoneLiveApi.exchangVote(uid, tvVotesNum.getText().toString(), exchangVoteCallback);
+                    break;
+            }
+
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            ButterKnife.inject(this);
+        }
     }
 }

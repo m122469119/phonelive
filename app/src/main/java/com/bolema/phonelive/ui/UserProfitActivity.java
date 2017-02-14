@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bolema.phonelive.AppConfig;
 import com.bolema.phonelive.AppContext;
+import com.bolema.phonelive.AppManager;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
 import com.bolema.phonelive.base.ToolBarBaseActivity;
@@ -50,6 +51,7 @@ public class UserProfitActivity extends ToolBarBaseActivity {
 
     @Override
     public void initView() {
+        AppManager.getAppManager().addActivity(this);
         mIvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

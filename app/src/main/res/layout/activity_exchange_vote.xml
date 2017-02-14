@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context="com.bolema.phonelive.ui.ExchangeVoteActivity">
+    tools:context="com.bolema.phonelive.ui.HomePageActivity$ExchangeVoteActivity">
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_marginTop="30px"
