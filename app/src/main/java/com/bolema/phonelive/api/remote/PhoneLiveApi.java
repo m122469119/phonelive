@@ -293,6 +293,19 @@ public class PhoneLiveApi {
     }
 
     /**
+     * 判断主播是否仍在直播
+     */
+    public static void isStillLiving(String uid, StringCallback callback) {
+        OkHttpUtils.get()
+                .url(AppConfig.MAIN_URL)
+                .addParams("service", "Music.isliving")
+                .addParams("uid", uid)
+                .tag("phonelive")
+                .build()
+                .execute(callback);
+    }
+
+    /**
      * @param uid   其他用户id
      * @param ucuid 当前用户自己的id
      * @dw 获取其他用户信息

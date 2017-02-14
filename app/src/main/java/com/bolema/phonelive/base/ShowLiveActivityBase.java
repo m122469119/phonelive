@@ -896,6 +896,9 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
      * @param mSendGiftInfo 赠送礼物信息
      * */
     protected void showOrdinaryGiftInit(final SendGiftBean mSendGiftInfo){
+
+
+        Log.d("SendGiftInfo", mSendGiftInfo.getNicename());
         //礼物动画View
         View mShowGiftLayout = mGiftShowNow.get(mSendGiftInfo.getUid());
         //设置当前礼物赠送时间

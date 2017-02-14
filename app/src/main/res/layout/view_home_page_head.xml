@@ -61,7 +61,6 @@
             android:layout_height="@dimen/space_70" />
         <com.zhy.autolayout.AutoLinearLayout
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/space_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
@@ -69,6 +68,7 @@
                 android:id="@+id/tv_home_page_uname"
                 android:textSize="@dimen/text_size_15"
                 android:textColor="@color/white"
+                android:paddingTop="@dimen/space_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <ImageView

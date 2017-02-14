@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.bolema.phonelive.adapter.HotViewPagerAdapter;
 import com.bolema.phonelive.bean.RollPicBean;
 import com.bolema.phonelive.bean.UserBean;
+import com.bolema.phonelive.ui.HomePageActivity;
 import com.bolema.phonelive.utils.TDevice;
 import com.bolema.phonelive.widget.SlideshowView;
 import com.bumptech.glide.Glide;
@@ -47,6 +48,7 @@ import com.squareup.picasso.Picasso;
 import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,16 +123,58 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                //跳转直播间
-                DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
-                DataSingleton.getInstance().setPostion(position-1);
                 UserBean user = mUserList.get(position-1 );
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("USER_INFO",user);
-                UIHelper.showLookLiveActivity(getActivity(),bundle);
+                PhoneLiveApi.isStillLiving(String.valueOf(user.getUid()),stillliveCallback);
+
+//                //跳转直播间
+//                DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
+//                DataSingleton.getInstance().setPostion(position-1);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("USER_INFO",user);
+//                UIHelper.showLookLiveActivity(getActivity(),bundle);
             }
         });
     }
+
+    /**
+     * 请求服务器判断主播是否仍在直播回调
+     * @param v
+     */
+    public StringCallback stillliveCallback = new StringCallback() {
+        @Override
+        public void onError(Call call, Exception e) {
+
+        }
+
+        @Override
+        public void onResponse(String response) {
+            String res = ApiUtils.checkIsSuccess(response);
+            KLog.json(res);
+
+
+            try {
+                JSONObject resJson = new JSONObject(response);
+                if(Integer.parseInt(resJson.getString("ret")) == 200){
+                    JSONObject dataJson =  resJson.getJSONObject("data");
+                    JSONArray jsonArray = dataJson.getJSONArray("info");
+                    UserBean userBean = new Gson().fromJson(jsonArray.getJSONObject(0).toString(), UserBean.class);
+
+                    String islive = jsonArray.getJSONObject(0).getString("islive");
+                    if (islive.equals("1")) {
+                        DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
+                        DataSingleton.getInstance().setPostion(0);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("USER_INFO", userBean);
+                        UIHelper.showLookLiveActivity(getActivity(), bundle);
+                    } else {
+                        AppContext.showToastShort("直播已结束");
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     @Override
     public void initData() {

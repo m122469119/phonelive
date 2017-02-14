@@ -31,7 +31,7 @@
                 android:layout_height="@dimen/space_25"/>
             <ImageView
                 android:id="@+id/tv_item_ulevel"
-                android:layout_width="@dimen/space_60"
+                android:layout_width="@dimen/space_30"
                 android:layout_height="@dimen/space_25" />
         </com.zhy.autolayout.AutoLinearLayout>
 

@@ -42,6 +42,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
+import com.socks.library.KLog;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -274,11 +275,9 @@ public class HomePageActivity extends ToolBarBaseActivity {
         tvNowLiving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
-                DataSingleton.getInstance().setPostion(0);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("USER_INFO",userBean);
-                UIHelper.showLookLiveActivity(HomePageActivity.this,bundle);
+
+                PhoneLiveApi.isStillLiving(String.valueOf(userBean.getUid()), callback);
+
             }
         });
 //        获取头像
@@ -313,6 +312,46 @@ public class HomePageActivity extends ToolBarBaseActivity {
 
 
     }
+
+    /**
+     * 请求服务器判断主播是否仍在直播回调
+     * @param v
+     */
+    public StringCallback callback = new StringCallback() {
+        @Override
+        public void onError(Call call, Exception e) {
+
+        }
+
+        @Override
+        public void onResponse(String response) {
+            String res = ApiUtils.checkIsSuccess(response);
+            KLog.json(res);
+
+
+            try {
+                JSONObject resJson = new JSONObject(response);
+                if(Integer.parseInt(resJson.getString("ret")) == 200){
+                    JSONObject dataJson =  resJson.getJSONObject("data");
+                    JSONArray jsonArray = dataJson.getJSONArray("info");
+                    UserBean userBean = new Gson().fromJson(jsonArray.getJSONObject(0).toString(), UserBean.class);
+
+                    String islive = jsonArray.getJSONObject(0).getString("islive");
+                    if (islive.equals("1")) {
+                        DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
+                        DataSingleton.getInstance().setPostion(0);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("USER_INFO", userBean);
+                        UIHelper.showLookLiveActivity(HomePageActivity.this, bundle);
+                    } else {
+                        AppContext.showToastShort("直播已结束");
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     @OnClick({R.id.ll_home_page_menu_lahei, R.id.ll_home_page_menu_privatechat, R.id.ll_home_page_menu_follow, R.id.rl_home_pager_yi_order, R.id.tv_home_page_follow, R.id.tv_home_page_index_btn, R.id.tv_home_page_video_btn, R.id.iv_home_page_back, R.id.tv_home_page_fans})
     @Override
@@ -490,9 +529,12 @@ public class HomePageActivity extends ToolBarBaseActivity {
 
             @Override
             public void onResponse(String response) {
+                KLog.json(response);
+
                 mUserHomePageBean.setIsattention(mUserHomePageBean.getIsattention() == 0 ? 1 : 0);
                 mFollowState.setText(mUserHomePageBean.getIsattention() == 0 ? getString(R.string.follow2) : getString(R.string.alreadyfollow));
                 ivUnFollow.setImageResource(mUserHomePageBean.getIsattention() == 0 ? R.drawable.weiguanzhu : R.drawable.yiguanzhu);
+
             }
         };
         PhoneLiveApi.showFollow(AppContext.getInstance().getLoginUid(), uid, AppContext.getInstance().getToken(), callback);

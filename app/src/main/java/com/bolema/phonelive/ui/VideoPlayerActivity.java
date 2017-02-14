@@ -53,6 +53,7 @@ import com.ksyun.media.player.KSYMediaPlayer;
 import com.socks.library.KLog;
 import com.tandong.bottomview.view.BottomView;
 import com.umeng.analytics.MobclickAgent;
+import com.zhy.autolayout.AutoRelativeLayout;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
@@ -165,6 +166,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
     boolean upOrDown = true;
 
     float minimumVelocity;
+    private AutoRelativeLayout autoRelativeLayout;
 
 
     @Override
@@ -459,6 +461,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
         ((TextView) mSendGiftLian.findViewById(R.id.tv_show_gift_outtime)).setText("");
         mSendGiftLian.setVisibility(View.GONE);
         mSendGiftBtn.setVisibility(View.VISIBLE);
+        autoRelativeLayout.setVisibility(View.VISIBLE);
         mShowGiftSendOutTime = 5;
     }
 
@@ -494,6 +497,13 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
             }
         });
         mSendGiftBtn = (Button) mGiftView.findViewById(R.id.btn_show_send_gift);
+        autoRelativeLayout = (AutoRelativeLayout) mGiftView.findViewById(R.id.layout_show_send_gift);
+        autoRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickSendGift(v);
+            }
+        });
         mSendGiftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -515,7 +525,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
      * @param v btn
      * @dw 点击赠送礼物按钮
      */
-    private void onClickSendGift(View v) {//赠送礼物
+    private void onClickSendGift( View v) {//赠送礼物
         if (!mConnectionState) {//没有连接ok
             return;
         }
@@ -528,6 +538,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                     if (mShowGiftSendOutTime == 1) {
                         recoverySendGiftBtnLayout();
                         mHandler.removeCallbacks(this);
+
                         return;
                     }
                     mHandler.postDelayed(this, 1000);
