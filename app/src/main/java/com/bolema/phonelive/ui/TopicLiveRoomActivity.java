@@ -75,7 +75,7 @@ public class TopicLiveRoomActivity extends ToolBarBaseActivity implements SwipeR
                 DataSingleton.getInstance().setPostion(position );
                 UserBean user = mUserList.get(position);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("USER_INFO", user);
+                bundle.putParcelable("USER_INFO", user);
                 UIHelper.showLookLiveActivity(TopicLiveRoomActivity.this, bundle);
             }
         });

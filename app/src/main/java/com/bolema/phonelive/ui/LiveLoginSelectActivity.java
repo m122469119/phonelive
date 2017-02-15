@@ -94,6 +94,7 @@ public class LiveLoginSelectActivity extends ToolBarBaseActivity implements Plat
         other.showUser(null);//执行登录，登录后在回调里面获取用户资料
         other.SSOSetting(false);  //设置false表示使用SSO授权方式
         other.setPlatformActionListener(this);
+        other.authorize();//单独授权
         other.removeAccount(true);
     }
 

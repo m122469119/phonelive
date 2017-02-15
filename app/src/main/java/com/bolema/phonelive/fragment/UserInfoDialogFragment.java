@@ -342,7 +342,7 @@ public class UserInfoDialogFragment extends DialogFragment {
                 PrivateChatUserBean chatUserBean = new Gson().fromJson(res,PrivateChatUserBean.class);
                 MessageDetailDialogFragment messageFragment = new MessageDetailDialogFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("user",chatUserBean);
+                bundle.putParcelable("user",chatUserBean);
                 messageFragment.setArguments(bundle);
                 //messageFragment.setStyle(MessageDetailDialogFragment.STYLE_NO_TITLE,0);
                 messageFragment.show(activity.getSupportFragmentManager(),"MessageDetailDialogFragment");

@@ -23,6 +23,7 @@ import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.broadcast.BroadCastManager;
 import com.bolema.phonelive.cache.DataSingleton;
 import com.bolema.phonelive.ui.VideoPlayerActivity;
+import com.bolema.phonelive.utils.StillLiveUtils;
 import com.bolema.phonelive.utils.UIHelper;
 import com.bolema.phonelive.viewpagerfragment.IndexPagerFragment;
 import com.google.gson.Gson;
@@ -96,6 +97,8 @@ public class AttentionFragment extends BaseFragment {
     @Override
     public void initData() {
         int uid = AppContext.getInstance().getLoginUid();
+
+
         PhoneLiveApi.getAttentionLive(AppContext.getInstance().getLoginUid(), callback);
 
 
@@ -154,12 +157,17 @@ public class AttentionFragment extends BaseFragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
+
                     DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
                     DataSingleton.getInstance().setPostion(position);
 
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(VideoPlayerActivity.USER_INFO, mUserList.get(position));
-                    UIHelper.showLookLiveActivity(getActivity(), bundle);
+                    StillLiveUtils stillLiveUtils = new StillLiveUtils(getActivity());
+                    PhoneLiveApi.isStillLiving(String.valueOf(mUserList.get(position).getUid()), stillLiveUtils.getStillcallback());
+
+//                    Bundle bundle = new Bundle();
+//                    bundle.putParcelable(VideoPlayerActivity.USER_INFO, mUserList.get(position));
+//                    UIHelper.showLookLiveActivity(getActivity(), bundle);
                 }
             });
         }

@@ -341,7 +341,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
                         DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
                         DataSingleton.getInstance().setPostion(0);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("USER_INFO", userBean);
+                        bundle.putParcelable("USER_INFO", userBean);
                         UIHelper.showLookLiveActivity(HomePageActivity.this, bundle);
                     } else {
                         AppContext.showToastShort("直播已结束");

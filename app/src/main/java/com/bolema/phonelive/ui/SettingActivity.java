@@ -94,7 +94,7 @@ public class SettingActivity extends ToolBarBaseActivity {
                     @Override
                     public void onClick(View v) {
                         LoginUtils.outLogin(SettingActivity.this);
-                        finish();
+                       AppManager.getAppManager().finishAllActivity();
                     }
                 });
                 no.setOnClickListener(new View.OnClickListener() {

@@ -220,7 +220,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
         Bundle bundle = getIntent().getBundleExtra(USER_INFO);
         //获取用户登陆信息
         mUser = AppContext.getInstance().getLoginUser();
-        mEmceeInfo = (UserBean) bundle.getSerializable("USER_INFO");
+        mEmceeInfo = bundle.getParcelable("USER_INFO");
 
         liveAnchorName.setText(mEmceeInfo.getUser_nicename());
 

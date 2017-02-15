@@ -1,12 +1,16 @@
 package com.bolema.phonelive.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  */
-public class UserBean implements Serializable {
+public class UserBean implements Parcelable {
     private int id = 0;
     private String user_login;
     private String user_pass;
@@ -422,4 +426,115 @@ public class UserBean implements Serializable {
                 ", vip_type='" + vip_type + '\'' +
                 '}';
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.user_login);
+        dest.writeString(this.user_pass);
+        dest.writeString(this.user_nicename);
+        dest.writeString(this.user_email);
+        dest.writeString(this.user_url);
+        dest.writeString(this.avatar);
+        dest.writeInt(this.sex);
+        dest.writeString(this.birthday);
+        dest.writeString(this.signature);
+        dest.writeString(this.last_login_ip);
+        dest.writeString(this.last_login_time);
+        dest.writeString(this.create_time);
+        dest.writeString(this.user_activation_key);
+        dest.writeString(this.user_status);
+        dest.writeString(this.score);
+        dest.writeInt(this.user_type);
+        dest.writeString(this.coin);
+        dest.writeString(this.mobile);
+        dest.writeString(this.token);
+        dest.writeString(this.expiretime);
+        dest.writeString(this.votes);
+        dest.writeString(this.province);
+        dest.writeString(this.city);
+        dest.writeString(this.consumption);
+        dest.writeInt(this.level);
+        dest.writeInt(this.isattention);
+        dest.writeInt(this.attentionnum);
+        dest.writeString(this.fansnum);
+        dest.writeInt(this.liverecordnum);
+        dest.writeString(this.title);
+        dest.writeString(this.nums);
+        dest.writeList(this.coinrecord3);
+        dest.writeInt(this.uType);
+        dest.writeString(this.stream);
+        dest.writeString(this.avatar_thumb);
+        dest.writeString(this.distance);
+        dest.writeInt(this.uid);
+        dest.writeString(this.viplevel);
+        dest.writeString(this.vip_thumb);
+        dest.writeString(this.vip_type);
+    }
+
+    public UserBean() {
+    }
+
+    protected UserBean(Parcel in) {
+        this.id = in.readInt();
+        this.user_login = in.readString();
+        this.user_pass = in.readString();
+        this.user_nicename = in.readString();
+        this.user_email = in.readString();
+        this.user_url = in.readString();
+        this.avatar = in.readString();
+        this.sex = in.readInt();
+        this.birthday = in.readString();
+        this.signature = in.readString();
+        this.last_login_ip = in.readString();
+        this.last_login_time = in.readString();
+        this.create_time = in.readString();
+        this.user_activation_key = in.readString();
+        this.user_status = in.readString();
+        this.score = in.readString();
+        this.user_type = in.readInt();
+        this.coin = in.readString();
+        this.mobile = in.readString();
+        this.token = in.readString();
+        this.expiretime = in.readString();
+        this.votes = in.readString();
+        this.province = in.readString();
+        this.city = in.readString();
+        this.consumption = in.readString();
+        this.level = in.readInt();
+        this.isattention = in.readInt();
+        this.attentionnum = in.readInt();
+        this.fansnum = in.readString();
+        this.liverecordnum = in.readInt();
+        this.title = in.readString();
+        this.nums = in.readString();
+        this.coinrecord3 = new ArrayList<OrderBean>();
+        in.readList(this.coinrecord3, OrderBean.class.getClassLoader());
+        this.uType = in.readInt();
+        this.stream = in.readString();
+        this.avatar_thumb = in.readString();
+        this.distance = in.readString();
+        this.uid = in.readInt();
+        this.viplevel = in.readString();
+        this.vip_thumb = in.readString();
+        this.vip_type = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserBean> CREATOR = new Parcelable.Creator<UserBean>() {
+        @Override
+        public UserBean createFromParcel(Parcel source) {
+            return new UserBean(source);
+        }
+
+        @Override
+        public UserBean[] newArray(int size) {
+            return new UserBean[size];
+        }
+    };
 }

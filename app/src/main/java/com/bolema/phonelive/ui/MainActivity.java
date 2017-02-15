@@ -22,8 +22,10 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.broadcast.BroadCastManager;
 //import com.bolema.phonelive.broadcast.PullOutReceiver;
+import com.bolema.phonelive.cache.DataSingleton;
 import com.bolema.phonelive.interf.BaseViewInterface;
 import com.bolema.phonelive.interf.PullBlackListener;
 import com.bolema.phonelive.utils.ExampleUtil;
@@ -31,8 +33,10 @@ import com.bolema.phonelive.utils.TLog;
 import com.bolema.phonelive.utils.UIHelper;
 import com.bolema.phonelive.utils.UpdateManager;
 import com.bolema.phonelive.viewpagerfragment.IndexPagerFragment;
+import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.socks.library.KLog;
 import com.umeng.analytics.MobclickAgent;
 import com.bolema.phonelive.AppContext;
 import com.bolema.phonelive.AppManager;
@@ -45,6 +49,12 @@ import com.bolema.phonelive.utils.LoginUtils;
 import com.bolema.phonelive.widget.MyFragmentTabHost;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import butterknife.InjectView;
@@ -68,7 +78,7 @@ public class MainActivity extends ToolBarBaseActivity implements
 //    public static final String KEY_TITLE = "title";
 //    public static final String KEY_MESSAGE = "message";
 //    public static final String KEY_EXTRAS = "extras";
-
+private List<UserBean> mUserList = new ArrayList<>();
 
 
     @Override
@@ -177,11 +187,54 @@ public class MainActivity extends ToolBarBaseActivity implements
         Bundle bundle = getIntent().getBundleExtra("USER_INFO");
 
         if (bundle != null) {
-            UIHelper.showLookLiveActivity(this, bundle);
+
+            UserBean u = bundle.getParcelable("USER_INFO");
+            if (u != null) {
+                PhoneLiveApi.isStillLiving(String.valueOf(u.getUid()), callback);
+            }
+//            UIHelper.showLookLiveActivity(this, bundle);
         }
 
     }
 
+    /**
+     * 请求服务器判断主播是否仍在直播回调
+     * @param v
+     */
+    public StringCallback callback = new StringCallback() {
+        @Override
+        public void onError(Call call, Exception e) {
+
+        }
+
+        @Override
+        public void onResponse(String response) {
+
+            try {
+                JSONObject resJson = new JSONObject(response);
+                if(Integer.parseInt(resJson.getString("ret")) == 200){
+                    JSONObject dataJson =  resJson.getJSONObject("data");
+                    JSONArray jsonArray = dataJson.getJSONArray("info");
+                    UserBean userBean = new Gson().fromJson(jsonArray.getJSONObject(0).toString(), UserBean.class);
+                    mUserList.clear();
+                    mUserList.add(userBean);
+                    String islive = jsonArray.getJSONObject(0).getString("islive");
+                    if (islive.equals("1")) {
+                        DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
+                        DataSingleton.getInstance().setPostion(0);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("USER_INFO", userBean);
+                        UIHelper.showLookLiveActivity(MainActivity.this, bundle);
+                        Log.d("userinfo", userBean.toString());
+                    } else {
+                        AppContext.showToastShort("直播已结束");
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {

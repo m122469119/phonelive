@@ -96,7 +96,7 @@ public abstract class PrivateChatPageBase extends BaseFragment {
         if(getParentFragment() instanceof DialogFragment){
             MessageDetailDialogFragment messageFragment = new MessageDetailDialogFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable("user",privateChatUserBean);
+            bundle.putParcelable("user",privateChatUserBean);
             messageFragment.setArguments(bundle);
 
             messageFragment.show(getFragmentManager(),"MessageDetailDialogFragment");

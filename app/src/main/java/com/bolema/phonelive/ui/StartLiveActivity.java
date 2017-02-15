@@ -20,9 +20,6 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,6 +61,7 @@ import com.ksy.recordlib.service.streamer.OnStatusListener;
 import com.ksy.recordlib.service.streamer.RecorderConstants;
 import com.ksy.recordlib.service.util.audio.KSYBgmPlayer;
 import com.umeng.analytics.MobclickAgent;
+import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
@@ -103,9 +101,11 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     FrameLayout mFlBottomMenu;
 
 
-    LinearLayout mViewShowLiveMusicLrc;
     @InjectView(R.id.live_anchor_name)
     TextView liveAnchorName;
+
+    @InjectView(R.id.rl_live_music)
+    AutoLinearLayout mViewShowLiveMusicLrc;
 
 
     private String stream;
@@ -149,7 +149,9 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         super.initView();
         AppManager.getAppManager().addActivity(this);
         instance = this;
-        mViewShowLiveMusicLrc = (LinearLayout) findViewById(R.id.rl_live_music);
+//        View lrcView = LayoutInflater.from(this).inflate(R.layout.view_live_music_lrc, null, false);
+//        mViewShowLiveMusicLrc = (AutoLinearLayout) findViewById(R.id.rl_live_music);
+
         //防止聊天软键盘挤压屏幕
         mRoot.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -163,13 +165,13 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
 //        intentFilter.addAction("pullblack");
 //
 //        liveReceiver = new LiveReceiver();
-////        liveReceiver.setPullBlackListener(new PullBlackListener() {
-////            @Override
-////            public void pullblack() {
-////                videoPlayerEnd();
-////                showLiveEndDialog(mUser.getId(), mLiveEndYpNum);
-////            }
-////        });
+//        liveReceiver.setPullBlackListener(new PullBlackListener() {
+//            @Override
+//            public void pullblack() {
+//                videoPlayerEnd();
+//                showLiveEndDialog(mUser.getId(), mLiveEndYpNum);
+//            }
+//        });
 //        BroadCastManager.getInstance().registerReceiver(this, liveReceiver, intentFilter);
     }
 
@@ -207,6 +209,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         //连接socket服务器
         try {
             mChatServer = new ChatServer(new ChatListenUIRefresh(), this, mUser.getId());
+
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -345,7 +348,6 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     }
 
 
-
     private void showCameraControl(View v) {
         showPopUp(v);
     }
@@ -468,12 +470,12 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.inject(this);
-    }
-
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//        ButterKnife.inject(this);
+//    }
 
     //socket客户端事件监听处理
     private class ChatListenUIRefresh implements ChatServerInterface {

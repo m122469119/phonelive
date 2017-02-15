@@ -89,8 +89,8 @@ public abstract class ToolBarBaseActivity extends AppCompatActivity implements
 //        }
         StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.global));
         // 通过注解绑定控件
-        ButterKnife.inject(this);
         init(savedInstanceState);
+        ButterKnife.inject(this);
         initView();
         initData();
         _isVisible = true;

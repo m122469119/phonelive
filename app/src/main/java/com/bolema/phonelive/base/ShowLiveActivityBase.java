@@ -1046,8 +1046,8 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         UserInfoDialogFragment u = new UserInfoDialogFragment();
         u.setIsAttentionListener((UserInfoDialogFragment.IsAttentionListener) context);
         Bundle b = new Bundle();
-        b.putSerializable("MYUSERINFO",mUserInfo);
-        b.putSerializable("TOUSERINFO",toUserInfo);
+        b.putParcelable("MYUSERINFO",mUserInfo);
+        b.putParcelable("TOUSERINFO",toUserInfo);
         b.putInt("ROOMNUM",roomNum);
         u.setArguments(b);
         u.show(getSupportFragmentManager(),"UserInfoDialogFragment");

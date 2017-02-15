@@ -3,6 +3,7 @@ package com.bolema.phonelive.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.bolema.phonelive.AppConfig;
+import com.bolema.phonelive.AppContext;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
 import com.bolema.phonelive.bean.UserBean;
@@ -20,6 +22,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -51,7 +56,7 @@ public class ShareUtils {
                 share(context,4,user,null);
                 break;
             case R.id.ll_live_shar_sinna:
-                share(context,0,user,null);
+                share(context, 0, user, null);
                 break;
             case R.id.ll_live_shar_wechat:
                 share(context,1,user,null);
