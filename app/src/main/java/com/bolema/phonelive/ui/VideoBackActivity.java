@@ -73,7 +73,7 @@ public class VideoBackActivity extends ToolBarBaseActivity {
         mPlayBtnView.setVisibility(View.GONE);
         Video video = new Video();
         VideoUrl videoUrl1 = new VideoUrl();
-        videoUrl1.setFormatName("贼清楚");
+        videoUrl1.setFormatName("720P");
         videoUrl1.setFormatUrl(mLiveRecord.getVideo_url());
         ArrayList<VideoUrl> arrayList1 = new ArrayList<>();
         arrayList1.add(videoUrl1);

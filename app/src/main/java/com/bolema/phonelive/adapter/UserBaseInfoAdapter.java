@@ -13,6 +13,7 @@ import com.bolema.phonelive.R;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
 import com.bolema.phonelive.ui.DrawableRes;
 import com.bolema.phonelive.widget.CircleImageView;
+import com.zhy.autolayout.utils.AutoUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.kymjs.kjframe.Core;
@@ -58,6 +59,8 @@ public class UserBaseInfoAdapter extends BaseAdapter {
             viewHolder.mUSign = (TextView) convertView.findViewById(R.id.tv_item_usign);
             viewHolder.mIsFollow = (ImageView) convertView.findViewById(R.id.iv_item_attention);
             convertView.setTag(viewHolder);
+            //对于listview，注意添加这一行，即可在item上使用高度
+            AutoUtils.autoSize(convertView);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }

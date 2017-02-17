@@ -670,15 +670,15 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         mKsyBgmPlayer.setVolume(1);
         mStreamer.setBgmPlayer(mKsyBgmPlayer);
         mStreamer.startMixMusic(musicPath, true);
+        //插入耳机
         mStreamer.setHeadsetPlugged(true);
 
-        //插入耳机
 //        mStreamer.setHeadsetPlugged(true);
         mPlayer = new MediaPlayer();
         try {
             mPlayer.setDataSource(musicPath);
             mPlayer.setLooping(true);
-            mPlayer.setVolume(0, 0);
+            mPlayer.setVolume(0, 1);
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
                 public void onPrepared(MediaPlayer mp) {
@@ -835,7 +835,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         PhoneLiveApi.closeLive(mUser.getId(), mUser.getToken(), new StringCallback() {
             @Override
             public void onError(Call call, Exception e) {
-                //showToast3("关闭直播失败" ,0);
+                showToast3("关闭直播失败" ,0);
             }
 
             @Override

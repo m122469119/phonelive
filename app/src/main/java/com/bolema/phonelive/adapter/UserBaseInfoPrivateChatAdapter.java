@@ -12,6 +12,7 @@ import com.bolema.phonelive.R;
 import com.bolema.phonelive.bean.PrivateChatUserBean;
 import com.bolema.phonelive.ui.DrawableRes;
 import com.bolema.phonelive.widget.CircleImageView;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import org.kymjs.kjframe.Core;
 
@@ -54,6 +55,8 @@ public class UserBaseInfoPrivateChatAdapter extends BaseAdapter {
             viewHolder.mULastMsg = (TextView) convertView.findViewById(R.id.tv_item_last_msg);
             viewHolder.mUnread = (ImageView) convertView.findViewById(R.id.iv_unread_dot);
             convertView.setTag(viewHolder);
+            //对于listview，注意添加这一行，即可在item上使用高度
+            AutoUtils.autoSize(convertView);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }

@@ -12,6 +12,7 @@ import com.bolema.phonelive.bean.OrderBean;
 import com.bolema.phonelive.ui.DrawableRes;
 import com.bolema.phonelive.widget.CircleImageView;
 import com.bolema.phonelive.R;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import org.kymjs.kjframe.Core;
 
@@ -67,6 +68,8 @@ public class OrderAdapter extends BaseAdapter {
         viewHolder.mOrderUGx = (TextView) convertView.findViewById(R.id.tv_order_item_u_gx);
         viewHolder.mOrderNo = (TextView) convertView.findViewById(R.id.tv_order_item_u_no);
         convertView.setTag(viewHolder);
+        //对于listview，注意添加这一行，即可在item上使用高度
+        AutoUtils.autoSize(convertView);
             /*}else{
                 viewHolder = (ViewHolder) convertView.getTag();
             }*/

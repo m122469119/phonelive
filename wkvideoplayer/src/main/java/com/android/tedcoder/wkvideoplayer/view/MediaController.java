@@ -3,6 +3,7 @@ package com.android.tedcoder.wkvideoplayer.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -122,7 +123,7 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
     /***
      * 强制横屏模式
      */
-    public void forceLandscapeMode(){
+    public void forceLandscapeMode() {
         mExpandImg.setVisibility(INVISIBLE);
         mShrinkImg.setVisibility(INVISIBLE);
     }
@@ -200,15 +201,41 @@ public class MediaController extends FrameLayout implements SeekBar.OnSeekBarCha
         mVideoSrcSwitcher.setEasySwitcherCallback(mSrcSwitcherCallback);
     }
 
-    @SuppressLint("SimpleDateFormat")
+//    @SuppressLint("SimpleDateFormat")
     private String formatPlayTime(long time) {
-        DateFormat formatter = new SimpleDateFormat("mm:ss");
-        return formatter.format(new Date(time));
+//        DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
+//
+//        Date date = new Date();
+//        date.setTime(time);
+
+        long temp = time / 1000;
+        int ss = (int) (temp % 60);
+        int mm = (int) (temp % 3600) / 60;
+        int hh = (int) (temp / 3600);
+        String s = ss + "";
+        String m = mm + "";
+        String h = hh + "";
+        if (s.length() < 2) {
+            s = "0" + s;
+        }
+        if (m.length() < 2) {
+            m = "0" + m;
+        }
+        if (h.length() < 2) {
+            h = "0" + h;
+        }
+        return h + ":" + m + ":" + s;
+
+
+//        return formatter.format(date);
     }
 
     private String getPlayTime(int playSecond, int allSecond) {
-        String playSecondStr = "00:00";
-        String allSecondStr = "00:00";
+        String playSecondStr = "00:00:00";
+        String allSecondStr = "00:00:00";
+//        Log.d("playSecond:", playSecond + "");
+//        Log.d("allSecond:", allSecond + "");
+
         if (playSecond > 0) {
             playSecondStr = formatPlayTime(playSecond);
         }

@@ -71,7 +71,6 @@ public class AvatarView extends CircleImageView {
         } else {
             headUrl = url;
         }
-        KLog.d("hello!nihao!",headUrl);
 //        .display(this, headUrl, R.drawable.null_blacklist, 0, 0,
         Core.getKJBitmap().doDisplay(this, headUrl,0,0, ContextCompat.getDrawable(getContext(),R.drawable.null_blacklist), 0, null,0,
                 new BitmapCallBack() {

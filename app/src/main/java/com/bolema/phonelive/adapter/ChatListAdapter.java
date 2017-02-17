@@ -13,6 +13,7 @@ import com.bolema.phonelive.base.ShowLiveActivityBase;
 import com.bolema.phonelive.AppContext;
 import com.bolema.phonelive.R;
 import com.bolema.phonelive.bean.ChatBean;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,8 @@ public class ChatListAdapter extends BaseAdapter {
             viewHolder.mChat1 = (TextView) convertView.findViewById(R.id.tv_chat_1);
 //            viewHolder.mChat2 = (TextView) convertView.findViewById(R.id.tv_chat_2);
             convertView.setTag(viewHolder);
+            //对于listview，注意添加这一行，即可在item上使用高度
+            AutoUtils.autoSize(convertView);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }

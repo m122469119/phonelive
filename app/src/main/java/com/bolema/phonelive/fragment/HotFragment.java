@@ -45,6 +45,7 @@ import com.bolema.phonelive.widget.LoadUrlImageView;
 import com.bolema.phonelive.widget.WPSwipeRefreshLayout;
 import com.socks.library.KLog;
 import com.squareup.picasso.Picasso;
+import com.zhy.autolayout.utils.AutoUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -460,6 +461,8 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
                 viewHolder.mUserPic = (ImageView) convertView.findViewById(R.id.iv_live_user_pic);
                 viewHolder.mRoomTitle = (TextView) convertView.findViewById(R.id.tv_hot_room_title);
                 convertView.setTag(viewHolder);
+                //对于listview，注意添加这一行，即可在item上使用高度
+                AutoUtils.autoSize(convertView);
             }else{
                 viewHolder = (ViewHolder) convertView.getTag();
             }
@@ -473,8 +476,8 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
             Glide
                     .with(getContext())
                     .load(user.getAvatar())
-//                    .centerCrop()
-                    .fitCenter()
+                    .centerCrop()
+//                    .fitCenter()
                     .placeholder(R.drawable.null_blacklist)
                     .into(viewHolder.mUserPic);
             viewHolder.mUserHead.setAvatarUrl(user.getAvatar());

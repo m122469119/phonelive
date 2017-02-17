@@ -2,6 +2,8 @@ package com.bolema.phonelive.ui;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
@@ -55,10 +57,27 @@ public class ReadyStartLiveActivity extends ToolBarBaseActivity {
 
     private boolean isFrontCameraMirro=false;
 
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    AppContext.showToastShort("分享成功");
+                    break;
+                case 0:
+                    AppContext.showToastShort("分享失败");
+                    break;
+            }
+        }
+    };
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_ready_start_live;
     }
+
+
 
     @Override
     public void initView() {
@@ -153,16 +172,19 @@ public class ReadyStartLiveActivity extends ToolBarBaseActivity {
      * */
     private void createRoom() {
         if(shareType != 7){
+
             ShareUtils.share(ReadyStartLiveActivity.this, shareType, mUser,
                     new PlatformActionListener() {
                         @Override
                         public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
                             readyStart();
+                            handler.sendEmptyMessage(1);
                         }
 
                         @Override
                         public void onError(Platform platform, int i, Throwable throwable) {
                             readyStart();
+                            handler.sendEmptyMessage(0);
                         }
 
                         @Override

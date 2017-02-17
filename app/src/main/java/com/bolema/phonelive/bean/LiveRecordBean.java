@@ -15,6 +15,28 @@ public class LiveRecordBean implements Parcelable {
     private String datetime;
     private String video_url;
     private String id;
+    /**
+     * address :
+     * city : 天津市
+     * lat : 39.131676
+     * length : 107
+     * light : 2
+     * lng : 117.131554
+     * province : 天津市
+     * status : 1
+     * stream : 100489_1487054102848
+     */
+
+    private String address;
+    private String city;
+    private String lat;
+    private String length;
+    private String light;
+    private String lng;
+    private String province;
+    private String status;
+    private String stream;
+
 
     public String getId() {
         return id;
@@ -96,6 +118,78 @@ public class LiveRecordBean implements Parcelable {
         this.showid = showid;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLength() {
+        return length;
+    }
+
+    public void setLength(String length) {
+        this.length = length;
+    }
+
+    public String getLight() {
+        return light;
+    }
+
+    public void setLight(String light) {
+        this.light = light;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStream() {
+        return stream;
+    }
+
+    public void setStream(String stream) {
+        this.stream = stream;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -112,6 +206,19 @@ public class LiveRecordBean implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.datetime);
         dest.writeString(this.video_url);
+        dest.writeString(this.id);
+        dest.writeString(this.address);
+        dest.writeString(this.city);
+        dest.writeString(this.lat);
+        dest.writeString(this.length);
+        dest.writeString(this.light);
+        dest.writeString(this.lng);
+        dest.writeString(this.province);
+        dest.writeString(this.status);
+        dest.writeString(this.stream);
+    }
+
+    public LiveRecordBean() {
     }
 
     protected LiveRecordBean(Parcel in) {
@@ -124,9 +231,19 @@ public class LiveRecordBean implements Parcelable {
         this.title = in.readString();
         this.datetime = in.readString();
         this.video_url = in.readString();
+        this.id = in.readString();
+        this.address = in.readString();
+        this.city = in.readString();
+        this.lat = in.readString();
+        this.length = in.readString();
+        this.light = in.readString();
+        this.lng = in.readString();
+        this.province = in.readString();
+        this.status = in.readString();
+        this.stream = in.readString();
     }
 
-    public static final Parcelable.Creator<LiveRecordBean> CREATOR = new Parcelable.Creator<LiveRecordBean>() {
+    public static final Creator<LiveRecordBean> CREATOR = new Creator<LiveRecordBean>() {
         @Override
         public LiveRecordBean createFromParcel(Parcel source) {
             return new LiveRecordBean(source);

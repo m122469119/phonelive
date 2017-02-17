@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.socks.library.KLog;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +105,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
             super(itemView);
             mUhead = (AvatarView) itemView.findViewById(R.id.av_userHead);
             //mLevel = (AvatarView) itemView.findViewById(R.id.item_live_user_list_level);
+            AutoUtils.autoSize(itemView);
         }
 
     }

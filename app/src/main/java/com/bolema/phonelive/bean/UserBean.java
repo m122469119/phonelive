@@ -53,6 +53,18 @@ public class UserBean implements Parcelable {
     private String vip_thumb;
     private String vip_type;
 
+    public static final Creator<UserBean> CREATOR = new Creator<UserBean>() {
+        @Override
+        public UserBean createFromParcel(Parcel in) {
+            return new UserBean(in);
+        }
+
+        @Override
+        public UserBean[] newArray(int size) {
+            return new UserBean[size];
+        }
+    };
+
     public int getUid() {
         return uid;
     }
@@ -526,15 +538,4 @@ public class UserBean implements Parcelable {
         this.vip_type = in.readString();
     }
 
-    public static final Parcelable.Creator<UserBean> CREATOR = new Parcelable.Creator<UserBean>() {
-        @Override
-        public UserBean createFromParcel(Parcel source) {
-            return new UserBean(source);
-        }
-
-        @Override
-        public UserBean[] newArray(int size) {
-            return new UserBean[size];
-        }
-    };
 }

@@ -103,8 +103,8 @@ public class MessageDetailFragment extends BaseFragment {
     public void initData() {
 
         mUser = AppContext.getInstance().getLoginUser();
-        mToUser = (PrivateChatUserBean) getActivity().getIntent().getSerializableExtra("user");
-        Log.d("mTitle", mToUser.getUser_nicename());
+        mToUser = getActivity().getIntent().getParcelableExtra("user");
+        Log.d("chatbean",mToUser.toString());
         mTitle.setText(mToUser.getUser_nicename());
 
         //获取历史消息

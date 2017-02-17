@@ -19,6 +19,8 @@ import com.bolema.phonelive.adapter.LiveUserAdapter;
 import com.bolema.phonelive.api.remote.ApiUtils;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
 import com.bolema.phonelive.base.BaseFragment;
+import com.bolema.phonelive.bean.LiveRecordBean;
+import com.bolema.phonelive.bean.PlaybackBean;
 import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.broadcast.BroadCastManager;
 import com.bolema.phonelive.cache.DataSingleton;
@@ -27,6 +29,7 @@ import com.bolema.phonelive.utils.StillLiveUtils;
 import com.bolema.phonelive.utils.UIHelper;
 import com.bolema.phonelive.viewpagerfragment.IndexPagerFragment;
 import com.google.gson.Gson;
+import com.socks.library.KLog;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -48,8 +51,15 @@ public class AttentionFragment extends BaseFragment {
     @InjectView(R.id.lv_attentions)
     ListView mLvAttentions;
     List<UserBean> mUserList = new ArrayList<>();
+
+    List<PlaybackBean> mPlaybackList = new ArrayList<>();
     @InjectView(R.id.mSwipeRefreshLayout)
     SwipeRefreshLayout mRefresh;
+
+    //当前选中的直播记录bean
+    private LiveRecordBean mLiveRecordBean;
+    private List<LiveRecordBean> liveRecordBeanList = new ArrayList<>();
+
 
 
     //默认提示
@@ -81,6 +91,7 @@ public class AttentionFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 mUserList.clear();
+                mPlaybackList.clear();
                 initData();
             }
         });
@@ -119,7 +130,12 @@ public class AttentionFragment extends BaseFragment {
 
                 try {
                     JSONArray liveAndAttentionUserJson = new JSONObject(res).getJSONArray("attentionlive");
-                    if (0 == liveAndAttentionUserJson.length()) {
+                    JSONArray playbackJson = new JSONObject(res).getJSONArray("playback");
+
+
+
+
+                    if (0 == (liveAndAttentionUserJson.length() + playbackJson.length())) {
                         layoutAttention.setVisibility(View.VISIBLE);
                         mUserList.clear();
                         try {
@@ -136,9 +152,17 @@ public class AttentionFragment extends BaseFragment {
                         mUserList.add(g.fromJson(liveAndAttentionUserJson.getString(i), UserBean.class));
                     }
 
+                    if (playbackJson.length() > 0) {
+                        for (int j = 0; j<playbackJson.length();j++) {
+
+                            mPlaybackList.add(g.fromJson(playbackJson.getString(j), PlaybackBean.class));
+
+                        }
+                    }
+
                     fillUI();
                 } catch (JSONException e) {
-                    mAdapter = new LiveUserAdapter(getActivity().getLayoutInflater(), mUserList);
+                    mAdapter = new LiveUserAdapter(getActivity().getLayoutInflater(), mUserList,mPlaybackList,getActivity());
                     mLvAttentions.setAdapter(mAdapter);
                     e.printStackTrace();
                 }
@@ -151,19 +175,18 @@ public class AttentionFragment extends BaseFragment {
         layoutAttention.setVisibility(View.GONE);
         mLvAttentions.setVisibility(View.VISIBLE);
         if (getActivity() != null) {
-            mAdapter = new LiveUserAdapter(getActivity().getLayoutInflater(), mUserList);
+
+            mAdapter = new LiveUserAdapter(getActivity().getLayoutInflater(), mUserList,mPlaybackList,getActivity());
             mLvAttentions.setAdapter(mAdapter);
             mLvAttentions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-                    DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
-                    DataSingleton.getInstance().setPostion(position);
-
-                    StillLiveUtils stillLiveUtils = new StillLiveUtils(getActivity());
-                    PhoneLiveApi.isStillLiving(String.valueOf(mUserList.get(position).getUid()), stillLiveUtils.getStillcallback());
+                    if (position < mUserList.size()) {
+                        DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
+                        DataSingleton.getInstance().setPostion(position);
+                        StillLiveUtils stillLiveUtils = new StillLiveUtils(getActivity());
+                        PhoneLiveApi.isStillLiving(String.valueOf(mUserList.get(position).getUid()), stillLiveUtils.getStillcallback());
+                    }
 
 //                    Bundle bundle = new Bundle();
 //                    bundle.putParcelable(VideoPlayerActivity.USER_INFO, mUserList.get(position));

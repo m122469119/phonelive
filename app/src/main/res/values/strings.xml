@@ -52,6 +52,7 @@
     <string name="attention_title2">此时还没有直播</string>
     <string name="attention_title3">去看看新精彩直播</string>
     <string name="lookin">人正在观看</string>
+    <string name="looked">人看过直播</string>
     <string name="gobackindex">返回首页</string>
     <string name="liveend">直播结束</string>
     <string name="sendchat">发送</string>
@@ -139,4 +140,5 @@
     <string name="alipay_method">支付宝支付</string>
     <string name="wechat_pay_method">微信支付</string>
     <string name="no_anchor_live">暂无关注的主播</string>
+    <string name="splendid_playback">" 精彩回放"</string>
 </resources>

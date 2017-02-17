@@ -620,7 +620,6 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                     } else {
                         mGiftViews.get(i).getChildAt(j).findViewById(R.id.iv_show_gift_selected).setBackgroundResource(0);
                     }
-
                 }
             }
             view.findViewById(R.id.iv_show_gift_selected).setBackgroundResource(R.drawable.icon_continue_gift_chosen);

@@ -447,7 +447,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
         @Override
         public void onResponse(String response) {
             hideWaitDialog();
-            String res = ApiUtils.checkIsSuccess(response);
+                String res = ApiUtils.checkIsSuccess(response);
             if (res != null) {
                 mLiveRecordBean.setVideo_url(res.trim());
                 VideoBackActivity.startVideoBack(HomePageActivity.this, mLiveRecordBean);

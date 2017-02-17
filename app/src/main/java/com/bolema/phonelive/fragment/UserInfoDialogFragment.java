@@ -253,8 +253,8 @@ public class UserInfoDialogFragment extends DialogFragment {
     }
 
     private void initView(final View view) {
-        mUser = (UserBean) getArguments().getSerializable("MYUSERINFO");
-        mToUser = (UserBean) getArguments().getSerializable("TOUSERINFO");
+        mUser = (UserBean) getArguments().getParcelable("MYUSERINFO");
+        mToUser = (UserBean) getArguments().getParcelable("TOUSERINFO");
         mRoomNum = getArguments().getInt("ROOMNUM");
         mChatServer = ((ShowLiveActivityBase)getActivity()).mChatServer;
 

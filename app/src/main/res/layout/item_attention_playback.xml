@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bolema.phonelive.widget.MyAutoLinearLayout2 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_60"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/space_10"
+        android:weightSum="7">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <com.bolema.phonelive.widget.AvatarView
+                android:id="@+id/iv_live_user_head"
+                android:layout_width="@dimen/space_40"
+                android:layout_height="@dimen/space_40"
+                android:layout_gravity="center">
+
+            </com.bolema.phonelive.widget.AvatarView>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/space_10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_live_nick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxEms="8"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_17" />
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_10"
+                        android:layout_height="@dimen/space_15"
+                        android:src="@drawable/live_map_dark" />
+
+                    <TextView
+                        android:id="@+id/tv_live_local"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:text=""
+                        android:textColor="@color/light_gray2"
+                        android:textSize="@dimen/text_size_12" />
+                </com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="@dimen/space_20"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/space_10">
+
+            <TextView
+                android:id="@+id/tv_live_usernum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_5"
+                android:textColor="@color/light_gray2"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_5"
+                android:text="@string/looked"
+                android:textColor="@color/light_gray2"
+                android:textSize="@dimen/text_size_12" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/layout_live_user_pic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_200">
+
+        <ImageView
+            android:id="@+id/iv_live_user_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/iv_transparent_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent_black" />
+
+
+        <TextView
+            android:id="@+id/tv_show_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space_53"
+            android:text="2月15日 精彩回放"
+            android:textColor="@color/white"
+            android:textSize="@dimen/space_15"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_show_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_show_date"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="时长 00:50:30"
+            android:textColor="@color/white"
+            android:textSize="@dimen/space_12" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/layout_playback_1"
+            android:layout_width="@dimen/space_118"
+            android:layout_height="@dimen/space_67"
+            android:layout_alignParentBottom="true"
+            android:descendantFocusability="blocksDescendants"
+            android:background="@drawable/transparent_black_little"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_show_date_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_14"
+                android:duplicateParentState="true"
+                android:gravity="center_horizontal"
+                android:text="02月14日"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_11" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_6"
+                android:gravity="center_horizontal"
+                android:duplicateParentState="true"
+                android:text="精彩回放"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_11" />
+
+            <TextView
+                android:id="@+id/tv_show_duration_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_6"
+                android:duplicateParentState="true"
+                android:gravity="center_horizontal"
+                android:text="时长 00:50:30"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_11" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/layout_playback_2"
+            android:layout_width="@dimen/space_118"
+            android:layout_height="@dimen/space_67"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/space_3"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_toRightOf="@+id/layout_playback_1"
+            android:background="@drawable/transparent_black_little"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_show_date_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_14"
+                android:gravity="center_horizontal"
+                android:duplicateParentState="true"
+                android:text="02月14日"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_11" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_6"
+                android:gravity="center_horizontal"
+                android:text="精彩回放"
+                android:duplicateParentState="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_11" />
+
+            <TextView
+                android:id="@+id/tv_show_duration_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:layout_marginTop="@dimen/space_6"
+                android:gravity="center_horizontal"
+                android:text="时长 00:50:30"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_11" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/layout_playback_3"
+            android:layout_width="@dimen/space_118"
+            android:layout_height="@dimen/space_67"
+            android:layout_alignParentBottom="true"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginLeft="@dimen/space_3"
+            android:layout_toRightOf="@+id/layout_playback_2"
+            android:background="@drawable/transparent_black_little"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_show_date_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_14"
+                android:gravity="center_horizontal"
+                android:duplicateParentState="true"
+                android:text="02月14日"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_11" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_6"
+                android:gravity="center_horizontal"
+                android:duplicateParentState="true"
+                android:text="精彩回放"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_11" />
+
+            <TextView
+                android:id="@+id/tv_show_duration_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_6"
+                android:gravity="center_horizontal"
+                android:duplicateParentState="true"
+                android:text="时长 00:50:30"
+                android:textColor="@color/white"
+                android:textSize="@dimen/space_11" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_7"
+        android:background="@color/list_divider_color" />
+</com.bolema.phonelive.widget.MyAutoLinearLayout2>
