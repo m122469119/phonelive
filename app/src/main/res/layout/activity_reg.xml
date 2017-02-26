@@ -16,14 +16,14 @@
             android:orientation="horizontal">
             <TextView
                 android:textColor="#858585"
-                android:textSize="@dimen/space_8"
+                android:textSize="@dimen/space_16"
                 android:text="手机归属地"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"/>
             <TextView
                 android:textColor="#858585"
-                android:textSize="@dimen/space_8"
+                android:textSize="@dimen/space_16"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:orientation="horizontal">
             <TextView
                 android:textColor="#858585"
-                android:textSize="@dimen/space_8"
+                android:textSize="@dimen/space_16"
                 android:text="+86"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -50,6 +50,7 @@
                 android:textColorHint="#E2E2E5"
                 android:background="@null"
                 android:hint="@string/plaseinputphonenum"
+                android:textSize="@dimen/space_16"
                 android:layout_weight="5"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_50" />
@@ -57,6 +58,7 @@
                 android:id="@+id/btn_phone_login_send_code"
                 android:textColor="@color/white"
                 android:text="发验证码"
+                android:textSize="@dimen/space_16"
                 android:background="@drawable/btn_yzm_background"
                 android:layout_width="@dimen/space_70"
                 android:layout_height="@dimen/space_35" />
@@ -71,7 +73,7 @@
             android:orientation="horizontal">
             <TextView
                 android:textColor="#858585"
-                android:textSize="@dimen/space_8"
+                android:textSize="@dimen/space_16"
                 android:text="验证码"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -83,6 +85,7 @@
                 android:hint="请填写短信验证码"
                 android:layout_weight="5"
                 android:layout_width="0dp"
+                android:textSize="@dimen/space_16"
                 android:layout_height="@dimen/space_50" />
             <View
                 android:layout_width="@dimen/space_70"
@@ -100,9 +103,8 @@
             android:orientation="horizontal">
             <TextView
                 android:textColor="#858585"
-                android:textSize="@dimen/space_8"
                 android:text="密码"
-
+                android:textSize="@dimen/space_16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"/>
@@ -112,28 +114,31 @@
                 android:textColorHint="#E2E2E5"
                 android:background="@null"
                 android:hint="请填写密码"
+                android:textSize="@dimen/space_16"
                 android:inputType="textPassword"
                 android:layout_weight="5"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_50" />
+
             <View
                 android:layout_width="@dimen/space_70"
-                android:layout_height="fill_parent"
-                ></View>
+                android:layout_height="fill_parent" />
         </com.zhy.autolayout.AutoLinearLayout>
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="@dimen/space_1"
-            android:background="#F0F0F0"></View>
+            android:background="#F0F0F0" />
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
                 android:textColor="#858585"
-                android:textSize="@dimen/space_8"
+                android:textSize="@dimen/space_16"
                 android:text="确认密码"
                 android:layout_width="0dp"
+
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"/>
             <EditText
@@ -143,17 +148,19 @@
                 android:hint="请再次输入密码"
                 android:inputType="textPassword"
                 android:layout_weight="5"
+                android:textSize="@dimen/space_16"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/space_50" />
+
             <View
                 android:layout_width="@dimen/space_70"
-                android:layout_height="fill_parent"
-                ></View>
+                android:layout_height="fill_parent" />
         </com.zhy.autolayout.AutoLinearLayout>
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="@dimen/space_1"
-            android:background="#F0F0F0"></View>
+            android:background="#F0F0F0" />
     </com.zhy.autolayout.AutoLinearLayout>
 
     <Button
@@ -163,6 +170,7 @@
         android:layout_gravity="center"
         android:background="@drawable/btn_yzm_background"
         android:text="立即注册"
+        android:textSize="@dimen/space_16"
         android:layout_width="@dimen/space_270"
         android:layout_height="@dimen/space_50" />
 

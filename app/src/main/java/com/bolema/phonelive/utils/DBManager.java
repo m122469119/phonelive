@@ -34,7 +34,7 @@ public class DBManager {
         db.beginTransaction();  //开始事务
         try {
             for (LocalMusicBean.ShowapiResBodyBean.PagebeanBean.MusiclistBean music : musics) {
-                db.execSQL("INSERT INTO music VALUES(null, ?, ?, ?,?)", new Object[]{music.getSongname(), music.getSongid(), music.getSingername(),music.getM4a()});
+                db.execSQL("INSERT INTO music VALUES(null, ?, ?, ?,?,?)", new Object[]{music.getSongname(), music.getSongid(), music.getSingername(),music.getM4a(),music.getDownUrl()});
             }
             db.setTransactionSuccessful();  //设置事务成功完成
         } finally {
@@ -67,7 +67,12 @@ public class DBManager {
             music.setSongid(Integer.parseInt(c.getString(c.getColumnIndex("songid"))));
             music.setSongname( c.getString(c.getColumnIndex("songname")));
             music.setSingername( c.getString(c.getColumnIndex("singername")));
-            music.setM4a( c.getString(c.getColumnIndex("m4a")));
+            try {
+                music.setDownUrl( c.getString(c.getColumnIndex("downurl")));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            music.setM4a(c.getString(c.getColumnIndex("m4a")));
             musics.add(music);
         }
         c.close();
@@ -86,8 +91,8 @@ public class DBManager {
      * query all music, return cursor
      * @return  Cursor
      */
-    public Cursor queryFromEncryptedSongId(int id) {
-            Cursor c = db.rawQuery("SELECT * FROM music where songid = ?", new String[]{String.valueOf(id)});
+    public Cursor queryFromEncryptedDownloadUrl(String url) {
+            Cursor c = db.rawQuery("SELECT * FROM music where downurl = ?", new String[]{url});
         return c;
     }
 

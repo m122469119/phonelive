@@ -41,6 +41,7 @@ public class LiveLoginSelectActivity extends ToolBarBaseActivity implements Plat
     @InjectView(R.id.iv_select_login_bg)
     ImageView mBg;
     private Bitmap bmp;
+//    HashMap<String,Object> map = new HashMap<String,Object>();
 
     @Override
     protected int getLayoutId() {
@@ -59,7 +60,14 @@ public class LiveLoginSelectActivity extends ToolBarBaseActivity implements Plat
 
     @Override
     public void initData() {
-
+        //QQ登录配置
+//        map.put("Id","7");
+//        map.put("SortId", "7");
+//        map.put("AppId","1105778076");
+//        map.put("AppKey","NSaVrdMDoXBIgZwS");
+//        map.put("ShareByAppClient","true");
+//        map.put("Enable","true");
+//        map.put("RedirectUrl", "http://www.sharesdk.cn");
     }
 
     @Override
@@ -70,6 +78,7 @@ public class LiveLoginSelectActivity extends ToolBarBaseActivity implements Plat
         switch (id){
             case R.id.iv_qqlogin:
                 type = "qq";
+//                ShareSDK.setPlatformDevInfo(QQ.NAME,map);
                 otherLogin(names[0]);
                 break;
             case R.id.iv_sllogin:
@@ -106,6 +115,7 @@ public class LiveLoginSelectActivity extends ToolBarBaseActivity implements Plat
                 AppContext.showToastAppMsg(LiveLoginSelectActivity.this ,"授权成功正在登录....");
             }
         });
+
 
         //用户资源都保存到res
         //通过打印res数据看看有哪些数据是你想要的

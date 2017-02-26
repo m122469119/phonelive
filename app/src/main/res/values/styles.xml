@@ -214,13 +214,12 @@
     </style>
 
     <style name="live_show_manage_menu_item">
-        <item name="android:textColor">@color/global</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#0078ff</item>
+        <item name="android:layout_width">@dimen/space_340</item>
+        <item name="android:layout_height">@dimen/space_55</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginTop">@dimen/space_10</item>
-        <item name="android:background">@drawable/me_button</item>
-        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:layout_marginTop">@dimen/space_1</item>
+        <item name="android:textSize">@dimen/text_size_19</item>
     </style>
 
     <style name="live_show_end_btn">
@@ -246,6 +245,9 @@
         <item name="android:layout_width">@dimen/space_32</item>
         <item name="android:layout_height">@dimen/space_20</item>
     </style>
-
-
+<!--直播间选择音乐类型-->
+    <style name="MyDialog"
+        parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

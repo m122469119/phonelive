@@ -127,12 +127,6 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
                 UserBean user = mUserList.get(position-1 );
                 PhoneLiveApi.isStillLiving(String.valueOf(user.getUid()),stillliveCallback);
 
-//                //跳转直播间
-//                DataSingleton.getInstance().setUserList(mUserList);  //HHH 2016-09-10
-//                DataSingleton.getInstance().setPostion(position-1);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("USER_INFO",user);
-//                UIHelper.showLookLiveActivity(getActivity(),bundle);
             }
         });
     }
@@ -143,15 +137,12 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
      */
     public StringCallback stillliveCallback = new StringCallback() {
         @Override
-        public void onError(Call call, Exception e) {
-
-        }
+        public void onError(Call call, Exception e) {}
 
         @Override
         public void onResponse(String response) {
             String res = ApiUtils.checkIsSuccess(response);
             KLog.json(res);
-
 
             try {
                 JSONObject resJson = new JSONObject(response);
@@ -186,9 +177,6 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
         pointContainer = (LinearLayout) headView.findViewById(R.id.point_container);
         hotViewPager = (ViewPager) headView.findViewById(R.id.hot_view_pager);
         ivWhitePoint = (ImageView) headView.findViewById(R.id.iv_white_point);
-//        int screenWidth = (int) TDevice.getScreenWidth();
-        //int sH = (int) (screenWidth / (3/1));
-        //slideshowView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         // 异步任务获取图片
         PhoneLiveApi.getIndexHotRollpic(pagerCallBack);
@@ -214,12 +202,12 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
                     for(int i = 0; i<rollPics.length(); i++){
                         RollPicBean rollPicBean = new Gson().fromJson(rollPics.getJSONObject(i).toString(),RollPicBean.class);
                         imageUrls[i] = rollPicBean.getSlide_pic();
+                        Log.d("imageurl", rollPicBean.getSlide_pic());
                         imageJumps[i] = rollPicBean.getSlide_url();
                     }
                     processBanner();
                     mHandler.sendEmptyMessage(1);
                 }
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -250,7 +238,7 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
             });
             imageLists.add(pager);
         }
-        Log.d("imageSize", imageLists.size() + "");
+
         hotViewPager.setAdapter(new HotViewPagerAdapter(imageLists));
 
         hotViewPager.setCurrentItem(imageLists.size()*1000);  //避免用户手动把轮播图向后滑动造成无法滑动的结果，而向后滑动一百年也滑不到头

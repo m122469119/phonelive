@@ -170,10 +170,10 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
     protected Gson mGson = new Gson();
 
     //当前正在显示的两个动画
-    protected Map<Integer,View> mGiftShowNow = new HashMap<>();
+    protected Map<Integer, View> mGiftShowNow = new HashMap<>();
 
     //礼物消息队列
-    protected Map<Integer,SendGiftBean> mGiftShowQueue = new HashMap();
+    protected Map<Integer, SendGiftBean> mGiftShowQueue = new HashMap();
 
     //礼物队列
     protected List<SendGiftBean> mLuxuryGiftShowQueue = new ArrayList<>();
@@ -237,6 +237,7 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
     protected int barrageFee;
 
     Context context;
+
     @Override
     public void initData() {
         //屏幕常量
@@ -248,11 +249,11 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
     }
 
     //注册私信广播监听
-    protected void registerPrivateBroadcast(){
+    protected void registerPrivateBroadcast() {
 
         IntentFilter cmdFilter = new IntentFilter("com.bolema.phonelive");
-        if(broadCastReceiver == null){
-            broadCastReceiver = new BroadcastReceiver(){
+        if (broadCastReceiver == null) {
+            broadCastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
 
@@ -261,7 +262,7 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
                 }
             };
         }
-        registerReceiver(broadCastReceiver,cmdFilter);
+        registerReceiver(broadCastReceiver, cmdFilter);
     }
 
     /**
@@ -271,14 +272,14 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         //解除私信广播监听
         try {
             unregisterReceiver(broadCastReceiver);
-        }catch (Exception e){
-              e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         //隐藏新消息标记
         mIvNewPrivateChat.setVisibility(View.GONE);
         PrivateChatCorePagerDialogFragment privateChatFragment = new PrivateChatCorePagerDialogFragment();
 
-        privateChatFragment.show(getSupportFragmentManager(),"PrivateChatCorePagerDialogFragment");
+        privateChatFragment.show(getSupportFragmentManager(), "PrivateChatCorePagerDialogFragment");
         privateChatFragment.setDialogInterface(new DialogInterface() {
             @Override
             public void cancelDialog(View v, Dialog d) {
@@ -286,8 +287,8 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
                 registerPrivateBroadcast();
 
                 //获取私信未读数量
-                Log.d("chatNum", PhoneLivePrivateChat.getUnreadMsgsCount()+"");
-                if(PhoneLivePrivateChat.getUnreadMsgsCount() > 0){
+                Log.d("chatNum", PhoneLivePrivateChat.getUnreadMsgsCount() + "");
+                if (PhoneLivePrivateChat.getUnreadMsgsCount() > 0) {
                     mIvNewPrivateChat.setVisibility(View.VISIBLE);
                 }
 
@@ -328,11 +329,11 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 //滑动停止状态
-                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
                     int totalItemCount = manager.getItemCount();
-                    if(lastVisibleItem == (totalItemCount - 1)){
-                        synchronized (ShowLiveActivityBase.this){
+                    if (lastVisibleItem == (totalItemCount - 1)) {
+                        synchronized (ShowLiveActivityBase.this) {
                             loadMoreUserList();
                         }
                     }
@@ -344,7 +345,7 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 //展示用户详细信息弹窗
-                showUserInfoDialog(mUser,mUserList.get(position),mRoomNum,ShowLiveActivityBase.this);
+                showUserInfoDialog(mUser, mUserList.get(position), mRoomNum, ShowLiveActivityBase.this);
 
             }
         });
@@ -362,9 +363,10 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         //mDanmuControl.show();
 
     }
+
     //加载更多用户列表
-    protected void loadMoreUserList(){
-        PhoneLiveApi.loadMoreUserList(mUserList.size(),mRoomNum,new StringCallback(){
+    protected void loadMoreUserList() {
+        PhoneLiveApi.loadMoreUserList(mUserList.size(), mRoomNum, new StringCallback() {
 
             @Override
             public void onError(Call call, Exception e) {
@@ -376,19 +378,19 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
                 String res = ApiUtils.checkIsSuccess(response);
                 KLog.json(res);
 
-                if(null != res){
+                if (null != res) {
                     try {
                         JSONObject jsonObj = new JSONObject(res);
                         JSONArray uListArray = jsonObj.getJSONArray("list");
                         //09.10 wp
-                        if(uListArray.length() > 0){
+                        if (uListArray.length() > 0) {
                             mUserList.clear();
                         }
-                        for(int i = 0; i < uListArray.length(); i++){
-                            UserBean u = mGson.fromJson(uListArray.getString(i),UserBean.class);
+                        for (int i = 0; i < uListArray.length(); i++) {
+                            UserBean u = mGson.fromJson(uListArray.getString(i), UserBean.class);
                             mUserList.add(u);
                         }
-                        ChatServer.LIVE_USER_NUMS = StringUtils.toInt(jsonObj.getString("nums"),0);
+                        ChatServer.LIVE_USER_NUMS = StringUtils.toInt(jsonObj.getString("nums"), 0);
                         mLiveNum.setText(ChatServer.LIVE_USER_NUMS + "");
                         //按照等级重新排序
                         sortUserList();
@@ -405,10 +407,9 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
     protected void sendChat() {
         String sendMsg = mChatInput.getText().toString();
         sendMsg = sendMsg.trim();
-        if(mConnectionState && !sendMsg.equals("")){
+        if (mConnectionState && !sendMsg.equals("")) {
             mChatInput.setText("");
-            mChatServer.doSendMsg(sendMsg, mUser,ACE_TEX_TO_USER);
-            //hideEditText();
+            mChatServer.doSendMsg(sendMsg, mUser, ACE_TEX_TO_USER);
         }
     }
 
@@ -418,51 +419,52 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
     }
 
     //进入显示礼物队列信息初始化
-    protected View initShowEvenSentSendGift(SendGiftBean mSendGiftInfo){
+    protected View initShowEvenSentSendGift(SendGiftBean mSendGiftInfo) {
         View view = getLayoutInflater().inflate(R.layout.item_show_gift_animator, null);
-        if(mShowGiftFirstUid == 0){
+        if (mShowGiftFirstUid == 0) {
             mShowGiftFirstUid = mSendGiftInfo.getUid();
-        }else{
+        } else {
             mShowGiftSecondUid = mSendGiftInfo.getUid();
         }
         mGiftShowNow.put(mSendGiftInfo.getUid(), view);
         return view;
     }
-    //定时检测当前显示礼物是否超时过期
-    protected boolean timingDelGiftAnimation(int index){
 
-        int id = index == 1 ? mShowGiftFirstUid:mShowGiftSecondUid;
+    //定时检测当前显示礼物是否超时过期
+    protected boolean timingDelGiftAnimation(int index) {
+
+        int id = index == 1 ? mShowGiftFirstUid : mShowGiftSecondUid;
         SendGiftBean mSendGiftInfo = mGiftShowQueue.get(id);
-        if(mSendGiftInfo != null){
+        if (mSendGiftInfo != null) {
             long time = System.currentTimeMillis() - mSendGiftInfo.getSendTime();
-            if((time > 4000) && (mShowGiftAnimator != null)){
+            if ((time > 4000) && (mShowGiftAnimator != null)) {
                 //超时 从礼物队列和显示队列中移除
                 mShowGiftAnimator.removeView(mGiftShowNow.get(id));
 
                 mGiftShowQueue.remove(id);
 
                 mGiftShowNow.remove(id);
-                if(index == 1){
+                if (index == 1) {
                     mShowGiftFirstUid = 0;
-                }else{
+                } else {
                     mShowGiftSecondUid = 0;
                 }
                 //从礼物队列中获取一条新的礼物信息进行显示
-                if(mGiftShowQueue.size() != 0){
+                if (mGiftShowQueue.size() != 0) {
 
                     Iterator iterator = mGiftShowQueue.entrySet().iterator();
-                    while (iterator.hasNext()){
+                    while (iterator.hasNext()) {
                         Map.Entry entry = (Map.Entry) iterator.next();
                         SendGiftBean sendGift = (SendGiftBean) entry.getValue();
 
-                        if(mShowGiftFirstUid != sendGift.getUid() && mShowGiftSecondUid != sendGift.getUid()){//判断队列中的第一个礼物是否已经正在显示
-                            showEvenSentGiftAnimation(initShowEvenSentSendGift(sendGift),sendGift,1);
+                        if (mShowGiftFirstUid != sendGift.getUid() && mShowGiftSecondUid != sendGift.getUid()) {//判断队列中的第一个礼物是否已经正在显示
+                            showEvenSentGiftAnimation(initShowEvenSentSendGift(sendGift), sendGift, 1);
                             break;
                         }
                     }
                 }
                 return false;
-            }else{
+            } else {
                 return true;
             }
         }
@@ -471,9 +473,9 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
 
 
     /**
-     * @dw 点亮
      * @param index 点亮的图片位置下标
-     * */
+     * @dw 点亮
+     */
     protected int showLit(final int index) {
 
         final ImageView heart = new ImageView(ShowLiveActivityBase.this);
@@ -483,22 +485,22 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         heart.setBackgroundResource(ChatServer.heartImg[index]);
         //尺寸参数
         heart.setLayoutParams(new RelativeLayout.LayoutParams((int) TDevice.dpToPixel(30)
-                ,(int) TDevice.dpToPixel(30)));
+                , (int) TDevice.dpToPixel(30)));
         //x位置
-        heart.setX(mScreenWidth - mScreenWidth/3);
+        heart.setX(mScreenWidth - mScreenWidth / 3);
         //y位置
-        heart.setY(mScreenHeight-200);
+        heart.setY(mScreenHeight - 200);
         mRoot.addView(heart);
         //点亮xy 平移动画
-        ObjectAnimator translationX = ObjectAnimator.ofFloat(heart,"translationX",mRandom.nextInt(500)+(mScreenWidth-200) - (mScreenWidth/3));
-        ObjectAnimator translationY = ObjectAnimator.ofFloat(heart,"translationY",mRandom.nextInt(mScreenHeight/2) + 200);
+        ObjectAnimator translationX = ObjectAnimator.ofFloat(heart, "translationX", mRandom.nextInt(500) + (mScreenWidth - 200) - (mScreenWidth / 3));
+        ObjectAnimator translationY = ObjectAnimator.ofFloat(heart, "translationY", mRandom.nextInt(mScreenHeight / 2) + 200);
         //渐变动画
-        ObjectAnimator alpha = ObjectAnimator.ofFloat(heart,"alpha",0f);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(heart, "alpha", 0f);
         //xy放大动画
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(heart,"scaleX",0.8f,1f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(heart,"scaleY",0.8f,1f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(heart, "scaleX", 0.8f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(heart, "scaleY", 0.8f, 1f);
         AnimatorSet set = new AnimatorSet();
-        set.playTogether(translationX,translationY,alpha,scaleX,scaleY);
+        set.playTogether(translationX, translationY, alpha, scaleX, scaleY);
         set.setDuration(5000);
         set.addListener(new Animator.AnimatorListener() {
             @Override
@@ -508,7 +510,7 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if(null != mRoot ){
+                if (null != mRoot) {
                     mRoot.removeView(heart);
                 }
             }
@@ -527,8 +529,9 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         return index;
 
     }
-    protected void switchPlayAnimation(SendGiftBean mSendGiftBean){
-        switch (mSendGiftBean.getGiftid()){
+
+    protected void switchPlayAnimation(SendGiftBean mSendGiftBean) {
+        switch (mSendGiftBean.getGiftid()) {
             case 22: //烟花礼物
                 showFireworksAnimation(mSendGiftBean);
                 break;
@@ -547,24 +550,25 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
                 break;
         }
     }
+
     /**
-     * @dw 豪华礼物圣旨动画
      * @param mSendGiftBean 礼物信息
-     * */
-    protected void showPlainAnimation(final SendGiftBean mSendGiftBean){
-        if(!giftAnimationPlayEnd){
+     * @dw 豪华礼物圣旨动画
+     */
+    protected void showPlainAnimation(final SendGiftBean mSendGiftBean) {
+        if (!giftAnimationPlayEnd) {
             return;
         }
         //圣旨动画初始化
         giftAnimationPlayEnd = false;
 
 
-        mGiftView = getLayoutInflater().inflate(R.layout.view_live_gift_animation_shengzhi,null);
+        mGiftView = getLayoutInflater().inflate(R.layout.view_live_gift_animation_shengzhi, null);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
-        mRoot.addView(mGiftView,params);
+        mRoot.addView(mGiftView, params);
         final ImageView pageIv = (ImageView) mGiftView.findViewById(R.id.view_iv_live_gift_page);
-        ObjectAnimator animator = ObjectAnimator.ofFloat(pageIv,"translationX",mScreenWidth,0);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(pageIv, "translationX", mScreenWidth, 0);
 
         animator.setDuration(2000);
         animator.start();
@@ -579,18 +583,18 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
                 final AnimationDrawable an = (AnimationDrawable) pageIv.getBackground();
 
                 int duration = 0;
-                for(int i = 0; i< an.getNumberOfFrames(); i++){
+                for (int i = 0; i < an.getNumberOfFrames(); i++) {
                     duration += an.getDuration(i);
                 }
 
-                if(mHandler == null) return;
+                if (mHandler == null) return;
                 mHandler.postDelayed(new Runnable() {
-                     @Override
-                     public void run() {
-                         //删除当前礼物,开始队列下一个
-                         nextAnimation();
-                     }
-                },duration);
+                    @Override
+                    public void run() {
+                        //删除当前礼物,开始队列下一个
+                        nextAnimation();
+                    }
+                }, duration);
                 an.start();
             }
 
@@ -606,19 +610,20 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         });
 
     }
+
     /**
+     * @param sendGiftBean 赠送的礼物信息
      * @dw 红色小轿车动画
      * @author 魏鹏
-     * @param sendGiftBean 赠送的礼物信息
-     * */
-    protected void showRedCarAnimation(SendGiftBean sendGiftBean){
-        if(!giftAnimationPlayEnd){
+     */
+    protected void showRedCarAnimation(SendGiftBean sendGiftBean) {
+        if (!giftAnimationPlayEnd) {
             return;
         }
 
         giftAnimationPlayEnd = false;
         //获取汽车动画布局
-        mGiftView = getLayoutInflater().inflate(R.layout.view_live_gift_animation_car_general,null);
+        mGiftView = getLayoutInflater().inflate(R.layout.view_live_gift_animation_car_general, null);
         AvatarView uHead = (AvatarView) mGiftView.findViewById(R.id.iv_animation_red_head);
 
         uHead.setAvatarUrl(sendGiftBean.getAvatar());
@@ -640,12 +645,12 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
                             public void run() {
                                 //小汽车从底部重新回来切换帧动画
                                 redCar.setImageResource(R.drawable.car_10001);
-                                ObjectAnimator oX = ObjectAnimator.ofFloat(mGiftView,"translationX",mScreenWidth,mScreenWidth/2-vw/2);
-                                ObjectAnimator oY = ObjectAnimator.ofFloat(mGiftView,"translationY",mScreenHeight/2,mScreenHeight >> 2);
+                                ObjectAnimator oX = ObjectAnimator.ofFloat(mGiftView, "translationX", mScreenWidth, mScreenWidth / 2 - vw / 2);
+                                ObjectAnimator oY = ObjectAnimator.ofFloat(mGiftView, "translationY", mScreenHeight / 2, mScreenHeight >> 2);
 
                                 //重新初始化帧动画参数
                                 AnimatorSet animatorSet = new AnimatorSet();
-                                animatorSet.playTogether(oX,oY);
+                                animatorSet.playTogether(oX, oY);
                                 animatorSet.setDuration(2000);
                                 animatorSet.addListener(new Animator.AnimatorListener() {
                                     @Override
@@ -663,14 +668,15 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
                                                     @Override
                                                     public void run() {
                                                         //从汽车队列中移除,开始下一个汽车动画
-                                                        if(mGiftView == null || mRoot == null)return;
+                                                        if (mGiftView == null || mRoot == null)
+                                                            return;
                                                         mRoot.removeView(mGiftView);
-                                                        if(mLuxuryGiftShowQueue.size() > 0){
+                                                        if (mLuxuryGiftShowQueue.size() > 0) {
                                                             mLuxuryGiftShowQueue.remove(0);
                                                         }
 
                                                         giftAnimationPlayEnd = true;
-                                                        if(mLuxuryGiftShowQueue.size() > 0 && mHandler != null){
+                                                        if (mLuxuryGiftShowQueue.size() > 0 && mHandler != null) {
                                                             switchPlayAnimation(mLuxuryGiftShowQueue.get(0));
                                                         }
                                                     }
@@ -698,12 +704,12 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         };
 
         //汽车动画init
-        ObjectAnimator ox = ObjectAnimator.ofFloat(mGiftView,"translationX",mScreenWidth + vw,mScreenWidth/2-vw/2);
+        ObjectAnimator ox = ObjectAnimator.ofFloat(mGiftView, "translationX", mScreenWidth + vw, mScreenWidth / 2 - vw / 2);
         ox.setDuration(1500);
-        ObjectAnimator oy = ObjectAnimator.ofFloat(mGiftView,"translationY",mScreenHeight >> 2);
+        ObjectAnimator oy = ObjectAnimator.ofFloat(mGiftView, "translationY", mScreenHeight >> 2);
         //设置背景帧动画
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(ox,oy);
+        animatorSet.playTogether(ox, oy);
         animatorSet.setDuration(1500);
         animatorSet.addListener(new Animator.AnimatorListener() {
             @Override
@@ -715,8 +721,8 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
             public void onAnimationEnd(final Animator animation) {
                 //小汽车停在中间
                 redCar.setImageResource(R.drawable.car_red6);
-                if(mHandler == null) return;
-                mHandler.postDelayed(carRunnable,500);
+                if (mHandler == null) return;
+                mHandler.postDelayed(carRunnable, 500);
 
             }
 
@@ -733,21 +739,22 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         animatorSet.start();
 
     }
+
     /**
+     * @param mSendGiftBean 赠送的礼物信息
      * @dw 摩天轮
      * @author 魏鹏
-     * @param mSendGiftBean 赠送的礼物信息
-     * */
-    protected void showCruisesAnimation(SendGiftBean mSendGiftBean){
-        if(!giftAnimationPlayEnd){
+     */
+    protected void showCruisesAnimation(SendGiftBean mSendGiftBean) {
+        if (!giftAnimationPlayEnd) {
             return;
         }
         giftAnimationPlayEnd = false;
-        mGiftView = getLayoutInflater().inflate(R.layout.view_live_gift_animation_feel,null);
+        mGiftView = getLayoutInflater().inflate(R.layout.view_live_gift_animation_feel, null);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
-        mRoot.addView(mGiftView,params);
+        mRoot.addView(mGiftView, params);
 
         ImageView feel = (ImageView) mGiftView.findViewById(R.id.view_iv_live_gift_feel);
         AnimationDrawable animationDrawable = (AnimationDrawable) feel.getBackground();
@@ -761,29 +768,30 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
                 //结束后从队列移除开始下一个邮轮动画
                 nextAnimation();
             }
-        },7000);
+        }, 7000);
     }
+
     /**
      * @dw kiss
      * @author 魏鹏
-     * */
-    protected void showFireworksAnimation(SendGiftBean mSendGiftBean){
-        if(!giftAnimationPlayEnd){
+     */
+    protected void showFireworksAnimation(SendGiftBean mSendGiftBean) {
+        if (!giftAnimationPlayEnd) {
             return;
         }
         giftAnimationPlayEnd = false;
-        mGiftView = getLayoutInflater().inflate(R.layout.view_live_gift_animation_kiss,null);
+        mGiftView = getLayoutInflater().inflate(R.layout.view_live_gift_animation_kiss, null);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
-        mRoot.addView(mGiftView,params);
+        mRoot.addView(mGiftView, params);
 
         ImageView feel = (ImageView) mGiftView.findViewById(R.id.view_iv_live_gift_kiss);
         AnimationDrawable animationDrawable = (AnimationDrawable) feel.getDrawable();
         animationDrawable.start();
         int duration = 0;
 
-        for(int i = 0; i < animationDrawable.getNumberOfFrames(); i++){
+        for (int i = 0; i < animationDrawable.getNumberOfFrames(); i++) {
             duration += animationDrawable.getDuration(i);
 
         }
@@ -793,32 +801,32 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
                 nextAnimation();
 
             }
-        },duration);
+        }, duration);
 
 
     }
 
     private void nextAnimation() {
         //结束后从队列移除开始下一个邮轮动画
-        if(mRoot == null)return;
+        if (mRoot == null) return;
         mRoot.removeView(mGiftView);
-        if(mLuxuryGiftShowQueue.size() > 0){
+        if (mLuxuryGiftShowQueue.size() > 0) {
             mLuxuryGiftShowQueue.remove(0);
         }
         giftAnimationPlayEnd = true;
-        if(mLuxuryGiftShowQueue.size() > 0 && mHandler != null){
+        if (mLuxuryGiftShowQueue.size() > 0 && mHandler != null) {
             switchPlayAnimation(mLuxuryGiftShowQueue.get(0));
         }
     }
 
     /**
+     * @param mShowGiftLayout 礼物显示View
+     * @param gitInfo         赠送的礼物信息
+     * @param num             赠送礼物的数量(无用)
      * @dw 连送
      * @author 魏鹏
-     * @param mShowGiftLayout 礼物显示View
-     * @param gitInfo 赠送的礼物信息
-     * @param num 赠送礼物的数量(无用)
-     * */
-    protected void showEvenSentGiftAnimation(final View mShowGiftLayout,final SendGiftBean gitInfo,int num) {
+     */
+    protected void showEvenSentGiftAnimation(final View mShowGiftLayout, final SendGiftBean gitInfo, int num) {
         final AvatarView mGiftIcon = (AvatarView) mShowGiftLayout.findViewById(R.id.av_gift_icon);
         final StrokeTextView mGiftNum = (StrokeTextView) mShowGiftLayout.findViewById(R.id.tv_show_gift_num);
         ((AvatarView) mShowGiftLayout.findViewById(R.id.av_gift_uhead)).setAvatarUrl(gitInfo.getAvatar());
@@ -826,11 +834,11 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         ((TextView) mShowGiftLayout.findViewById(R.id.tv_gift_gname)).setText(gitInfo.getGiftname());
         mGiftIcon.setAvatarUrl(gitInfo.getGifticon());
 
-        if(mShowGiftAnimator != null){
+        if (mShowGiftAnimator != null) {
             mShowGiftAnimator.addView(mShowGiftLayout);//添加到动画区域显示效果
         }
         //动画开始平移
-        ObjectAnimator oa1 = ObjectAnimator.ofFloat(mShowGiftLayout,"translationX",-340f,0f);
+        ObjectAnimator oa1 = ObjectAnimator.ofFloat(mShowGiftLayout, "translationX", -340f, 0f);
         oa1.setDuration(300);
         oa1.start();
         oa1.addListener(new Animator.AnimatorListener() {
@@ -843,7 +851,7 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
             public void onAnimationEnd(Animator animation) {
                 showGiftNumAnimation(mGiftNum, gitInfo.getUid());
                 //礼物图片平移动画
-                ObjectAnimator giftIconAnimator = ObjectAnimator.ofFloat(mGiftIcon, "translationX", -40f, (mShowGiftLayout.getRight() - mGiftIcon.getWidth()*2));
+                ObjectAnimator giftIconAnimator = ObjectAnimator.ofFloat(mGiftIcon, "translationX", -40f, (mShowGiftLayout.getRight() - mGiftIcon.getWidth() * 2));
                 giftIconAnimator.setDuration(500);
                 giftIconAnimator.start();
                 //获取当前礼物是正在显示的哪一个
@@ -880,22 +888,23 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
 
 
     /**
-     * @dw 礼物数量增加动画
-     * @param tv 显示数量的TextView
+     * @param tv  显示数量的TextView
      * @param uid 送礼物用户id,需要根据id取出队列中的礼物信息进行赠送时间重置
-     * */
-    protected void showGiftNumAnimation(TextView tv,int uid){
+     * @dw 礼物数量增加动画
+     */
+    protected void showGiftNumAnimation(TextView tv, int uid) {
         tv.setText("X" + mGiftShowQueue.get(uid).getGiftcount());
-        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("scaleX",1f,0.2f,1f);
-        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("scaleY",1f,0.2f,1f);
-        ObjectAnimator.ofPropertyValuesHolder(tv,p1,p2).setDuration(200).start();
+        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("scaleX", 1f, 0.2f, 1f);
+        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("scaleY", 1f, 0.2f, 1f);
+        ObjectAnimator.ofPropertyValuesHolder(tv, p1, p2).setDuration(200).start();
         mGiftShowQueue.get(uid).setSendTime(System.currentTimeMillis());//重置发送时间
     }
+
     /**
-     * @dw 连送礼物初始化
      * @param mSendGiftInfo 赠送礼物信息
-     * */
-    protected void showOrdinaryGiftInit(final SendGiftBean mSendGiftInfo){
+     * @dw 连送礼物初始化
+     */
+    protected void showOrdinaryGiftInit(final SendGiftBean mSendGiftInfo) {
 
 
         Log.d("SendGiftInfo", mSendGiftInfo.getNicename());
@@ -906,15 +915,15 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         boolean isShow = false;//是否刚刚加入正在显示队列
         boolean isFirst = false;//是否是第一次赠送礼物
         //是否是第一次送礼物,为空表示礼物队列中没有查询到该用户的送礼纪录
-        if(mGiftShowQueue.get(mSendGiftInfo.getUid()) == null){
-            mGiftShowQueue.put(mSendGiftInfo.getUid(),mSendGiftInfo);//加入礼物消息队列
+        if (mGiftShowQueue.get(mSendGiftInfo.getUid()) == null) {
+            mGiftShowQueue.put(mSendGiftInfo.getUid(), mSendGiftInfo);//加入礼物消息队列
             //将是否第一次送礼设为true
             isFirst = true;
         }
         //是否是新的礼物类型,对比两次礼物的id是否一致
         boolean isNewGift = !(mSendGiftInfo.getGiftid() == mGiftShowQueue.get(mSendGiftInfo.getUid()).getGiftid());
         //当前的正在显示礼物队列不够两条(最多两条),并且当前送礼物用户不在list中
-        if((mGiftShowNow.size() < 2) && (mShowGiftLayout == null)){
+        if ((mGiftShowNow.size() < 2) && (mShowGiftLayout == null)) {
             //初始化显示礼物布局和信息
             mShowGiftLayout = initShowEvenSentSendGift(mSendGiftInfo);
             isShow = true;
@@ -923,17 +932,17 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         * mShowGiftLayout不等于null表示在正在显示的礼物队列中查询到了该用户送礼物纪录
         * 将是否正在显示isShow设置为true
         * */
-        if(mShowGiftLayout != null){
+        if (mShowGiftLayout != null) {
             isShow = true;
         }
         /*
         * 如果是新礼物(表示礼物队列中存在送礼物纪录)
         * 存在就将最新礼物的icon和数量重置,并且覆盖older信息
         * */
-        if(isNewGift&&mShowGiftLayout != null){
-            ((AvatarView)mShowGiftLayout.findViewById(R.id.av_gift_icon)).setAvatarUrl(mSendGiftInfo.getGifticon());
-            ((StrokeTextView)mShowGiftLayout.findViewById(R.id.tv_show_gift_num)).setText("X1");
-            ((TextView)mShowGiftLayout.findViewById(R.id.tv_gift_gname)).setText(mSendGiftInfo.getGiftname());
+        if (isNewGift && mShowGiftLayout != null) {
+            ((AvatarView) mShowGiftLayout.findViewById(R.id.av_gift_icon)).setAvatarUrl(mSendGiftInfo.getGifticon());
+            ((StrokeTextView) mShowGiftLayout.findViewById(R.id.tv_show_gift_num)).setText("X1");
+            ((TextView) mShowGiftLayout.findViewById(R.id.tv_gift_gname)).setText(mSendGiftInfo.getGiftname());
             //新礼物覆盖之前older礼物信息
             mGiftShowQueue.put(mSendGiftInfo.getUid(), mSendGiftInfo);
         }
@@ -941,38 +950,39 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         * 判断是否是连送礼物并且不是第一次赠送并且不是新礼物
         * 不是第一次赠送并且不是新礼物才需要添加数量(否则数量和礼物信息需要重置),
         * */
-        if(mSendGiftInfo.getEvensend().equals("y")&&(!isFirst)&&(!isNewGift)){//判断当前礼物是否属于连送礼物
+        if (mSendGiftInfo.getEvensend().equals("y") && (!isFirst) && (!isNewGift)) {//判断当前礼物是否属于连送礼物
             //是连送礼物,将消息队列中的礼物赠送数量加1
             mGiftShowQueue.get(mSendGiftInfo.getUid()).setGiftcount(mGiftShowQueue.get(mSendGiftInfo.getUid()).getGiftcount() + 1);
         }
         //需要显示在屏幕上并且是第一次送礼物需要进行动画初始化
-        if(isShow && isFirst){
-            showEvenSentGiftAnimation(mShowGiftLayout,mSendGiftInfo,1);
-        }else if(isShow && (!isNewGift)){//存在显示队列并且不是新礼物进行数量加一动画
+        if (isShow && isFirst) {
+            showEvenSentGiftAnimation(mShowGiftLayout, mSendGiftInfo, 1);
+        } else if (isShow && (!isNewGift)) {//存在显示队列并且不是新礼物进行数量加一动画
             showGiftNumAnimation((StrokeTextView) mShowGiftLayout.findViewById(R.id.tv_show_gift_num), mSendGiftInfo.getUid());
         }
     }
+
     /**
+     * @param mSendGiftInfo 赠送礼物信息
      * @dw 赠送礼物进行初始化操作
      * 判断当前礼物是属于豪华礼物还是连送礼物,并且对魅力值进行累加
-     * @param mSendGiftInfo 赠送礼物信息
-     * */
-    protected void showGiftInit(SendGiftBean mSendGiftInfo){
+     */
+    protected void showGiftInit(SendGiftBean mSendGiftInfo) {
         //票数更新
-        if(null!=mYpNum && !mYpNum.getText().toString().equals("") && null!=mSendGiftInfo){
+        if (null != mYpNum && !mYpNum.getText().toString().equals("") && null != mSendGiftInfo) {
             mYpNum.setText(String.valueOf(Integer.parseInt(mYpNum.getText().toString()) + mSendGiftInfo.getTotalcoin()));
-        }else if(null!=mYpNum && mYpNum.getText().toString().equals("")){
+        } else if (null != mYpNum && mYpNum.getText().toString().equals("")) {
             mYpNum.setText(String.valueOf(mSendGiftInfo.getTotalcoin()));
         }
         //判断是要播放哪个豪华礼物
         int gId = mSendGiftInfo.getGiftid();
-        if(gId == 19 || gId == 21 || gId == 22 || gId == 9 || gId == 19  ){
+        if (gId == 19 || gId == 21 || gId == 22 || gId == 9 || gId == 19) {
             mLuxuryGiftShowQueue.add(mSendGiftInfo);
         }
         switchPlayAnimation(mSendGiftInfo);
     }
 
-    public void chatListItemClick(ChatBean chat){
+    public void chatListItemClick(ChatBean chat) {
 
     }
 
@@ -985,32 +995,46 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         mLiveChatEdit.setVisibility(View.VISIBLE);
         mButtonMenu.setVisibility(View.GONE);
     }
+
     //隐藏输入框
-    protected void hideEditText(){
-        if(mLiveChatEdit.getVisibility() != View.GONE && InputMethodUtils.isShowSoft(this)){
+    protected void hideEditText() {
+        if (mLiveChatEdit.getVisibility() != View.GONE && InputMethodUtils.isShowSoft(this)) {
             InputMethodUtils.closeSoftKeyboard(this);
             mButtonMenu.setVisibility(View.VISIBLE);
             mLiveChatEdit.setVisibility(View.GONE);
             ACE_TEX_TO_USER = 0;
         }
     }
-    //添加一条聊天
-    protected void addChatMessage(ChatBean c){
-        if(mChats.size()>30)mChats.remove(0);
 
+    //添加一条聊天
+    protected void addChatMessage(ChatBean c) {
+        if (mChats.size() > 30) mChats.remove(0);
+
+        Log.d("manage", c.getIsmanage() + "");
+        Log.d("managemethod", c.toString());
+
+//        if (c.getSendChatMsg().toString().equals("15895464124")) {
+//            String msg = c.getUserNick().toString();
+//            startAnimation("超级管理员"+msg+"进入了房间", 1);
+//            Log.d("manage", "管理员动画");
+//        } else
+//        {
         if (c.getSendChatMsg().toString().contains("欢迎VIP")) {
             String msg = c.getSendChatMsg().toString().replace("欢迎VIP会员", "");
-            startAnimation(msg);
+            startAnimation(msg, 0);
+            Log.d("manage", "VIP动画");
         } else {
             mChats.add(c);
             mChatListAdapter.setChats(mChats);
             mChatListAdapter.notifyDataSetChanged();
             //HHH 2016-09-08 Null指针退出
-            if(mLvChatList!=null)
-            {
+            if (mLvChatList != null) {
                 mLvChatList.setSelection(mChats.size() - 1);
             }
         }
+//        }
+
+
 
 
     }
@@ -1018,64 +1042,66 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
 
     //添加弹幕 HHH
 
-    protected void addDanmu(final  ChatBean c)  {
+    protected void addDanmu(final ChatBean c) {
 
-        final SoftReference<ChatBean>  refChatBean= new SoftReference<ChatBean>(c);
-        final String danmuStr =new StringBuilder() .append(" ") .append(c.getUser_nicename()).append(":") .append("\n               ") .append(c.getContent()).toString();
+        final SoftReference<ChatBean> refChatBean = new SoftReference<ChatBean>(c);
+        final String danmuStr = new StringBuilder().append(" ").append(c.getUser_nicename()).append(":").append("\n               ").append(c.getContent()).toString();
 
 
         Glide.with(this).load(c.getAvatar()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                Danmu danmu = new Danmu(0, c.getId(), "Comment", resource, danmuStr,refChatBean);
-                mDanmuControl.addDanmu(danmu,0);
+                Danmu danmu = new Danmu(0, c.getId(), "Comment", resource, danmuStr, refChatBean);
+                mDanmuControl.addDanmu(danmu, 0);
 
             }
+
             @Override
             public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                SoftReference<ChatBean>  refChatBean= new SoftReference<ChatBean>(c);
+                SoftReference<ChatBean> refChatBean = new SoftReference<ChatBean>(c);
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_nouser);
-                Danmu danmu = new Danmu(0, c.getId(), "Comment", bitmap,  danmuStr,refChatBean);
-                mDanmuControl.addDanmu(danmu,0);
+                Danmu danmu = new Danmu(0, c.getId(), "Comment", bitmap, danmuStr, refChatBean);
+                mDanmuControl.addDanmu(danmu, 0);
             }
         }); //方法中设置asBitmap可以设置回调类型
     }
 
     //用户信息弹窗
-    protected void showUserInfoDialog(UserBean mUserInfo,UserBean toUserInfo,int roomNum,Context context){
+    protected void showUserInfoDialog(UserBean mUserInfo, UserBean toUserInfo, int roomNum, Context context) {
         UserInfoDialogFragment u = new UserInfoDialogFragment();
         u.setIsAttentionListener((UserInfoDialogFragment.IsAttentionListener) context);
         Bundle b = new Bundle();
-        b.putParcelable("MYUSERINFO",mUserInfo);
-        b.putParcelable("TOUSERINFO",toUserInfo);
-        b.putInt("ROOMNUM",roomNum);
+        b.putParcelable("MYUSERINFO", mUserInfo);
+        b.putParcelable("TOUSERINFO", toUserInfo);
+        b.putInt("ROOMNUM", roomNum);
         u.setArguments(b);
-        u.show(getSupportFragmentManager(),"UserInfoDialogFragment");
+        u.show(getSupportFragmentManager(), "UserInfoDialogFragment");
     }
 
-    public void dialogReply(UserBean toUser){
+    public void dialogReply(UserBean toUser) {
 
     }
+
     //僵尸粉丝
-    protected void addZombieFans(String zombies){
+    protected void addZombieFans(String zombies) {
         String fans = ApiUtils.checkIsSuccess(zombies);
-        if(null != fans){
+        if (null != fans) {
             try {
                 //设置在线用户数量
                 JSONObject jsonInfoObj = new JSONObject(fans);
                 JSONArray fansJsonArray = jsonInfoObj.getJSONArray("list");
 
-                if(!(mUserList.size() >= 20) && fansJsonArray.length() > 0){
-                    for(int i = 0; i < fansJsonArray.length() ; i++){
-                        UserBean u = mGson.fromJson(fansJsonArray.getString(i),UserBean.class);
+                if (!(mUserList.size() >= 20) && fansJsonArray.length() > 0) {
+                    for (int i = 0; i < fansJsonArray.length(); i++) {
+                        UserBean u = mGson.fromJson(fansJsonArray.getString(i), UserBean.class);
                         mUserList.add(u);
                     }
                     sortUserList();
                 }
                 //在线人数统计
-                if(fansJsonArray.length() > 0){
-                    ChatServer.LIVE_USER_NUMS = StringUtils.toInt(jsonInfoObj.getString("nums"),0);
-                    mLiveNum.setText( ChatServer.LIVE_USER_NUMS + "");
+                if (fansJsonArray.length() > 0) {
+                    ChatServer.LIVE_USER_NUMS = StringUtils.toInt(jsonInfoObj.getString("nums"), 0);
+                    mLiveNum.setText(ChatServer.LIVE_USER_NUMS + "");
                 }
 
             } catch (JSONException e) {
@@ -1083,17 +1109,18 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
             }
         }
     }
-    //用户列表排序
-    protected void sortUserList(){
 
-        for(int i = 0; i < mUserList.size() - 1; i++){
-            for(int j = 0 ; j < mUserList.size() - 1 -i; j++){
+    //用户列表排序
+    protected void sortUserList() {
+
+        for (int i = 0; i < mUserList.size() - 1; i++) {
+            for (int j = 0; j < mUserList.size() - 1 - i; j++) {
 
                 //判断等级大小进行排序
-                if(mUserList.get(j).getLevel() < mUserList.get(j + 1).getLevel()){
+                if (mUserList.get(j).getLevel() < mUserList.get(j + 1).getLevel()) {
                     UserBean temp = mUserList.get(j);
-                    mUserList.set(j,mUserList.get(j+1));
-                    mUserList.set(j + 1,temp);
+                    mUserList.set(j, mUserList.get(j + 1));
+                    mUserList.set(j + 1, temp);
                 }
             }
         }
@@ -1102,8 +1129,7 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(mUserListHandler!=null)
-                {
+                if (mUserListHandler != null) {
                     mUserListHandler.sendEmptyMessage(1);
                 }
             }
@@ -1113,45 +1139,48 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
 
 
     //当用户状态改变
-    protected void onUserStatusChange(UserBean user,boolean state){
+    protected void onUserStatusChange(UserBean user, boolean state) {
         //设置在线人数
         mLiveNum.setText(String.valueOf(ChatServer.LIVE_USER_NUMS));
 
-        for(int i = 0; i< mUserList.size(); i++){
-            if(user.getId() == mUserList.get(i).getId()){
+        for (int i = 0; i < mUserList.size(); i++) {
+            if (user.getId() == mUserList.get(i).getId()) {
                 mUserList.remove(i);
                 break;
             }
         }
-        if(state && !mUserList.contains(user)){//用户上线
+        if (state && !mUserList.contains(user)) {//用户上线
             //判断该用户是否存在列表中
             mUserList.add(user);
-            TLog.log("加入不存在" +user.getId());
-            TLog.log("加入" +user.getId());
-        }else{
+            TLog.log("加入不存在" + user.getId());
+            TLog.log("加入" + user.getId());
+        } else {
 
-            TLog.log("离开" +user.getId());
+            TLog.log("离开" + user.getId());
         }
         //列表重新排序
         sortUserList();
     }
+
     //连接结果
-    public void onConnectRes(boolean res){
-        if(res){
+    public void onConnectRes(boolean res) {
+        if (res) {
             mConnectionState = true;
             //开启定时发送心跳包
             mChatServer.heartbeat(mHandler);
-            AppContext.showToastAppMsg(this,"连接成功");
+            AppContext.showToastAppMsg(this, "连接成功");
+//            sendChat();
             //请求僵尸粉丝
             mChatServer.getZombieFans();
-        }else {
-            AppContext.showToastAppMsg(this,"连接失败");
+        } else {
+            AppContext.showToastAppMsg(this, "连接失败");
         }
     }
+
     //直播结束弹窗遮罩
-    protected void showLiveEndDialog(int uid,int liveEndYpNum){
-        endDate=new Date();
-        if(uid != mRoomNum){
+    protected void showLiveEndDialog(int uid, int liveEndYpNum) {
+        endDate = new Date();
+        if (uid != mRoomNum) {
             /*
             LiveEndFragmentDialog liveEndFragmentDialog = new LiveEndFragmentDialog();
             Bundle bundle = new Bundle();
@@ -1161,23 +1190,23 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
             */
             LiveEndFragmentDialog liveEndFragmentDialog = new LiveEndFragmentDialog();
             Bundle bundle = new Bundle();
-            bundle.putInt("roomnum",mRoomNum);
+            bundle.putInt("roomnum", mRoomNum);
             liveEndFragmentDialog.setArguments(bundle);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(liveEndFragmentDialog, "liveEndFragmentDialog");
             transaction.commitAllowingStateLoss();
-        }else{
+        } else {
             LiveEmceeEndFragmentDialog dialog = new LiveEmceeEndFragmentDialog();
             Bundle bundle = new Bundle();
-            bundle.putString("ypNum",ChatServer.LIVE_USER_NUMS + "人观看");
-            bundle.putString("liveNum","共收获:" + liveEndYpNum + "魅力值");
-            bundle.putString("liveDuration","直播时长:"+ DateUtil.getSpan(startDate,endDate));
+            bundle.putString("ypNum", ChatServer.LIVE_USER_NUMS + "人观看");
+            bundle.putString("liveNum", "共收获:" + liveEndYpNum + "魅力值");
+            bundle.putString("liveDuration", "直播时长:" + DateUtil.getSpan(startDate, endDate));
             dialog.setArguments(bundle);
-            dialog.show(getSupportFragmentManager(),"LiveEmceeEndFragmentDialog");
+            dialog.show(getSupportFragmentManager(), "LiveEmceeEndFragmentDialog");
         }
     }
 
-    protected BitmapDrawable getResourcesImage(int resourcesId){
+    protected BitmapDrawable getResourcesImage(int resourcesId) {
         BitmapFactory.Options opt = new BitmapFactory.Options();
 
         opt.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -1197,9 +1226,15 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         return bd;
     }
 
-    public void startAnimation(String msg) {
-        AnimationSet animationSet = new AnimationSet(true);
+    public void startAnimation(String msg, int type) {
+
+        if (type == 1) {
+            tvWelcomeVip.setBackgroundResource(R.drawable.welcome_super_manage);
+        } else {
+            tvWelcomeVip.setBackgroundResource(R.drawable.welcome_vip);
+        }
         tvWelcomeVip.setText(msg);
+        AnimationSet animationSet = new AnimationSet(true);
         TranslateAnimation translateAnimation = new TranslateAnimation(
                 //参数1～2：x轴的开始位置      
                 //参数3～4：y轴的开始位置     
@@ -1272,7 +1307,7 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         //解除广播
         try {
             unregisterReceiver(broadCastReceiver);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -1281,32 +1316,31 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
     public void onClick(View view) {
 
     }
+
     //发送弹幕 HHH
-    protected void sendBarrage()
-    {
-        if(mChatInput.getText().toString().trim().length()==0 ||(!mConnectionState))
-        {
+    protected void sendBarrage() {
+        if (mChatInput.getText().toString().trim().length() == 0 || (!mConnectionState)) {
             return;
         }
 
         StringCallback callback = new StringCallback() {
             @Override
             public void onError(Call call, Exception e) {
-                AppContext.showToastAppMsg(ShowLiveActivityBase.this,getString(R.string.senderror));
+                AppContext.showToastAppMsg(ShowLiveActivityBase.this, getString(R.string.senderror));
             }
+
             @Override
             public void onResponse(String response) {
                 //TLog.log(response);
                 sendBarrageOnResponse(response);
             }
         };
-        PhoneLiveApi.sendBarrage(mUser,mChatInput.getText().toString(),mUser.getId(),callback);
+        PhoneLiveApi.sendBarrage(mUser, mChatInput.getText().toString(), mUser.getId(), callback);
 
     }
 
     protected void sendBarrageOnResponse(String response) {
     }
-
 
 
     private void requestConfig() {

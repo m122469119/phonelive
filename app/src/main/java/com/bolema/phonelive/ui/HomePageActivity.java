@@ -610,14 +610,11 @@ public class HomePageActivity extends ToolBarBaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-
-
             }
 
             @Override
@@ -630,7 +627,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
                     tvCoin.setText(votes);
                     return;
                 }
-                int votesNum = Integer.parseInt(etDiamondsNum.getText().toString()) * exRate;
+                int votesNum = Integer.parseInt(etDiamondsNum.getText().toString()) * exRate/3;
                 if (votesNum < 0 || votesNum > Integer.parseInt(votes)) {
                     tvCoin.setText("0");
                     tvVotesNum.setText(votes);
@@ -674,8 +671,8 @@ public class HomePageActivity extends ToolBarBaseActivity {
                         JSONObject jsono = new JSONObject(res);
                         if (jsono.has("ex_rate")) {
                             exRate = jsono.getInt("ex_rate");
-                            tvExchangeNote.setText(exRate + "魅力值可兑换1播币");
-                            tvExchangeRate.setText("1:" + exRate);
+                            tvExchangeNote.setText(exRate + "魅力值可兑换3播币");
+                            tvExchangeRate.setText("3:" + exRate);
                         } else {
                             Toast.makeText(ExchangeVoteActivity.this, "兑换比率获取异常", Toast.LENGTH_SHORT).show();
                         }
@@ -699,11 +696,9 @@ public class HomePageActivity extends ToolBarBaseActivity {
                 String res = ApiUtils.checkIsSuccess(response);
                 Gson g = new Gson();
                 if (res != null) {
-
                     Toast.makeText(ExchangeVoteActivity.this, res, Toast.LENGTH_SHORT).show();
                     votes = tvCoin.getText().toString();
                     etDiamondsNum.setText("");
-
                 }
             }
         };

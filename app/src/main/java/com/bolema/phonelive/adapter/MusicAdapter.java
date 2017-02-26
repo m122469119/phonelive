@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bolema.phonelive.AppConfig;
 import com.bolema.phonelive.AppContext;
@@ -16,6 +17,8 @@ import com.bolema.phonelive.bean.LocalMusicBean.ShowapiResBodyBean.PagebeanBean.
 import com.bolema.phonelive.fragment.SearchMusicDialogFragment;
 import com.bolema.phonelive.ui.StartLiveActivity;
 import com.bolema.phonelive.utils.DBManager;
+import com.bolema.phonelive.utils.MD5;
+import com.bolema.phonelive.utils.MD5Encoder;
 import com.dd.CircularProgressButton;
 
 import java.io.File;
@@ -34,6 +37,7 @@ public class MusicAdapter extends BaseAdapter{
         this.mMusicList =  MusicList;
         this.mFragment = fragment;
         this.mDbManager = dbManager;
+
     }
 
     public void notifyDataSetChangedMusicList(List<MusiclistBean> MusicList){
@@ -67,26 +71,45 @@ public class MusicAdapter extends BaseAdapter{
         final MusiclistBean music = mMusicList.get(position);
         viewHolder.mMusicName.setText(music.getSongname());
         viewHolder.mMusicAuthor.setText(music.getSingername());
-        Log.i("music_url", music.getM4a());
-        final File file = new File(AppConfig.DEFAULT_SAVE_MUSIC_PATH + music.getSongid() + ".m4a");
 
+//        String type;
+////        if (which == 1) {
+//            type = ".m4a";
+
+        File file = null;
+        try {
+            file = new File(AppConfig.DEFAULT_SAVE_MUSIC_PATH + MD5Encoder.encode(music.getDownUrl()) + ".mp3");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         //判断该音乐是否存在
-        if(mDbManager.queryFromEncryptedSongId(music.getSongid()).getCount() != 0){
-            viewHolder.mBtnDownload.setText(R.string.select);
+        try {
+            if(mDbManager.queryFromEncryptedDownloadUrl(music.getDownUrl()).getCount()!=0){
+                viewHolder.mBtnDownload.setText(R.string.select);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         //点击下载或播放
+        final File finalFile = file;
         viewHolder.mBtnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
                 //判断该音乐是否存在,存在直接播放
-                if(mDbManager.queryFromEncryptedSongId(music.getSongid()).getCount() != 0){
-                    intent = new Intent();
-                    ((StartLiveActivity)mFragment.getActivity()).onSelectMusic(intent.putExtra("filepath",file.getPath()));
-                }else {
-                    mFragment.downloadMusic(music,(CircularProgressButton)v);
+                try {
+                    AppContext.showToastShort(music.getDownUrl());
+
+                    if(mDbManager.queryFromEncryptedDownloadUrl(music.getDownUrl()).getCount()!=0){
+                        intent = new Intent();
+                        ((StartLiveActivity)mFragment.getActivity()).onSelectMusic(intent.putExtra("filepath", finalFile.getPath()));
+                    }else {
+                        mFragment.downloadMusic(music,(CircularProgressButton)v);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * Created by venus on 2016/6/28.
  */
 public class HotViewPagerAdapter extends PagerAdapter {
-    private ArrayList<View> imageViews;
     private int newPosition;
+    private ArrayList<View> imageViews;
     public HotViewPagerAdapter(ArrayList<View> imageViews) {
         this.imageViews = imageViews;
     }

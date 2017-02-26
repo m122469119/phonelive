@@ -5,7 +5,6 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -43,6 +42,7 @@ import com.bolema.phonelive.ui.other.ChatServer;
 import com.bolema.phonelive.utils.DialogHelp;
 import com.bolema.phonelive.utils.QosThread;
 import com.bolema.phonelive.utils.ShareUtils;
+import com.bolema.phonelive.utils.SharedPreUtil;
 import com.bolema.phonelive.utils.TLog;
 import com.bolema.phonelive.utils.UIHelper;
 import com.bolema.phonelive.widget.LoadUrlImageView;
@@ -53,6 +53,7 @@ import com.ksyun.media.player.KSYMediaPlayer;
 import com.socks.library.KLog;
 import com.tandong.bottomview.view.BottomView;
 import com.umeng.analytics.MobclickAgent;
+import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -101,6 +102,10 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
     public static final int UPDATE_QOS = 2;
     @InjectView(R.id.live_anchor_name)
     TextView liveAnchorName;
+    @InjectView(R.id.btn_i_know)
+    Button btnIKnow;
+    @InjectView(R.id.layout_first_note)
+    AutoLinearLayout layoutFirstNote;
 
     private KSYMediaPlayer ksyMediaPlayer;
 
@@ -261,11 +266,9 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
         mTvLiveNumber.setText("ID号:" + mEmceeInfo.getId() + "");
         mEmceeHead.setAvatarUrl(mEmceeInfo.getAvatar());
         //初始化直播播放器参数配置
-
         //视频流播放地址
         //  mrl = AppConfig.RTMP_URL2 + mEmceeInfo.getStream();
         mrl = AppConfig.RTMP_URL2 + mEmceeInfo.getStream();
-        TLog.log(mrl);
         //mDanmuControl.show();
         requestIsFollow();
         initLive();
@@ -334,7 +337,6 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                         }
                     }
                 });
-
         //禁言状态初始化
         PhoneLiveApi.isShutUp(mUser.getId(), mEmceeInfo.getId(), new StringCallback() {
             @Override
@@ -510,9 +512,6 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                 onClickSendGift(v);
             }
         });
-//        if (mSelectedGiftItem != null) {
-//            mSendGiftBtn.setBackgroundColor(ContextCompat.getColor(this,R.color.global));
-//        }
         //表示已经请求过数据不再向下执行
         if (mGiftViews != null) {
             fillGift();
@@ -525,7 +524,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
      * @param v btn
      * @dw 点击赠送礼物按钮
      */
-    private void onClickSendGift( View v) {//赠送礼物
+    private void onClickSendGift(View v) {//赠送礼物
         if (!mConnectionState) {//没有连接ok
             return;
         }
@@ -538,13 +537,11 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                     if (mShowGiftSendOutTime == 1) {
                         recoverySendGiftBtnLayout();
                         mHandler.removeCallbacks(this);
-
                         return;
                     }
                     mHandler.postDelayed(this, 1000);
                     mShowGiftSendOutTime--;
                     ((TextView) mSendGiftLian.findViewById(R.id.tv_show_gift_outtime)).setText(String.valueOf(mShowGiftSendOutTime));
-
                 }
             }, 1000);
             sendGift("y");//礼物发送
@@ -632,7 +629,6 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
             }
             mSelectedGiftItem = null;
 //            changeSendGiftBtnStatue(false);
-
         }
     }
 
@@ -698,7 +694,6 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
         String s = ApiUtils.checkIsSuccess(response);
         if (s != null) {
             try {
-
                 JSONObject tokenJson = new JSONObject(s);
                 mUser.setCoin(tokenJson.getString("coin"));
                 //mUserCoin.setText(mUser.getCoin());
@@ -723,11 +718,35 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
         try {
             mChatServer = new ChatServer(new ChatListenUIRefresh(), this, mEmceeInfo.getId());
             mChatServer.connectSocketServer(res, AppContext.getInstance().getToken(), mEmceeInfo.getId());//连接到socket服务端
+//            mChatServer.doSendSystemMessage("huanying", AppContext.getInstance().getLoginUser());
             //请求僵尸粉丝
             mChatServer.getZombieFans();
+//            UserBean userBean = AppContext.getInstance().getLoginUser();
+//            int isManage = userBean.getIsmanage();
+
+//            if (!vip_type.equals("1")) {
+//                mChatServer.doSendSystemMessage("欢迎"+userBean.getUser_nicename()+"进入房间",userBean);
+//            }
+
+//            if (isManage==1) {
+//                mChatServer.doSendSystemMessage("15895464124", userBean);
+//            }
         } catch (URISyntaxException e) {
             e.printStackTrace();
             TLog.log("connect error");
+        }
+        boolean isFirstInstall = SharedPreUtil.getBoolean(this, "isFirstInstall");
+        if (isFirstInstall) {
+            layoutFirstNote.setVisibility(View.VISIBLE);
+            btnIKnow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    layoutFirstNote.setVisibility(View.GONE);
+                    SharedPreUtil.put(VideoPlayerActivity.this, "isFirstInstall", false);
+                }
+            });
+        } else {
+            layoutFirstNote.setVisibility(View.GONE);
         }
     }
 
@@ -739,7 +758,6 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.inject(this);
     }
 
@@ -930,7 +948,6 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
         public void onBufferingUpdate(IMediaPlayer mp, int percent) {
             long duration = ksyMediaPlayer.getDuration();
             long progress = duration * percent / 100;
-
         }
     };
 
@@ -942,7 +959,6 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                     mVideoWidth = mp.getVideoWidth();
                     mVideoHeight = mp.getVideoHeight();
 
-                    // maybe we could call scaleVideoView here.
                     if (mVideoSurfaceView != null) {
                         mVideoSurfaceView.setVideoDimension(mVideoWidth, mVideoHeight);
                         mVideoSurfaceView.requestLayout();
@@ -1060,7 +1076,9 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
         }
     };
 
-
+    /**
+     * 滑动页面切换直播间更改直播间信息
+     */
     private Runnable endRunnable = new Runnable() {
         @Override
         public void run() {
@@ -1072,6 +1090,8 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                     int position = DataSingleton.getInstance().getPostion() - 1;
                     DataSingleton.getInstance().setPostion(position);
                     mEmceeInfo = DataSingleton.getInstance().getUserList().get(position);
+                    String name = mEmceeInfo.getUser_nicename();
+                    liveAnchorName.setText(name);
                     //switchRoomRelease();
                     initRoomInfo();
 
@@ -1085,6 +1105,8 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                     DataSingleton.getInstance().setPostion(position);
                     mEmceeInfo = DataSingleton.getInstance().getUserList().get(position);
                     //switchRoomRelease();
+                    String name = mEmceeInfo.getUser_nicename();
+                    liveAnchorName.setText(name);
                     initRoomInfo();
 
                 }
@@ -1268,6 +1290,7 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                         mIvLoadingPre.setNull_drawable(R.drawable.create_room_bg);
                         mIvLoadingPre.setImageLoadUrl(avatarUrl);
                         mIvLoadingPre.setTranslationY(mIvLoadingPre.getY() + my);
+
                     }
 
                 } else {
@@ -1276,6 +1299,8 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                         mIvLoadingNext.setNull_drawable(R.drawable.create_room_bg);
                         mIvLoadingNext.setImageLoadUrl(avatarUrl);
                         mIvLoadingNext.setTranslationY(mIvLoadingNext.getY() + my);
+
+
                     }
                 }
                 dy = ey;

@@ -84,8 +84,10 @@ public class ChatServer {
         public void call(Object... args) {
             try {
                 String res = args[0].toString();
-                Log.d("vipmessage", res);
-
+                KLog.d("vipmessage", res);
+//                if (res.contains("\\u6b22\\u8fce")) {
+//                    Log.d("welcome", res);
+//                }
                 if (res.equals("stopplay")) {
                     mChatServer.onSystemNot(1);
                     return;
@@ -117,6 +119,8 @@ public class ChatServer {
                             //系统消息
                             onSystemMessage(contentJson);
 
+
+
                             KLog.json(contentJson.toString());
 
                         } else if (action == 7) {
@@ -128,8 +132,19 @@ public class ChatServer {
                         if (action == 0) {//上下线
                             JSONObject uInfo = contentJson.getJSONObject("ct");
 
+//                            String vip_type = uInfo.getString("vip_type");
+//                            if (vip_type.equals("0")) {
+//                                ChatBean chatBean = new ChatBean();
+//                                chatBean.setType(13);
+//
+//
+//                                mChatServer.setManage(contentJson,);
+//                            }
+
                             ChatServer.LIVE_USER_NUMS += 1;
+
                             mChatServer.onUserStateChange(mGson.fromJson(uInfo.toString(), UserBean.class), true);
+
                         } else if (action == 1) {
                             JSONObject uInfo = contentJson.getJSONObject("ct");
                             ChatServer.LIVE_USER_NUMS -= 1;
@@ -195,6 +210,10 @@ public class ChatServer {
         c.setType(13);
         c.setSendChatMsg(msg);
         c.setUserNick(name);
+        c.setVip_type(contentJson.getString("vip_type"));
+        c.setIsmanage(contentJson.getInt("ismanage"));
+        KLog.json(contentJson.toString());
+
         mChatServer.setManage(contentJson, c);
     }
 
@@ -211,6 +230,7 @@ public class ChatServer {
 
         c.setVip_type(contentJson.getString("vip_type"));
 
+
         KLog.json(contentJson.toString());
 
         contentJson.getJSONObject("ct").put("evensend", contentJson.getString("evensend"));
@@ -226,13 +246,15 @@ public class ChatServer {
         Drawable d;
         if (viptype == 1) {
             d = ContextCompat.getDrawable(context,DrawableRes.LevelVipImg[(level != 0 ? level - 1 : 0)]);
-            d.setBounds(0, 0, (int) TDevice.dpToPixel(40), (int) TDevice.dpToPixel(15));
+            d.setBounds(0, (int) TDevice.dpToPixel(5), (int) TDevice.dpToPixel(40), (int) TDevice.dpToPixel(18));
+
         } else {
             d = ContextCompat.getDrawable(context,DrawableRes.LevelImg[(level != 0 ? level - 1 : 0)]);
-            d.setBounds(0, 0, (int) TDevice.dpToPixel(30), (int) TDevice.dpToPixel(15));
+            d.setBounds((int) TDevice.dpToPixel(10), (int) TDevice.dpToPixel(5), (int) TDevice.dpToPixel(40), (int) TDevice.dpToPixel(18));
         }
 
         ImageSpan is = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
+
         name.setSpan(new ForegroundColorSpan(Color.rgb(252, 221, 128)), 1, name.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -258,6 +280,9 @@ public class ChatServer {
         c.setCity(contentJson.getString("city"));
         c.setSex(contentJson.getInt("sex"));
         c.setAvatar(contentJson.getString("uhead"));
+
+
+
 
         KLog.json(contentJson.toString());
 
@@ -285,10 +310,10 @@ public class ChatServer {
 
         if (viptype == 1) {
             levelDrawable = ContextCompat.getDrawable(context,DrawableRes.LevelVipImg[(level != 0 ? level - 1 : 0)]);
-            levelDrawable.setBounds(0, 0, (int) TDevice.dpToPixel(40), (int) TDevice.dpToPixel(15));
+            levelDrawable.setBounds(0, (int) TDevice.dpToPixel(5), (int) TDevice.dpToPixel(40), (int) TDevice.dpToPixel(18));
         } else {
             levelDrawable = ContextCompat.getDrawable(context,DrawableRes.LevelImg[(level != 0 ? level - 1 : 0)]);
-            levelDrawable.setBounds(0, 0, (int) TDevice.dpToPixel(30), (int) TDevice.dpToPixel(15));
+            levelDrawable.setBounds((int) TDevice.dpToPixel(10), (int) TDevice.dpToPixel(5), (int) TDevice.dpToPixel(40), (int) TDevice.dpToPixel(18));
         }
 
         ImageSpan levelImage = new ImageSpan(levelDrawable, ImageSpan.ALIGN_BASELINE);
@@ -586,10 +611,14 @@ public class ChatServer {
         msgBean.setTouname("");
         //判断是否为VIP会员
         msgBean.setVip_type(user.getVip_type());
+        //判断是否为超级管理员
+        msgBean.setIsmanage(user.getIsmanage());
+
         msgBeanList.add(msgBean);
         socketMessageBean.setMsg(msgBeanList);
         socketMessageBean.setRetcode("000000");
         socketMessageBean.setRetmsg("ok");
+
         String json = mGson.toJson(socketMessageBean);
         try {
             mSocket.emit(EVENT_NAME, new JSONObject(json));
@@ -677,7 +706,7 @@ public class ChatServer {
     }
 
     //获取发送消息bean对象
-    private SendSocketMessageBean.MsgBean getMsgBean(String method, String ct, String action, String msgType, int reply, UserBean mUser) {
+        private SendSocketMessageBean.MsgBean getMsgBean(String method, String ct, String action, String msgType, int reply, UserBean mUser) {
         SendSocketMessageBean.MsgBean msgBean = new SendSocketMessageBean.MsgBean();
         msgBean.set_method_(method);
         msgBean.setAction(action);
@@ -693,6 +722,7 @@ public class ChatServer {
             msgBean.setUname(mUser.getUser_nicename());
             msgBean.setUhead(mUser.getAvatar());
             msgBean.setUsign(mUser.getSignature());
+            msgBean.setVip_type(mUser.getVip_type());
         }
 
         return msgBean;

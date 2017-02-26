@@ -270,7 +270,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
-                <data android:scheme="tencent100371282" />
+                <data android:scheme="tencent1105778076" />
 
                 <action android:name="android.intent.action.VIEW" />
 
@@ -404,7 +404,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="bc206472aa681104a7fb776a68216ffa">
-            //开发者申请的key
+            <!--//开发者申请的key-->
         </meta-data>
 
         <!-- 友盟统计 -->

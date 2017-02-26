@@ -83,7 +83,7 @@ public class TopicLiveRoomActivity extends ToolBarBaseActivity implements SwipeR
 
     @Override
     public void initData() {
-        setActionBarTitle(getIntent().getStringExtra("topic"));
+        setActionBarTitle(getIntent().getStringExtra("topic").replace("#",""));
         requestData();
         //2016.09.06 无数据不显示轮播修改 wp
         mHotUserListAdapter = new HotUserListAdapter();
@@ -101,7 +101,6 @@ public class TopicLiveRoomActivity extends ToolBarBaseActivity implements SwipeR
         } else {
             mListUserRoom.setAdapter(mHotUserListAdapter);
         }
-
     }
 
     private StringCallback callback = new StringCallback() {

@@ -52,6 +52,10 @@ public class UserBean implements Parcelable {
     private String viplevel; //HHH 2016-09-13
     private String vip_thumb;
     private String vip_type;
+    private int ismanage = 0;
+    private String iszhijin = "0";
+
+
 
     public static final Creator<UserBean> CREATOR = new Creator<UserBean>() {
         @Override
@@ -69,6 +73,12 @@ public class UserBean implements Parcelable {
         return uid;
     }
 
+    public void setIsmanage(int ismanage) {
+        this.ismanage = ismanage;
+    }
+    public int getIsmanage(){
+        return ismanage;
+    }
     public void setUid() {
         this.uid = uid;
     }
@@ -436,6 +446,8 @@ public class UserBean implements Parcelable {
                 ", viplevel='" + viplevel + '\'' +
                 ", vip_thumb='" + vip_thumb + '\'' +
                 ", vip_type='" + vip_type + '\'' +
+                ", ismanage='" + ismanage + '\'' +
+
                 '}';
     }
 
@@ -488,6 +500,7 @@ public class UserBean implements Parcelable {
         dest.writeString(this.viplevel);
         dest.writeString(this.vip_thumb);
         dest.writeString(this.vip_type);
+        dest.writeInt(this.ismanage);
     }
 
     public UserBean() {
@@ -536,6 +549,7 @@ public class UserBean implements Parcelable {
         this.viplevel = in.readString();
         this.vip_thumb = in.readString();
         this.vip_type = in.readString();
+        this.ismanage = in.readInt();
     }
 
 }

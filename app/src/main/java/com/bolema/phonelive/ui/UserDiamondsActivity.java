@@ -76,12 +76,13 @@ public class UserDiamondsActivity extends ToolBarBaseActivity {
     //是否是第一次充值
     private boolean isFirstCharge = false;
 
-    private String explain[] = {"新人礼包，仅一次机会", "", "", "赠送200播币", "赠送1200播币", "赠送2200播币", "赠送5200播币"};
+    private String explain[] = {"", "", "", "赠送200播币", "赠送1200播币", "赠送2200播币", "赠送5200播币"};
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private RechangeAdapter rechangeAdapter;
 
 
     @Override
@@ -155,6 +156,7 @@ public class UserDiamondsActivity extends ToolBarBaseActivity {
 
 
                         wxpay.initPay(String.valueOf(price[position - 1]), String.valueOf(diamondsNum[position - 1]));
+
                         return;
                     }
                     if (PAYMODE == ALIPAY) {
@@ -181,8 +183,6 @@ public class UserDiamondsActivity extends ToolBarBaseActivity {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count,
                                       int after) {
-
-
         }
 
         @Override
@@ -208,7 +208,7 @@ public class UserDiamondsActivity extends ToolBarBaseActivity {
         setActionBarTitle(getString(R.string.mydiamonds));
         //diamondsNum = new int[]{20,60,300,980,2980,5880,15980};
         //price = new int[]{1,6,30,98,298,588,1598};
-        diamondsNum = new int[]{200, 600, 3000, 9800, 38800, 58800, 159800};
+        diamondsNum = new int[]{100, 600, 3000, 9800, 38800, 58800, 159800};
         price = new int[]{1, 6, 30, 98, 388, 588, 1598};
         rechanList = new ArrayList<>();
 
@@ -309,10 +309,16 @@ public class UserDiamondsActivity extends ToolBarBaseActivity {
                         for (int i = 0; i < price.length; i++) {
                             rechanList.add(new RechargeBean(price[i], explain[i], diamondsNum[i], price[i] + ".00"));
                         }
-                        mSelectNumListItem.setAdapter(new RechangeAdapter());
 
                         isFirstCharge = object.getString("isnew").equals("1");
-
+                        //判断是否是第一次充值,如果不是就隐藏20
+                        if (isFirstCharge) {
+                            rechanList.get(0).setRecharDiamondsNum(200);
+                            rechanList.get(0).setPriceExplain("新人礼包，仅一次机会");
+//                            rechangeAdapter.notifyDataSetChanged();
+                        }
+                        rechangeAdapter = new RechangeAdapter();
+                        mSelectNumListItem.setAdapter(rechangeAdapter);
                         mCoin.setText(object.getString("coin") + "播币");
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -456,14 +462,6 @@ public class UserDiamondsActivity extends ToolBarBaseActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
-            //判断是否是第一次充值,如果不是就隐藏20
-            if (!isFirstCharge && position == 0) {
-                rechanList.get(0).setRecharDiamondsNum(100);
-                rechanList.get(0).setPriceExplain("");
-            }
-
-
             holder.mDiamondsNum.setText(rechargeBean.getRecharDiamondsNum() + "");
             holder.mPrieExplain.setText(rechargeBean.getPriceExplain());
 

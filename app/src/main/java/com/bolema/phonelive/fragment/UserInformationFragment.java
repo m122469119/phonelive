@@ -331,9 +331,7 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
                 UIHelper.showAttentionActivity(getActivity(), mInfo.getId());
                 break;
             case R.id.ll_fans:
-                 /*
-                 * 关注列表
-                  * */
+                 //关注列表
                 UIHelper.showFansActivity(getActivity(), mInfo.getId());
                 break;
             case R.id.ll_setting: //设置

@@ -104,6 +104,7 @@
         android:textSize="36px"
         android:text="魅力值数"
         android:id="@+id/tv_exchange_rate"
+        android:visibility="invisible"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>

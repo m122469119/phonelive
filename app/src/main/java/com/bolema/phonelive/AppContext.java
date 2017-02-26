@@ -18,6 +18,7 @@ import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.cache.DataCleanManager;
 import com.bolema.phonelive.model.MyNotifier;
 import com.bolema.phonelive.utils.CyptoUtils;
+import com.bolema.phonelive.utils.SharedPreUtil;
 import com.bolema.phonelive.utils.StringUtils;
 import com.bolema.phonelive.utils.TLog;
 import com.bolema.phonelive.utils.UIHelper;
@@ -273,6 +274,11 @@ public class AppContext extends BaseApplication {
         } else {
             this.cleanLoginInfo();
         }
+//        boolean isFirstInstall = SharedPreUtil.getBoolean(this, "isFirstInstall");
+//        if (isFirstInstall) {
+//            SharedPreUtil.put(this, "isFirstInstall", false);
+//        }
+
     }
 
     /**
@@ -375,6 +381,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.birthday", String.valueOf(user.getBirthday()));
 
                 setProperty("user.viptype", user.getVip_type());
+                setProperty("user.ismanage", String.valueOf(user.getIsmanage()));
             }
         });
     }
@@ -405,6 +412,8 @@ public class AppContext extends BaseApplication {
                 setProperty("user.level", String.valueOf(user.getLevel()));
                 setProperty("user.birthday", String.valueOf( user.getBirthday()));
                 setProperty("user.viptype", user.getVip_type());
+                setProperty("user.ismanage", String.valueOf(user.getIsmanage()));
+
 
             }
         });
@@ -437,6 +446,9 @@ public class AppContext extends BaseApplication {
         user.setVip_type(getProperty("user.viptype"));
 //        Log.d("userVip", getProperty("user.viplevel"));
 
+        String ismanage = getProperty("user.ismanage");
+        user.setIsmanage(Integer.parseInt(ismanage == null?"0":ismanage));
+
         return user;
     }
 
@@ -446,7 +458,7 @@ public class AppContext extends BaseApplication {
     public void cleanLoginInfo() {
         this.loginUid = 0;
         this.login = false;
-        removeProperty("user.avatar_thumb","user.uid", "user.token", "user.name", "user.pwd", "user.avatar","user.sign","user.city","user.coin","user.sex","user.signature","user.signature","user.avatar","user.level","user.viptype");
+        removeProperty("user.avatar_thumb", "user.uid", "user.token", "user.name", "user.pwd", "user.avatar", "user.sign", "user.city", "user.coin", "user.sex", "user.signature", "user.signature", "user.avatar", "user.level", "user.viptype", "user.ismanage");
     }
 
     public int getLoginUid() {

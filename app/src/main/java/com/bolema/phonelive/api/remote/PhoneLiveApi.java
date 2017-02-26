@@ -503,6 +503,37 @@ public class PhoneLiveApi {
 
     /**
      * @param uid 用户id
+     * @dw 直播记录
+     */
+    public static void getLiveRecordByPage(int uid, StringCallback callback, int page) {
+        OkHttpUtils.get()
+                .url(AppConfig.MAIN_URL)
+                .addParams("service", "User.getLiveRecord")
+                .addParams("uid", String.valueOf(uid))
+                .addParams("p", String.valueOf(page))
+                .tag("phonelive")
+                .build()
+                .execute(callback);
+    }
+
+    /**
+     * 删除直播记录
+     *
+     * @param id
+     * @param callback
+     */
+    public static void deleteLiveRecord(String id, StringCallback callback) {
+        OkHttpUtils.get()
+                .url(AppConfig.MAIN_URL)
+                .addParams("service", "Music.deletevedio")
+                .addParams("vid", id)
+                .tag("phonelive")
+                .build()
+                .execute(callback);
+    }
+
+    /**
+     * @param uid 用户id
      * @dw 支付宝下订单
      */
     public static void getAliPayOrderNum(int uid, String token, StringCallback callback) {
@@ -555,7 +586,6 @@ public class PhoneLiveApi {
     }
 
     /**
-     *
      * @param sex  性别
      * @param area 地区
      * @dw 地区检索
@@ -866,8 +896,8 @@ public class PhoneLiveApi {
         OkHttpUtils.get()
                 .url("http://route.showapi.com/213-2")
                 .addParams("showapi_appid", AppConfig.QQ_MUSIC_APPID)
-                .addParams("musicid",musicid)
-                .addParams("showapi_sign",AppConfig.QQ_MUSIC_SIGN)
+                .addParams("musicid", musicid)
+                .addParams("showapi_sign", AppConfig.QQ_MUSIC_SIGN)
                 .tag("phonelive")
                 .build()
                 .execute(callback);
@@ -987,9 +1017,8 @@ public class PhoneLiveApi {
                 .tag("getLiveRecordById")
                 .build()
                 .execute(callback);
-
-
     }
+
 
     //HHH 2016-09-13
 
@@ -1074,7 +1103,8 @@ public class PhoneLiveApi {
                 .build()
                 .execute(getTopicsCallback);
     }
-     //话题房间
+
+    //话题房间
     public static void getTopicRooms(String topic, StringCallback getTopicsCallback) {
         try {
             OkHttpUtils.get()
@@ -1112,6 +1142,17 @@ public class PhoneLiveApi {
                 .addParams("service", "User.pub_msg")
                 .build()
                 .execute(getPubMsgCallback);
+    }
+
+    /**
+     * 知晋页面现场直播
+     */
+    public static void getLiveBroadcast(StringCallback callback) {
+        OkHttpUtils.get()
+                .url(AppConfig.MAIN_URL)
+                .addParams("service", "Zhijin.getByUserList")
+                .build()
+                .execute(callback);
     }
 
 

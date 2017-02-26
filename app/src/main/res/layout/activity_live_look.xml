@@ -43,6 +43,23 @@
 
         android:layout_height="match_parent" />
 
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/layout_first_note"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/live_room_first_note">
+
+        <Button
+            android:id="@+id/btn_i_know"
+            android:layout_width="@dimen/space_110"
+            android:layout_height="@dimen/space_35"
+            android:background="@drawable/btn_i_know"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/space_292"
+            android:layout_marginLeft="@dimen/space_126"/>
+
+    </com.zhy.autolayout.AutoLinearLayout>
 
 
 </com.zhy.autolayout.AutoRelativeLayout>

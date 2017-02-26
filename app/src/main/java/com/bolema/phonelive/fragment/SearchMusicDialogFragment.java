@@ -27,6 +27,8 @@ import com.bolema.phonelive.bean.LocalMusicBean.ShowapiResBodyBean.PagebeanBean.
 import com.bolema.phonelive.utils.DBManager;
 import com.bolema.phonelive.utils.GsonTools;
 import com.bolema.phonelive.utils.LiveUtils;
+import com.bolema.phonelive.utils.MD5;
+import com.bolema.phonelive.utils.MD5Encoder;
 import com.dd.CircularProgressButton;
 import com.socks.library.KLog;
 import com.umeng.analytics.MobclickAgent;
@@ -58,7 +60,10 @@ public class SearchMusicDialogFragment extends DialogFragment {
     EditText mInputEdit;
     @InjectView(R.id.iv_close)
     ImageView mIvClose;
-    private List<MusiclistBean> mMusicList = new ArrayList<>();
+    String keyword = "";
+
+    private List<MusiclistBean> bMusicList = new ArrayList<>();  //伴奏歌曲类型
+
     private MusicAdapter mAdapter;
     private DBManager mDbManager;
     private Handler handler = new Handler(){
@@ -73,11 +78,15 @@ public class SearchMusicDialogFragment extends DialogFragment {
         }
     };
 
+   
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_music, null);
         ButterKnife.inject(this, view);
+
         initView(view);
+
         initData();
         return view;
     }
@@ -102,13 +111,14 @@ public class SearchMusicDialogFragment extends DialogFragment {
         mSearchListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                File file = new File(AppConfig.DEFAULT_SAVE_MUSIC_PATH + mMusicList.get(position).getSongid() + ".m4a");
-                File lrcfile = new File(AppConfig.DEFAULT_SAVE_MUSIC_PATH + mMusicList.get(position).getSongid() + ".lrc");
+
+                File file = new File(AppConfig.DEFAULT_SAVE_MUSIC_PATH + bMusicList.get(position).getSongid() + ".mp3");
+                File lrcfile = new File(AppConfig.DEFAULT_SAVE_MUSIC_PATH + bMusicList.get(position).getSongid() + ".lrc");
                     if (file.exists()) {
                         file.delete();
                         lrcfile.delete();
-                        mDbManager.delete(mMusicList.get(position));
-                        mMusicList.remove(position);
+                        mDbManager.delete(bMusicList.get(position));
+                        bMusicList.remove(position);
                         mAdapter.notifyDataSetChanged();
                         AppContext.showToast("歌曲已删除");
                     }
@@ -125,7 +135,12 @@ public class SearchMusicDialogFragment extends DialogFragment {
 
     //所有音乐
     private void searchMusic() {
-        String keyword = mInputEdit.getText().toString().trim();
+
+//        if (which == 0) {
+             keyword = mInputEdit.getText().toString().trim()+"伴奏";
+//        } else if (which == 1) {
+//             keyword = mInputEdit.getText().toString().trim();
+//        }
         if (keyword.equals("")) {
             AppContext.showToastAppMsg(getActivity(), "请输入有效的关键词~");
             return;
@@ -146,8 +161,16 @@ public class SearchMusicDialogFragment extends DialogFragment {
                         //失败
                         AppContext.showToastAppMsg(getActivity(), "查询失败,请换首歌试试~");
                     } else {
-                        mMusicList.clear();
-                        mMusicList.addAll(localMusicBean.getShowapi_res_body().getPagebean().getContentlist());
+                        bMusicList.clear();
+//                        bMusicList.clear();
+                        for (int i=0; i<localMusicBean.getShowapi_res_body().getPagebean().getContentlist().size();i++) {
+                            if (localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(i).getSongid() == 0) {
+                                bMusicList.add(localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(i));
+                            }
+//                            else  {
+//                                mMusicList.add(localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(i));
+//                            }
+                        }
                         fillUI();
                     }
                 } else if (localMusicBean.getShowapi_res_code() == -1009) {
@@ -160,17 +183,30 @@ public class SearchMusicDialogFragment extends DialogFragment {
     }
 
     private void fillUI() {
-        mAdapter.notifyDataSetChangedMusicList(mMusicList);
+//        if (which == 0) {
+            mAdapter.notifyDataSetChangedMusicList(bMusicList);
+//        } else {
+//            mAdapter.notifyDataSetChangedMusicList(mMusicList);
+//        }
     }
 
 
     public void initData() {
         mDbManager = new DBManager(getActivity());
-        mMusicList = mDbManager.query();
 
-        Collections.reverse(mMusicList);
-        mAdapter = new MusicAdapter(mMusicList, this, mDbManager);
+//        if (which == 1) {
+//            mMusicList = mDbManager.query();
+//
+//            Collections.reverse(mMusicList);
+//
+//            mAdapter = new MusicAdapter(mMusicList, this, mDbManager,which);
+//        } else {
+            bMusicList = mDbManager.query();
 
+            Collections.reverse(bMusicList);
+
+            mAdapter = new MusicAdapter(bMusicList, this, mDbManager);
+//        }
 
         mSearchListView.setAdapter(mAdapter);
         AppContext.showToastShort( "长按删除歌曲");
@@ -181,56 +217,112 @@ public class SearchMusicDialogFragment extends DialogFragment {
      * @dw 获取歌曲信息
      */
     public void downloadMusic(final MusiclistBean music, final CircularProgressButton mBtnDownload) {
-        //获取歌曲信息
-        if (!TextUtils.isEmpty(music.getM4a())) {
-            downloadMusicAndLrc(music.getM4a(), music, mBtnDownload);
-        } else {
-            AppContext.showToastShort("歌曲无法下载,请换首歌试试");
-        }
+//        if (which == 0) {
+            //获取伴奏歌曲信息
+            if (!TextUtils.isEmpty(music.getDownUrl())) {
+                downloadMusicAndLrc(music.getDownUrl(), music, mBtnDownload);
+            } else {
+                AppContext.showToastShort("歌曲无法下载,请换首歌试试");
+            }
+//        } else if (which == 1) {
+//            //获取原唱歌曲信息
+//            if (!TextUtils.isEmpty(music.getM4a())) {
+//                downloadMusicAndLrc(music.getM4a(), music, mBtnDownload);
+//            } else {
+//                AppContext.showToastShort("歌曲无法下载,请换首歌试试");
+//            }
+//        }
+
     }
 
     //下载歌词和歌曲
     private void downloadMusicAndLrc(String musicUrl, final MusiclistBean music, final CircularProgressButton mBtnDownload) {
+//        String type;
+//        if (which == 0) {
+//            type = ".mp3";
+//        } else {
+//            type = ".m4a";
+//        }
+         String fileName = null;
         //下载歌曲
-        PhoneLiveApi.downloadMusic(musicUrl, new FileCallBack(AppConfig.DEFAULT_SAVE_MUSIC_PATH, music.getSongid() + ".m4a") {
+        try {
+           fileName = MD5Encoder.encode(music.getDownUrl());
 
-            @Override
-            public void onError(Call call, Exception e) {
-                mBtnDownload.setErrorText("下载失败");
-            }
+            PhoneLiveApi.downloadMusic(musicUrl, new FileCallBack(AppConfig.DEFAULT_SAVE_MUSIC_PATH,fileName + ".mp3") {
 
-            @Override
-            public void onResponse(File response) {
-                List<MusiclistBean> list = new ArrayList<MusiclistBean>();
-                list.add(music);
-                mDbManager.add(list);
-            }
 
-            @Override
-            public void inProgress(float progress, long total) {
-                mBtnDownload.setProgress((int) (progress * 100));
-            }
-        });
+                @Override
+                public void onError(Call call, Exception e) {
+                    mBtnDownload.setErrorText("下载失败");
+                }
 
-        //下载歌词
-        PhoneLiveApi.downloadLrc(music.getSongid()+"", new FileCallBack(AppConfig.DEFAULT_SAVE_MUSIC_PATH,music.getSongid() + ".lrc") {
-            @Override
-            public void inProgress(float progress, long total) {
+                @Override
+                public void onResponse(File response) {
+                    List<MusiclistBean> list = new ArrayList<>();
+                    list.add(music);
+                    mDbManager.add(list);
+                }
 
-            }
+                @Override
+                public void inProgress(float progress, long total) {
+                    mBtnDownload.setProgress((int) (progress * 100));
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            @Override
-            public void onError(Call call, Exception e) {
-                AppContext.showToastShort("歌词下载失败");
-            }
 
-            @Override
-            public void onResponse(File response) {
 
-            }
-        });
+//        if (which == 1) {  //下载原唱歌词
+//            downloadLrc(String.valueOf(music.getSongid()), music.getDownUrl());
+//        } else {
+            //下载伴奏歌词，首先根据伴奏歌曲名和歌手名搜索原唱歌曲，然后根据原唱歌曲的歌曲ID搜索歌词
+        final String finalFileName = fileName;
+        PhoneLiveApi.searchMusic(keyword.replace("伴奏",""), new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e) {
+
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    LocalMusicBean localMusicBean = GsonTools.instance(response, LocalMusicBean.class);
+                    if (localMusicBean.getShowapi_res_code() == 0) {
+                        if (localMusicBean.getShowapi_res_body().getPagebean().getAllNum() != 0) {
+                            int songId = localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(0).getSongid();
+                            String downurl = localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(0).getDownUrl();
+                            downloadLrc(String.valueOf(songId), finalFileName);
+                        }
+                    }
+                }
+            });
+//        }
     }
 
+    public void downloadLrc(String songid,String downurl) {
+        //下载歌词
+        try {
+            PhoneLiveApi.downloadLrc(songid+"", new FileCallBack(AppConfig.DEFAULT_SAVE_MUSIC_PATH, downurl+ ".lrc") {
+                @Override
+                public void inProgress(float progress, long total) {
+
+                }
+
+                @Override
+                public void onError(Call call, Exception e) {
+                    AppContext.showToastShort("歌词下载失败");
+                }
+
+                @Override
+                public void onResponse(File response) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void onResume() {
         super.onResume();

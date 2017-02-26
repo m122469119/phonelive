@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import com.bolema.phonelive.broadcast.BroadCastManager;
 import com.bolema.phonelive.fragment.HotFragment;
+import com.bolema.phonelive.fragment.ZhiJinFragment;
 import com.bolema.phonelive.utils.UIHelper;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
@@ -152,6 +153,7 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
         viewPageFragmentAdapter.addTab(getString(R.string.hot), "rm", HotFragment.class, getBundle());
         viewPageFragmentAdapter.addTab(getString(R.string.daren), "dr", NewestFragment.class, getBundle());
         viewPageFragmentAdapter.addTab("话题", "ht", TopicSquaresFragment.class, getBundle());
+        viewPageFragmentAdapter.addTab("知晋", "zj", ZhiJinFragment.class, getBundle());
 
         pager.setAdapter(viewPageFragmentAdapter);
 

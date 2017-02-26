@@ -11,18 +11,24 @@
     <TextView
         android:id="@+id/tv_manage_set_manage"
         style="@style/live_show_manage_menu_item"
+        android:background="@mipmap/set_manager"
         android:text="设为管理"/>
     <TextView
         android:id="@+id/tv_manage_manage_list"
         style="@style/live_show_manage_menu_item"
+        android:background="@mipmap/manager_list"
         android:text="管理员列表" />
     <TextView
         android:id="@+id/tv_manage_shutup"
         style="@style/live_show_manage_menu_item"
+        android:background="@mipmap/shut_up"
         android:text="禁言" />
     <TextView
         android:id="@+id/tv_manage_cancel"
         style="@style/live_show_manage_menu_item"
+        android:background="@mipmap/cancel_bg"
+        android:layout_marginTop="@dimen/space_7"
+        android:textColor="@color/red"
         android:text="取消" />
 
 </com.zhy.autolayout.AutoLinearLayout>

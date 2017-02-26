@@ -3,6 +3,7 @@ package com.bolema.phonelive.ui;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bolema.phonelive.AppConfig;
 import com.bolema.phonelive.AppContext;
@@ -60,6 +63,7 @@ import com.ksy.recordlib.service.core.KSYStreamerConfig;
 import com.ksy.recordlib.service.streamer.OnStatusListener;
 import com.ksy.recordlib.service.streamer.RecorderConstants;
 import com.ksy.recordlib.service.util.audio.KSYBgmPlayer;
+import com.ksy.recordlib.service.util.audio.OnAudioRawDataListener;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -133,6 +137,8 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     private PopupWindow popupWindow;
 
     private MediaPlayer mPlayer;
+
+
 
     private boolean flashingLightOn;
 //    private LiveReceiver liveReceiver;
@@ -225,6 +231,11 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         KSYStreamerConfig.Builder builder = new KSYStreamerConfig.Builder();
         builder.setmUrl(AppConfig.RTMP_URL + stream + "?vhost=t.wanchuangzhongchou.com");//HHH 2016-09-09
         builder.setFrontCameraMirror(isFrontCameraMirro); //HHH 2016-09-13
+        builder.setEncodeMethod(KSYStreamerConfig.ENCODE_METHOD.HARDWARE);
+
+        builder.setSampleAudioRateInHz(44100);
+        builder.setFrameRate(15);
+        builder.setAudioBitrate(48);
         mStreamer = new LiveStream(this);
         mStreamer.setConfig(builder.build());
         mStreamer.setDisplayPreview(mCameraPreview);
@@ -244,8 +255,19 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         mStreamer.setEnableReverb(true);
         mStreamer.setReverbLevel(4);
 
+        //开启音频升降调
+        mStreamer.setEnableAudioEffect(true);
+        mStreamer.setPitch(-0.318f);
+        mStreamer.setSpeed(1 / 0.7f);
+        mStreamer.setTempo(0.7f);
+
+//开启音频美声
+//        mStreamer.setEnableReverb(true);
+//        mStreamer.setReverbLevel(4);  //值范围1～5，值越大，混响效果越明显
+
         //连接到socket服务端
         mChatServer.connectSocketServer(mUser, mUser.getId());
+
         mLvChatList.setAdapter(mChatListAdapter);
     }
 
@@ -427,9 +449,29 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
      */
     private void showSearchMusicDialog() {
 
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialog);
+//        //builder.setIcon(R.drawable.ic_launcher);
+//        builder.setTitle("请选择音乐类型");
+//
+//        //    指定下拉列表的显示数据
+//        final String[] cities = {"伴奏", "原唱"};
+//        //    设置一个下拉的列表选择项
+//        builder.setItems(cities, new android.content.DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(android.content.DialogInterface dialog, int which) {
         SearchMusicDialogFragment musicFragment = new SearchMusicDialogFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("which", which);
+//                musicFragment.setArguments(bundle);
         musicFragment.setStyle(SearchMusicDialogFragment.STYLE_NO_TITLE, 0);
         musicFragment.show(getSupportFragmentManager(), "SearchMusicDialogFragment");
+
+//            }
+//        });
+//        builder.show();
+
+
     }
 
     /**
@@ -646,7 +688,6 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
 
         mViewShowLiveMusicLrc.setVisibility(View.VISIBLE);
 
-
         //获取音乐路径
         String musicPath = data.getStringExtra("filepath");
 
@@ -655,6 +696,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         MusicLrcBean lrcBean = GsonTools.instance(lrcRes, MusicLrcBean.class);
         String lrcStr = lrcBean.getShowapi_res_body().getLyric();
         KSYBgmPlayer mKsyBgmPlayer = KSYBgmPlayer.getInstance();
+
         mKsyBgmPlayer.setOnBgmPlayerListener(new KSYBgmPlayer.OnBgmPlayerListener() {
             @Override
             public void onCompleted() {
@@ -667,22 +709,50 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
             }
         });
 
-        mKsyBgmPlayer.setVolume(1);
+        /**
+         * 设置播放音量，该音量同时影响推流端的播放音量以及混音音量
+         * volume: 为0-1范围内的float值
+         */
+        mKsyBgmPlayer.setVolume(0.5f);
+        mStreamer.setVoiceVolume(1.5f);
+        // 设置BGM播放器
         mStreamer.setBgmPlayer(mKsyBgmPlayer);
+        /**
+         * 开始BGM的播放及混音
+         * path: 本地音乐文件路径，支持mp3, aac等
+         * loop: 是否单曲循环
+         */
         mStreamer.startMixMusic(musicPath, true);
-        //插入耳机
+        // isPlugged为true时内部进行软件混音，为false不会对背景音乐进行混音
         mStreamer.setHeadsetPlugged(true);
-
+        /**
+         * SDK提供OnAudioRawData回调返回原始的音频数据，开发者可以通过原始数据自定义处理（例如：噪声消除、变调等）
+         */
+//        mStreamer.setOnAudioRawDataListener(new OnAudioRawDataListener() {
+//            /**
+//             *
+//             * @param shorts audio frame data in 44100Hz 16bit mono.
+//             * @param i sample count
+//             * @return
+//             */
+//            @Override
+//            public short[] OnAudioRawData(short[] shorts, int i) {
+//                //去除噪音
+////                calc1(shorts,0,i);
+//                return shorts;
+//            }
+//        });
 //        mStreamer.setHeadsetPlugged(true);
+
         mPlayer = new MediaPlayer();
         try {
             mPlayer.setDataSource(musicPath);
             mPlayer.setLooping(true);
-            mPlayer.setVolume(0, 1);
+            mPlayer.setVolume(0, 0);
+
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
                 public void onPrepared(MediaPlayer mp) {
-
                     mp.start();
                     if (mTimer == null) {
                         mTimer = new Timer();
@@ -697,6 +767,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
                     stopLrcPlay();
                 }
             });
+
             mPlayer.prepare();
             mPlayer.start();
         } catch (IllegalArgumentException | IOException | IllegalStateException e) {
@@ -706,16 +777,33 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         ILrcBuilder builder = new DefaultLrcBuilder();
 
         Spanned lrc;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            lrc = Html.fromHtml(lrcStr, Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            lrc = Html.fromHtml(lrcStr);
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                lrc = Html.fromHtml(lrcStr, Html.FROM_HTML_MODE_LEGACY);
+            } else {
+                lrc = Html.fromHtml(lrcStr);
+            }
+            String temp = lrc.toString();
+            List<LrcRow> rows = builder.getLrcRows(temp);
+            //设置歌词
+            mLrcView.setLrc(rows);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
-        String temp = lrc.toString();
-        List<LrcRow> rows = builder.getLrcRows(temp);
-        //设置歌词
-        mLrcView.setLrc(rows);
+
     }
+
+//    short[] audio;
+//
+//    public short[] calc1(short[] lin, int off, int len) {
+//        this.audio = lin;
+//        int i, j;
+//        for (i = 0; i < len; i++) {
+//            j = audio[i + off];
+//            audio[i + off] = (short) (j >> 2);
+//        }
+//        return audio;
+//    }
 
     //停止歌词滚动
     public void stopLrcPlay() {
@@ -835,7 +923,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         PhoneLiveApi.closeLive(mUser.getId(), mUser.getToken(), new StringCallback() {
             @Override
             public void onError(Call call, Exception e) {
-                showToast3("关闭直播失败" ,0);
+                showToast3("关闭直播失败", 0);
             }
 
             @Override

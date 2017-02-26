@@ -1,0 +1,103 @@
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.bolema.phonelive.widget.materialrefreshlayout.MaterialRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/viewPager_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_96"
+                    android:background="@color/list_divider_color"
+                    android:clipChildren="false"
+                    android:layerType="software"
+                    android:orientation="vertical">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/zhijin_view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_90"
+                        android:layout_marginLeft="@dimen/space_45"
+                        android:layout_marginRight="@dimen/space_45"
+                        android:clipChildren="false" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_220"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/space_25"
+                        android:drawablePadding="@dimen/space_6"
+                        android:drawableRight="@drawable/live_broadcast"
+                        android:paddingLeft="@dimen/space_13"
+                        android:paddingTop="@dimen/space_7"
+                        android:text="@string/live_broadcast"
+                        android:textColor="@color/pink_text"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_live_broadcast"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_190">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/back_color" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_215"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/space_25"
+                        android:drawablePadding="@dimen/space_6"
+                        android:drawableRight="@drawable/recorded_broadcast"
+                        android:paddingLeft="@dimen/space_13"
+                        android:paddingTop="@dimen/space_7"
+                        android:text="@string/recorded_broadcast"
+                        android:textColor="@color/pink_text"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_recorded_broadcast"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_190">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
+        </ScrollView>
+
+    </com.bolema.phonelive.widget.materialrefreshlayout.MaterialRefreshLayout>
+</com.zhy.autolayout.AutoLinearLayout>

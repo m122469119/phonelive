@@ -132,9 +132,6 @@ public class AttentionFragment extends BaseFragment {
                     JSONArray liveAndAttentionUserJson = new JSONObject(res).getJSONArray("attentionlive");
                     JSONArray playbackJson = new JSONObject(res).getJSONArray("playback");
 
-
-
-
                     if (0 == (liveAndAttentionUserJson.length() + playbackJson.length())) {
                         layoutAttention.setVisibility(View.VISIBLE);
                         mUserList.clear();
@@ -154,12 +151,9 @@ public class AttentionFragment extends BaseFragment {
 
                     if (playbackJson.length() > 0) {
                         for (int j = 0; j<playbackJson.length();j++) {
-
                             mPlaybackList.add(g.fromJson(playbackJson.getString(j), PlaybackBean.class));
-
                         }
                     }
-
                     fillUI();
                 } catch (JSONException e) {
                     mAdapter = new LiveUserAdapter(getActivity().getLayoutInflater(), mUserList,mPlaybackList,getActivity());
@@ -187,10 +181,6 @@ public class AttentionFragment extends BaseFragment {
                         StillLiveUtils stillLiveUtils = new StillLiveUtils(getActivity());
                         PhoneLiveApi.isStillLiving(String.valueOf(mUserList.get(position).getUid()), stillLiveUtils.getStillcallback());
                     }
-
-//                    Bundle bundle = new Bundle();
-//                    bundle.putParcelable(VideoPlayerActivity.USER_INFO, mUserList.get(position));
-//                    UIHelper.showLookLiveActivity(getActivity(), bundle);
                 }
             });
         }

@@ -46,4 +46,22 @@ public class ApiUtils {
         return null;
 
     }
+
+    public static String getResponse(String res) {
+        JSONObject resJson = null;
+        try {
+            resJson = new JSONObject(res);
+            if (Integer.parseInt(resJson.getString("ret")) == SUCCESS_CODE) {
+                JSONObject dataJson = resJson.getJSONObject("data");
+                return dataJson.toString();
+            } else {
+                return null;
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

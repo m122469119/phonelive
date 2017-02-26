@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -86,8 +87,8 @@ public class MusicPlayerDialogFragment extends DialogFragment {
         mBtns[1] = mBtnEthereal;
         mBtns[2] = mBtnKtv;
 
-        mSbBanZou.setProgress(mStream.getMusicVolue() == 0 ? 50:mStream.getMusicVolue());
-        mSbVoice.setProgress(mStream.getMvoice() == 0 ? 50:mStream.getMvoice());
+        mSbBanZou.setProgress(mStream.getMusicVolue() == 0 ? 30:mStream.getMusicVolue());
+        mSbVoice.setProgress(mStream.getMvoice() == 0 ? 100:mStream.getMvoice());
 
         //伴奏调节
         if (AppConfig.voiceLevel == 1) {
@@ -100,13 +101,18 @@ public class MusicPlayerDialogFragment extends DialogFragment {
             mStream.setReverbLevel(3);
             switchSelectState(2);
         }
+
+
         mSbBanZou.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
                 float volume = (float) (seekBar.getProgress())/100;
                 mStream.setMusicVolue(seekBar.getProgress());
+                Log.d("musicvolue", mStream.getMusicVolue()+"");
                 mBgMusic.setVolume(volume);
+                Log.d("musicvoluebg", volume+"");
+
             }
 
             @Override
@@ -125,7 +131,11 @@ public class MusicPlayerDialogFragment extends DialogFragment {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 float volume = (float) (seekBar.getProgress())/100;
                 mStream.setMvoice(seekBar.getProgress());
+                Log.d("musicvolueMvoice", mStream.getMvoice()+"");
+
                 mStream.setVoiceVolume(volume);
+                Log.d("musicvolueVoice", volume+"");
+
             }
 
             @Override

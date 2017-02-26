@@ -13,6 +13,17 @@ public class ChatBean extends UserBean{
     private String method;//聊天方法 HHH
     private String content;//聊天纯文本 HHH
 
+    @Override
+    public String toString() {
+        return "ChatBean{" +
+                "userNick=" + userNick +
+                ", sendChatMsg=" + sendChatMsg +
+                ", type=" + type +
+                ", method='" + method + '\'' +
+                ", content='" + content + '\'' +
+                "} " + super.toString();
+    }
+
     public int getType() {
         return type;
     }

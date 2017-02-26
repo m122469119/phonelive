@@ -82,6 +82,7 @@ public class SendSocketMessageBean {
         private String usign;
         private String evensend;
         private String vip_type;
+        private int ismanage;
 
         @Override
         public String toString() {
@@ -248,5 +249,12 @@ public class SendSocketMessageBean {
             this.vip_type = vip_type;
         }
 
+        public int getIsmanage() {
+            return ismanage;
+        }
+
+        public void setIsmanage(int ismanage) {
+            this.ismanage = ismanage;
+        }
     }
 }
