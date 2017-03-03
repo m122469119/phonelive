@@ -231,11 +231,18 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
         KSYStreamerConfig.Builder builder = new KSYStreamerConfig.Builder();
         builder.setmUrl(AppConfig.RTMP_URL + stream + "?vhost=t.wanchuangzhongchou.com");//HHH 2016-09-09
         builder.setFrontCameraMirror(isFrontCameraMirro); //HHH 2016-09-13
-        builder.setEncodeMethod(KSYStreamerConfig.ENCODE_METHOD.HARDWARE);
+
+        builder.setEncodeMethod(KSYStreamerConfig.ENCODE_METHOD.SOFTWARE);
 
         builder.setSampleAudioRateInHz(44100);
         builder.setFrameRate(15);
-        builder.setAudioBitrate(48);
+        builder.setMaxAverageVideoBitrate(800);
+        builder.setMinAverageVideoBitrate(200);
+        builder.setMinAverageVideoBitrate(500);
+        builder.setAutoAdjustBitrate(true);
+
+        builder.setVideoResolution(RecorderConstants.VIDEO_RESOLUTION_360P);
+
         mStreamer = new LiveStream(this);
         mStreamer.setConfig(builder.build());
         mStreamer.setDisplayPreview(mCameraPreview);
@@ -1076,7 +1083,12 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
             videoPlayerEnd();
             showLiveEndDialog(mUser.getId(), mLiveEndYpNum);
         } else {
-            mHandler.removeCallbacks(pauseRunnable);
+            try {
+                mHandler.removeCallbacks(pauseRunnable);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+
         }
         pauseTime = 0;
 
@@ -1155,7 +1167,7 @@ public class StartLiveActivity extends ShowLiveActivityBase implements SearchMus
     }
 
     public void share(View v) {
-        ShareUtils.share(this, v.getId(), mUser);
+        ShareUtils.share(this, v.getId(), mUser,null,0);
     }
 //
 //    public class LiveReceiver extends BroadcastReceiver {

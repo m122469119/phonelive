@@ -157,7 +157,7 @@
             android:name=".ui.LiveLoginSelectActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="登陆选择"
-                android:launchMode="singleTask"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.UserInfoDetailActivity"
@@ -404,7 +404,8 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="bc206472aa681104a7fb776a68216ffa">
-            <!--//开发者申请的key-->
+
+            <!-- //开发者申请的key -->
         </meta-data>
 
         <!-- 友盟统计 -->
@@ -456,23 +457,24 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <!--<receiver-->
-            <!--android:name=".ui.StartLiveActivity$LiveReceiver"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="true">-->
-            <!--<intent-filter android:priority="1000">-->
-                <!--<action android:name="pullblack" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-        <!--<receiver-->
-            <!--android:name=".ui.MainActivity$PullOutReceiver"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="true">-->
-            <!--<intent-filter android:priority="800">-->
-                <!--<action android:name="pullblack" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver -->
+        <!-- android:name=".ui.StartLiveActivity$LiveReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter android:priority="1000"> -->
+        <!-- <action android:name="pullblack" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- <receiver -->
+        <!-- android:name=".ui.MainActivity$PullOutReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter android:priority="800"> -->
+        <!-- <action android:name="pullblack" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
 
+        <activity android:name=".ui.RecordedVideoActivity"></activity>
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import com.bolema.phonelive.api.remote.ApiUtils;
+import com.socks.library.KLog;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -37,7 +38,7 @@ public class WChatPay {
      * @param price 价格
      * @param num 数量
      * */
-    public void initPay(String price, String num) {
+    public void initPay(final String price, final String num) {
         PhoneLiveApi.wxPay(AppContext.getInstance().getLoginUid(),
                 AppContext.getInstance().getToken(),price,new StringCallback(){
 
@@ -45,12 +46,32 @@ public class WChatPay {
                     public void onError(Call call, Exception e) {
                         Toast.makeText(AppContext.getInstance(),"获取订单失败", Toast.LENGTH_LONG).show();
                     }
-
                     @Override
                     public void onResponse(String response) {
-                        String res = ApiUtils.checkIsSuccess(response);
-                        if(null == res) return;
-                        callWxPay(res);
+//                        String res = ApiUtils.getResponse(response);
+//                        KLog.json(res);
+//                        if(null == res) return;
+//                        callWxPay(res);
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            int ret = json.getInt("ret");
+                            if (ret == 200) {
+                                JSONObject data = json.getJSONObject("data");
+                                int code = data.getInt("code");
+                                if (price.equals("1") && num.equals("200")) {
+                                    if (code == 0) {
+                                        callWxPay(data.getString("info"));
+                                    } else {
+                                        Toast.makeText(AppContext.getInstance(), "新人礼包已使用", Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    callWxPay(data.getString("info"));
+                                }
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

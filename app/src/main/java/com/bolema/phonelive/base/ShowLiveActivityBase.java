@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -490,7 +494,11 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         heart.setX(mScreenWidth - mScreenWidth / 3);
         //y位置
         heart.setY(mScreenHeight - 200);
-        mRoot.addView(heart);
+        try {
+            mRoot.addView(heart);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         //点亮xy 平移动画
         ObjectAnimator translationX = ObjectAnimator.ofFloat(heart, "translationX", mRandom.nextInt(500) + (mScreenWidth - 200) - (mScreenWidth / 3));
         ObjectAnimator translationY = ObjectAnimator.ofFloat(heart, "translationY", mRandom.nextInt(mScreenHeight / 2) + 200);
@@ -1019,6 +1027,7 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
 //            Log.d("manage", "管理员动画");
 //        } else
 //        {
+
         if (c.getSendChatMsg().toString().contains("欢迎VIP")) {
             String msg = c.getSendChatMsg().toString().replace("欢迎VIP会员", "");
             startAnimation(msg, 0);
@@ -1034,6 +1043,28 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
         }
 //        }
 
+        if (c.getSendChatMsg().toString().contains("网警24小时在线巡查")&&c.getType()==13) {
+            SpannableStringBuilder msg = new SpannableStringBuilder("欢迎各位主播宝宝前来试播，对于平台内的一些小bug还请多多担待，同时希望试播的主播们能积极反馈问题，我们的程序猿哥哥会加快解决！");
+            SpannableStringBuilder name = new SpannableStringBuilder("系统消息:");
+            name.setSpan(new ForegroundColorSpan(Color.rgb(252, 221, 128)), 0, name.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            msg.setSpan(new ForegroundColorSpan(Color.rgb(147,213,255)), 0, msg.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            ChatBean chat = new ChatBean();
+            chat.setType(13);
+            chat.setSendChatMsg(msg);
+            chat.setUserNick(name);
+            chat.setVip_type("0");
+            chat.setIsmanage(0);
+            mChats.add(chat);
+            mChatListAdapter.setChats(mChats);
+            mChatListAdapter.notifyDataSetChanged();
+            //HHH 2016-09-08 Null指针退出
+            if (mLvChatList != null) {
+                mLvChatList.setSelection(mChats.size() - 1);
+            }
+        }
 
 
 
@@ -1141,7 +1172,12 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
     //当用户状态改变
     protected void onUserStatusChange(UserBean user, boolean state) {
         //设置在线人数
-        mLiveNum.setText(String.valueOf(ChatServer.LIVE_USER_NUMS));
+        try {
+            mLiveNum.setText(String.valueOf(ChatServer.LIVE_USER_NUMS));
+
+        } catch (NullPointerException e) {
+            mLiveNum.setText("0");
+        }
 
         for (int i = 0; i < mUserList.size(); i++) {
             if (user.getId() == mUserList.get(i).getId()) {
@@ -1154,6 +1190,12 @@ public class ShowLiveActivityBase extends ToolBarBaseActivity {
             mUserList.add(user);
             TLog.log("加入不存在" + user.getId());
             TLog.log("加入" + user.getId());
+//            JSONObject json = null;
+//            try {
+//                mChatServer.onSystemNotice(json);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
         } else {
 
             TLog.log("离开" + user.getId());

@@ -127,11 +127,20 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    Bitmap resource = msg.getData().getParcelable("resource");
-                    Bitmap bitmap = msg.getData().getParcelable("bitmap");
-                    mIvAvatar.setImageBitmap(resource);
-                    bgIconLinearlayout.setBackground(new BitmapDrawable(getResources(),
-                            bitmap));
+                    try {
+                        Bitmap resource = msg.getData().getParcelable("resource");
+                        Bitmap bitmap = msg.getData().getParcelable("bitmap");
+                        mIvAvatar.setImageBitmap(resource);
+                        bgIconLinearlayout.setBackground(new BitmapDrawable(getResources(),
+                                bitmap));
+                    } catch (NullPointerException e) {
+                        try {
+                            mIvAvatar.setBackgroundResource(R.drawable.null_blacklist);
+                            bgIconLinearlayout.setBackgroundResource(R.drawable.null_blacklist);
+                        } catch (NullPointerException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
                     break;
             }
         }
@@ -225,10 +234,15 @@ public class UserInformationFragment extends BaseFragment implements ListenMessa
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         int mWidth = resource.getWidth();
                         int mHeight = resource.getHeight();
-                        if (mHeight < 400) {
-                            bitmap = BlurUtil.doBlur(Bitmap.createBitmap(resource, 0, 0, mWidth, mHeight), 50, true);
-                        } else {
-                            bitmap = BlurUtil.doBlur(Bitmap.createBitmap(resource, 0, 0, mWidth, 400), 50, true);
+                        try {
+                            if (mHeight < 400) {
+                                bitmap = BlurUtil.doBlur(Bitmap.createBitmap(resource, 0, 0, mWidth, mHeight), 50, true);
+                            } else {
+                                bitmap = BlurUtil.doBlur(Bitmap.createBitmap(resource, 0, 0, mWidth, 400), 50, true);
+                            }
+                        } catch (OutOfMemoryError error) {
+                            error.printStackTrace();
+
                         }
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("resource", resource);

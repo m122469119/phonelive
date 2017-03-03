@@ -305,6 +305,7 @@ public class UserDiamondsActivity extends ToolBarBaseActivity {
                 if (res != null) {
                     try {
                         JSONObject object = new JSONObject(res);
+                        rechanList.clear();
 
                         for (int i = 0; i < price.length; i++) {
                             rechanList.add(new RechargeBean(price[i], explain[i], diamondsNum[i], price[i] + ".00"));
@@ -462,10 +463,16 @@ public class UserDiamondsActivity extends ToolBarBaseActivity {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.mDiamondsNum.setText(rechargeBean.getRecharDiamondsNum() + "");
+            holder.mDiamondsNum.setText(String.valueOf(rechargeBean.getRecharDiamondsNum()));
             holder.mPrieExplain.setText(rechargeBean.getPriceExplain());
-
-            holder.mPriceText.setBackgroundResource(drawableRes[position]);
+            try {
+                holder.mPriceText.setBackgroundResource(drawableRes[position]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
+                for (int i=0; i<rechanList.size();i++) {
+                    Log.d("rechanlist", rechanList.get(i).getPrice()+"  num"+rechanList.get(i).getRecharDiamondsNum());
+                }
+            }
             return convertView;
         }
 

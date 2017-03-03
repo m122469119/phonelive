@@ -24,7 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </com.zhy.autolayout.AutoLinearLayout>
-        <include layout="@layout/activity_live_record"></include>
+
+        <include layout="@layout/personal_activity_live_record" />
 
     </com.zhy.autolayout.AutoLinearLayout>
 </merge>

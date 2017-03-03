@@ -102,8 +102,6 @@ public class PhoneRegActivity extends ToolBarBaseActivity {
             showWaitDialog(R.string.loading);
             PhoneLiveApi.reg(mUserName, mPassword,mSecondPassword, mCode, callback);
         }
-
-
     }
     //注册回调
     private final StringCallback callback = new StringCallback() {

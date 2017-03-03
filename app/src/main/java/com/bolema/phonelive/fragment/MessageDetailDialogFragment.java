@@ -36,9 +36,9 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
- *直播间私信发送页面
+ * 直播间私信发送页面
  */
-public class MessageDetailDialogFragment extends DialogFragment{
+public class MessageDetailDialogFragment extends DialogFragment {
     @InjectView(R.id.tv_private_chat_title)
     TextView mTitle;
 
@@ -63,7 +63,7 @@ public class MessageDetailDialogFragment extends DialogFragment{
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = new Dialog(getActivity(),R.style.BottomViewTheme_Transparent);
+        Dialog dialog = new Dialog(getActivity(), R.style.BottomViewTheme_Transparent);
         dialog.setContentView(R.layout.dialog_fragment_private_chat_message);
         dialog.setCanceledOnTouchOutside(true);
         Window window = dialog.getWindow();
@@ -72,17 +72,17 @@ public class MessageDetailDialogFragment extends DialogFragment{
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
-        ButterKnife.inject(this,dialog);
+        ButterKnife.inject(this, dialog);
         initData();
         initView(dialog);
 
         return dialog;
     }
 
-    @OnClick({R.id.iv_private_chat_send,R.id.et_private_chat_message,R.id.iv_close})
+    @OnClick({R.id.iv_private_chat_send, R.id.et_private_chat_message, R.id.iv_close})
 
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_close:
                 dismiss();
                 break;
@@ -95,34 +95,38 @@ public class MessageDetailDialogFragment extends DialogFragment{
         }
 
     }
+
     //发送私信
     private void sendPrivateChat() {
         //判断是否操作频繁
-        if((System.currentTimeMillis() - lastTime) < 1000 && lastTime != 0){
-            Toast.makeText(getActivity(),"操作频繁",Toast.LENGTH_SHORT).show();
+        if ((System.currentTimeMillis() - lastTime) < 1000 && lastTime != 0) {
+            Toast.makeText(getActivity(), "操作频繁", Toast.LENGTH_SHORT).show();
             return;
         }
         lastTime = System.currentTimeMillis();
-        if(mMessageInput.getText().toString().equals("")){
-            AppContext.showToastAppMsg(getActivity(),"内容为空");
+        if (mMessageInput.getText().toString().equals("")) {
+            AppContext.showToastAppMsg(getActivity(), "内容为空");
             return;
         }
-        if(mMessageInput.getText().toString().equals("")){
-            AppContext.showToastAppMsg(getActivity(),"内容为空");
+        if (mMessageInput.getText().toString().equals("")) {
+            AppContext.showToastAppMsg(getActivity(), "内容为空");
         }
-        EMMessage emMessage = PhoneLivePrivateChat.sendChatMessage(mMessageInput.getText().toString(),mToUser);
+        EMMessage emMessage = PhoneLivePrivateChat.sendChatMessage(mMessageInput.getText().toString(), mToUser);
 
         //更新列表
-        updateChatList(PrivateMessage.crateMessage(emMessage,mUser.getAvatar()));
+        updateChatList(PrivateMessage.crateMessage(emMessage, mUser.getAvatar()));
         mMessageInput.setText("");
     }
+
     public void initData() {
 
         mUser = AppContext.getInstance().getLoginUser();
-        mToUser = (PrivateChatUserBean) getArguments().getSerializable("user");
-        mTitle.setText(mToUser.getUser_nicename());
+        mToUser = (PrivateChatUserBean) getArguments().getParcelable("user");
+        if (mToUser != null) {
+            mTitle.setText(mToUser.getUser_nicename());
+        }
         //获取历史消息
-        mChats = PhoneLivePrivateChat.getUnreadRecord(mUser,mToUser);
+        mChats = PhoneLivePrivateChat.getUnreadRecord(mUser, mToUser);
 
         //初始化adapter
         mMessageAdapter = new MessageAdapter(getActivity());
@@ -138,33 +142,34 @@ public class MessageDetailDialogFragment extends DialogFragment{
     //注册监听私信消息广播
     private void initBroadCast() {
         IntentFilter cmdFilter = new IntentFilter("com.bolema.phonelive");
-        if(broadCastReceiver == null){
-            broadCastReceiver = new BroadcastReceiver(){
+        if (broadCastReceiver == null) {
+            broadCastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     // TODO Auto-generated method stub
                     final EMMessage emMessage = intent.getParcelableExtra("cmd_value");
                     //判断是否是当前回话的消息
-                    if(emMessage.getFrom().trim().equals(String.valueOf(mToUser.getId()))) {
+                    if (emMessage.getFrom().trim().equals(String.valueOf(mToUser.getId()))) {
 
-                        updateChatList(PrivateMessage.crateMessage(emMessage,mToUser.getAvatar()));
+                        updateChatList(PrivateMessage.crateMessage(emMessage, mToUser.getAvatar()));
 
                     }
                 }
             };
         }
-        getActivity().registerReceiver(broadCastReceiver,cmdFilter);
+        getActivity().registerReceiver(broadCastReceiver, cmdFilter);
     }
 
 
     public void initView(Dialog view) {
 
     }
-    private void updateChatList(PrivateMessage message){
+
+    private void updateChatList(PrivateMessage message) {
         //更新聊天列表
         mMessageAdapter.addMessage(message);
         mChatMessageListView.setAdapter(mMessageAdapter);
-        mChatMessageListView.setSelection(mMessageAdapter.getCount()-1);
+        mChatMessageListView.setSelection(mMessageAdapter.getCount() - 1);
     }
 
     @Override
@@ -185,7 +190,7 @@ public class MessageDetailDialogFragment extends DialogFragment{
         super.onDestroy();
         try {
             getActivity().unregisterReceiver(broadCastReceiver);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -199,13 +204,13 @@ public class MessageDetailDialogFragment extends DialogFragment{
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        if(mDialogInterface != null){
-            mDialogInterface.cancelDialog(null,null);
+        if (mDialogInterface != null) {
+            mDialogInterface.cancelDialog(null, null);
         }
 
     }
 
-    public void setDialogInterface(com.bolema.phonelive.interf.DialogInterface dialogInterface){
+    public void setDialogInterface(com.bolema.phonelive.interf.DialogInterface dialogInterface) {
         mDialogInterface = dialogInterface;
     }
 }

@@ -88,10 +88,10 @@ public class SearchFragment extends BaseFragment {
         public void onResponse(String response) {
             String res = ApiUtils.checkIsSuccess(response);
 
-            int screenWidth = DensityUtils.getScreenW(getContext());
-            int screenHeight = DensityUtils.getScreenH(getContext());
-            int textViewHeight = 50 * screenHeight / 1280;
-            int textSize = 10 * screenWidth / 720;
+//            int screenWidth = DensityUtils.getScreenW(getContext());
+//            int screenHeight = DensityUtils.getScreenH(getContext());
+//            int textViewHeight = 50 * screenHeight / 1280;
+//            int textSize = 10 * screenWidth / 720;
 
             Gson g = new GsonBuilder()
                     .setPrettyPrinting()

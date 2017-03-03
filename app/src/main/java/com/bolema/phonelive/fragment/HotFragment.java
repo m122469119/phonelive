@@ -91,8 +91,12 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    mListUserRoom.addHeaderView(headView);
-                    mListUserRoom.setAdapter(mHotUserListAdapter);
+                    try {
+                        mListUserRoom.addHeaderView(headView);
+                        mListUserRoom.setAdapter(mHotUserListAdapter);
+                    } catch (IllegalStateException e) {
+                        mHotUserListAdapter.notifyDataSetChanged();
+                    }
                     break;
                 case 5:
                     int currentItem = hotViewPager.getCurrentItem();
@@ -123,9 +127,12 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
         mListUserRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
-                UserBean user = mUserList.get(position-1 );
-                PhoneLiveApi.isStillLiving(String.valueOf(user.getUid()),stillliveCallback);
+                try {
+                    UserBean user = mUserList.get(position - 1);
+                    PhoneLiveApi.isStillLiving(String.valueOf(user.getUid()), stillliveCallback);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    AppContext.showToastShort("打开直播间失败，请刷新页面重试");
+                }
 
             }
         });
@@ -220,7 +227,7 @@ public class HotFragment extends BaseFragment implements SwipeRefreshLayout.OnRe
         ImageView imageView;
         for (int i = 0; i < imageUrls.length; i++) {
 
-            View pager = getLayoutInflater(getArguments()).inflate(R.layout.home_page_viewpager, null,false);
+            View pager = LayoutInflater.from(getApplication()).inflate(R.layout.home_page_viewpager, null,false);
             //设置轮播图，奖轮播图片添加到链表中以便传入适配器
             imageView = (ImageView) pager.findViewById(R.id.imageView_pager);
 

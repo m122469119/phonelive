@@ -78,6 +78,7 @@ public class SearchMusicDialogFragment extends DialogFragment {
         }
     };
 
+    private boolean isOriginalSong;
    
 
     @Override
@@ -116,7 +117,9 @@ public class SearchMusicDialogFragment extends DialogFragment {
                 File lrcfile = new File(AppConfig.DEFAULT_SAVE_MUSIC_PATH + bMusicList.get(position).getSongid() + ".lrc");
                     if (file.exists()) {
                         file.delete();
+
                         lrcfile.delete();
+
                         mDbManager.delete(bMusicList.get(position));
                         bMusicList.remove(position);
                         mAdapter.notifyDataSetChanged();
@@ -136,11 +139,8 @@ public class SearchMusicDialogFragment extends DialogFragment {
     //所有音乐
     private void searchMusic() {
 
-//        if (which == 0) {
              keyword = mInputEdit.getText().toString().trim()+"伴奏";
-//        } else if (which == 1) {
-//             keyword = mInputEdit.getText().toString().trim();
-//        }
+
         if (keyword.equals("")) {
             AppContext.showToastAppMsg(getActivity(), "请输入有效的关键词~");
             return;
@@ -164,12 +164,9 @@ public class SearchMusicDialogFragment extends DialogFragment {
                         bMusicList.clear();
 //                        bMusicList.clear();
                         for (int i=0; i<localMusicBean.getShowapi_res_body().getPagebean().getContentlist().size();i++) {
-                            if (localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(i).getSongid() == 0) {
+                            if (localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(i).getSongid() == 0&&!localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(i).getSongname().contains("铃声")) {
                                 bMusicList.add(localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(i));
                             }
-//                            else  {
-//                                mMusicList.add(localMusicBean.getShowapi_res_body().getPagebean().getContentlist().get(i));
-//                            }
                         }
                         fillUI();
                     }
@@ -182,8 +179,11 @@ public class SearchMusicDialogFragment extends DialogFragment {
         });
     }
 
+
+
     private void fillUI() {
 //        if (which == 0) {
+
             mAdapter.notifyDataSetChangedMusicList(bMusicList);
 //        } else {
 //            mAdapter.notifyDataSetChangedMusicList(mMusicList);
@@ -340,4 +340,5 @@ public class SearchMusicDialogFragment extends DialogFragment {
     public interface SearchMusicFragmentInterface {
         void onSelectMusic(Intent intent);
     }
+
 }

@@ -3,6 +3,7 @@ package com.bolema.phonelive.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -190,7 +191,14 @@ public class RoundImageView extends ImageView
 		}
 		int w = drawable.getIntrinsicWidth();
 		int h = drawable.getIntrinsicHeight();
+//		BitmapFactory.Options options = new BitmapFactory.Options();
+//		options.inJustDecodeBounds = true;
+//		options.inSampleSize = 2;
+//		options.inJustDecodeBounds = false;
+//		options.inTempStorage = new byte[16 * 1024];
+
 		Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+
 		Canvas canvas = new Canvas(bitmap);
 		drawable.setBounds(0, 0, w, h);
 		drawable.draw(canvas);

@@ -1,11 +1,15 @@
 package com.bolema.phonelive.ui;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -64,11 +68,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import okhttp3.Call;
 
 /*
@@ -237,17 +244,23 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
 
                 if (msg.what == 1) {
 
-                    if (mIvLoadingPre.getY() == 0) {
+                    try {
+                        if (mIvLoadingPre.getY() == 0) {
 
-                        mIvLoadingPre.setY(-displayMetrics.heightPixels);
+                            mIvLoadingPre.setY(-displayMetrics.heightPixels);
 
-                    } else if (mIvLoadingNext.getY() == 0) {
-                        mIvLoadingNext.setY(displayMetrics.heightPixels);
+                        } else if (mIvLoadingNext.getY() == 0) {
+                            mIvLoadingNext.setY(displayMetrics.heightPixels);
+                        }
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
                     }
+
                 }
                 super.handleMessage(msg);
             }
         };
+
 
         initRoomInfo();
         ViewConfiguration configuration = ViewConfiguration.get(this);
@@ -365,6 +378,9 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
             }
         });
 
+//        mChatServer.doSendMsg();
+
+
     }
 
 
@@ -454,7 +470,24 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
 
     //分享操作
     public void share(View v) {
-        ShareUtils.share(this, v.getId(), mEmceeInfo);
+        ShareUtils.share(this, v.getId(), mEmceeInfo, new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                //分享成功
+                mChatServer.doSendShareEvent(mUser, 0);
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+
+            }
+        },0);
+
     }
 
 
@@ -746,7 +779,14 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                 }
             });
         } else {
-            layoutFirstNote.setVisibility(View.GONE);
+            try {
+//                if (layoutFirstNote == null) {
+//                    layoutFirstNote = (AutoLinearLayout) findViewById(R.id.layout_first_note);
+//                }
+                layoutFirstNote.setVisibility(View.GONE);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -851,7 +891,9 @@ public class VideoPlayerActivity extends ShowLiveActivityBase implements View.On
                         if (contentJson.getInt("touid") == mUser.getId()) {
                             //AppContext.showToastAppMsg(VideoPlayerActivity.this, "您已被设为管理员");
                         }
-                        addChatMessage(chat);
+                         addChatMessage(chat);
+
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();

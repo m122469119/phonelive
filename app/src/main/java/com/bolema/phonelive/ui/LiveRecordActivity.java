@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -102,6 +103,8 @@ public class LiveRecordActivity extends AppCompatActivity implements DialogContr
                 finish();
             }
         });
+
+
 
     }
 
@@ -432,6 +435,20 @@ public class LiveRecordActivity extends AppCompatActivity implements DialogContr
                     }
                 });
             }
+//            convertView.setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    switch (event.getAction()) {
+//                        case MotionEvent.ACTION_MOVE:
+//                            refreshLayout.setEnabled(false);
+//                            break;
+//                        case MotionEvent.ACTION_CANCEL:
+//                            refreshLayout.setEnabled(true);
+//                            break;
+//                    }
+//                    return false;
+//                }
+//            });
             return convertView;
         }
 

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -33,7 +34,6 @@ import com.bolema.phonelive.bean.UserBean;
 import com.bolema.phonelive.bean.UserHomePageBean;
 import com.bolema.phonelive.cache.DataSingleton;
 import com.bolema.phonelive.utils.BlurUtil;
-import com.bolema.phonelive.utils.GsonTools;
 import com.bolema.phonelive.utils.UIHelper;
 import com.bolema.phonelive.widget.AvatarView;
 import com.bumptech.glide.Glide;
@@ -117,6 +117,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
     @InjectView(R.id.tv_now_living)
     TextView tvNowLiving;
 
+
     private List<UserBean> mUserList = new ArrayList<>();
 
     //当前选中的直播记录bean
@@ -128,6 +129,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
 
     private int live = 0;
     private UserBean userBean = null;
+    private UserBean mUserBean;
 
     @Override
     protected int getLayoutId() {
@@ -138,6 +140,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
     public void initView() {
         AppManager.getAppManager().addActivity(this);
 
+        mUserBean = AppContext.getInstance().getLoginUser();
         mOrderTopNoThree[0] = (AvatarView) findViewById(R.id.av_home_page_order1);
         mOrderTopNoThree[1] = (AvatarView) findViewById(R.id.av_home_page_order2);
         mOrderTopNoThree[2] = (AvatarView) findViewById(R.id.av_home_page_order3);
@@ -149,6 +152,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
                 showLiveRecord();
             }
         });
+
     }
 
     @Override
@@ -178,7 +182,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
 
                     if (live == 1) {
                         userBean = new Gson().fromJson(liveInfoJson.toString(), UserBean.class);
-                        userBean.setId(userBean.getUid());
+//                        userBean.setId(userBean.getUid());
                         mUserList.add(userBean);
                     } else {
                         userBean = null;
@@ -193,7 +197,6 @@ public class HomePageActivity extends ToolBarBaseActivity {
                 }
 
 
-
             }
         };
         //请求用户信息
@@ -202,13 +205,14 @@ public class HomePageActivity extends ToolBarBaseActivity {
 
     private void fillList() {
         mLiveRecordList.setAdapter(new LiveRecordAdapter());
+
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.inject(this);
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        ButterKnife.inject(this);
+//    }
 
     private class LiveRecordAdapter extends BaseAdapter {
 
@@ -270,7 +274,10 @@ public class HomePageActivity extends ToolBarBaseActivity {
         for (int i = 0; i < os.size(); i++) {
             mOrderTopNoThree[i].setAvatarUrl(os.get(i).getAvatar());
         }
-        tvNowLiving.setVisibility(userBean != null ? View.VISIBLE : View.INVISIBLE);
+
+
+        tvNowLiving.setVisibility(userBean != null && userBean.getUid() != mUserBean.getId() ? View.VISIBLE : View.INVISIBLE);
+
 
         tvNowLiving.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -310,11 +317,11 @@ public class HomePageActivity extends ToolBarBaseActivity {
         mUFollowNum.setShadowLayer(10F, 1F, 1F, Color.BLACK);
         mUSign.setShadowLayer(10F, 1F, 1F, Color.BLACK);
 
-
     }
 
     /**
      * 请求服务器判断主播是否仍在直播回调
+     *
      * @param v
      */
     public StringCallback callback = new StringCallback() {
@@ -331,8 +338,8 @@ public class HomePageActivity extends ToolBarBaseActivity {
 
             try {
                 JSONObject resJson = new JSONObject(response);
-                if(Integer.parseInt(resJson.getString("ret")) == 200){
-                    JSONObject dataJson =  resJson.getJSONObject("data");
+                if (Integer.parseInt(resJson.getString("ret")) == 200) {
+                    JSONObject dataJson = resJson.getJSONObject("data");
                     JSONArray jsonArray = dataJson.getJSONArray("info");
                     UserBean userBean = new Gson().fromJson(jsonArray.getJSONObject(0).toString(), UserBean.class);
 
@@ -426,6 +433,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
                         mDefaultVideoBg.setVisibility(View.VISIBLE);
                     }
                     fillList();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -447,7 +455,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
         @Override
         public void onResponse(String response) {
             hideWaitDialog();
-                String res = ApiUtils.checkIsSuccess(response);
+            String res = ApiUtils.checkIsSuccess(response);
             if (res != null) {
                 mLiveRecordBean.setVideo_url(res.trim());
                 VideoBackActivity.startVideoBack(HomePageActivity.this, mLiveRecordBean);
@@ -627,7 +635,7 @@ public class HomePageActivity extends ToolBarBaseActivity {
                     tvCoin.setText(votes);
                     return;
                 }
-                int votesNum = Integer.parseInt(etDiamondsNum.getText().toString()) * exRate/3;
+                int votesNum = Integer.parseInt(etDiamondsNum.getText().toString()) * exRate / 3;
                 if (votesNum < 0 || votesNum > Integer.parseInt(votes)) {
                     tvCoin.setText("0");
                     tvVotesNum.setText(votes);

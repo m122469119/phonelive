@@ -36,12 +36,6 @@
         android:layout_width="match_parent"
 
         android:layout_height="match_parent" />
-    <com.bolema.phonelive.widget.LoadUrlImageView
-        android:scaleType="centerCrop"
-        android:id="@+id/iv_live_look_loading_next"
-        android:layout_width="match_parent"
-
-        android:layout_height="match_parent" />
 
     <com.zhy.autolayout.AutoLinearLayout
         android:id="@+id/layout_first_note"
@@ -60,6 +54,16 @@
             android:layout_marginLeft="@dimen/space_126"/>
 
     </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.bolema.phonelive.widget.LoadUrlImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_live_look_loading_next"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </com.zhy.autolayout.AutoRelativeLayout>

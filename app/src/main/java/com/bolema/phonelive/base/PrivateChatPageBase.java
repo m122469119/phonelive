@@ -222,8 +222,13 @@ public abstract class PrivateChatPageBase extends BaseFragment {
                                 //设置该会话最后一条信息
                                 chatUserBean.setLastMessage(((EMTextMessageBody) conversation.getLastMessage().getBody()).getMessage());
                                 Log.d("messageBean", chatUserBean.getLastMessage());
+
                                 //获取该会话是否有未读消息
-                                chatUserBean.setUnreadMessage(conversation.getUnreadMsgCount() > 0);
+                                try {
+                                    chatUserBean.setUnreadMessage(conversation.getUnreadMsgCount() > 0);
+                                } catch (NullPointerException e) {
+                                    chatUserBean.setUnreadMessage(false);
+                                }
 
                             }catch (Exception e){
                                 //无最后一条消息纪录
@@ -235,6 +240,7 @@ public abstract class PrivateChatPageBase extends BaseFragment {
                             }else{
                                 mPrivateChatListData.add(chatUserBean);
                             }
+
 
                         }
                         //填充会话列表

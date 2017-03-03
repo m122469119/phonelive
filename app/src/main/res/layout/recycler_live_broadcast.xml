@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/live_broadcast_item"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/live_broadcast_pic"
         android:layout_width="@dimen/space_167"
         android:layout_height="@dimen/space_152"
+        android:layout_marginRight="@dimen/space_4"
+        android:layout_marginEnd="@dimen/space_4"
         android:src="@color/default_background"
         android:scaleType="fitXY"/>
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_38"
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="@dimen/space_167"
+        android:layout_height="@dimen/space_22"
+        android:layout_marginRight="@dimen/space_4"
+        android:layout_marginEnd="@dimen/space_4"
         android:orientation="horizontal">
         
         <TextView
             android:id="@+id/title"
             android:layout_width="@dimen/space_96"
-            android:layout_height="@dimen/space_27"
-            android:layout_marginLeft="@dimen/space_12"
-            android:layout_marginStart="@dimen/space_12"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_9"
+            android:layout_marginStart="@dimen/space_9"
             android:layout_marginTop="@dimen/space_6"
             android:textSize="@dimen/space_12"
             android:textColor="@color/black"
-            android:maxLines="2"
+            android:maxLines="1"
             android:ellipsize="end"/>
 
         <TextView
@@ -33,11 +39,13 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/play_times"
             android:drawableStart="@drawable/play_times"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/space_7"
             android:textSize="@dimen/space_12"
             android:textColor="@color/pink_text"
             android:drawablePadding="@dimen/space_2"
             android:layout_marginTop="@dimen/space_6"
             android:layout_marginLeft="@dimen/space_10"
             android:layout_marginStart="@dimen/space_10"/>
-    </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
 </com.zhy.autolayout.AutoLinearLayout>

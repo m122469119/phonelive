@@ -100,8 +100,7 @@ public class MusicAdapter extends BaseAdapter{
                 Intent intent;
                 //判断该音乐是否存在,存在直接播放
                 try {
-                    AppContext.showToastShort(music.getDownUrl());
-
+//                    AppContext.showToastShort(music.getDownUrl());
                     if(mDbManager.queryFromEncryptedDownloadUrl(music.getDownUrl()).getCount()!=0){
                         intent = new Intent();
                         ((StartLiveActivity)mFragment.getActivity()).onSelectMusic(intent.putExtra("filepath", finalFile.getPath()));

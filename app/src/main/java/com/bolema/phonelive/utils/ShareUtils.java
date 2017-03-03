@@ -44,25 +44,27 @@ public class ShareUtils {
 
     private static String androidapk;
 
-    public static void share(Activity context, int id, UserBean user){
+
+    public static void share(Activity context, int id, UserBean user, PlatformActionListener listener, int s){
         switch (id){
             case R.id.ll_live_shar_qq:
-                share(context,3,user,null);
+                share(context, 3, user,listener);
                 break;
             case R.id.ll_live_shar_pyq:
-                share(context,2,user,null);
+                share(context,2,user,listener);
                 break;
             case R.id.ll_live_shar_qqzone:
-                share(context,4,user,null);
+                share(context,4,user,listener);
                 break;
             case R.id.ll_live_shar_sinna:
-                share(context, 0, user, null);
+                share(context, 0, user, listener);
                 break;
             case R.id.ll_live_shar_wechat:
-                share(context,1,user,null);
+                share(context,1,user,listener);
                 break;
         }
     }
+
     public static void share(final Context context, final int index, final UserBean user, final PlatformActionListener listener){
         PhoneLiveApi.getConfig(new StringCallback() {
             @Override

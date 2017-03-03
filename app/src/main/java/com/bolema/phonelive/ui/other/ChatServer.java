@@ -14,6 +14,7 @@ import android.text.style.ImageSpan;
 import android.util.Log;
 import android.util.SparseArray;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.bolema.phonelive.AppContext;
@@ -107,6 +108,9 @@ public class ChatServer {
                         if (action == 0) {//公聊
                             onMessage(res, contentJson);
                         }
+                        if (action == 21) {  //分享
+                            onShareMessage(res, contentJson);
+                        }
                         break;
                     case SYSTEM_NOT://系统
                         if (action == 0) { // sendgift
@@ -115,11 +119,9 @@ public class ChatServer {
                             //房间关闭
                             mChatServer.onSystemNot(0);
                         } else if (action == 13) {
-
                             //系统消息
                             onSystemMessage(contentJson);
-
-
+//                            onSystemNotice(contentJson);
 
                             KLog.json(contentJson.toString());
 
@@ -129,6 +131,7 @@ public class ChatServer {
                         }
                         break;
                     case NOTICE://通知
+
                         if (action == 0) {//上下线
                             JSONObject uInfo = contentJson.getJSONObject("ct");
 
@@ -140,6 +143,11 @@ public class ChatServer {
 //
 //                                mChatServer.setManage(contentJson,);
 //                            }
+
+//                            AppContext.showToastAppMsg(context,"我上线了");
+
+                            KLog.json(uInfo.toString());
+//                            onSystemNotice(contentJson);
 
                             ChatServer.LIVE_USER_NUMS += 1;
 
@@ -182,6 +190,7 @@ public class ChatServer {
         mChatServer.onPrivilegeAction(c, contentJson);
     }
 
+
     private void onDanmuMessage(JSONObject contentJson, String method) throws JSONException {
         String ct = contentJson.getString("ct");
         ChatBean c = new ChatBean();
@@ -216,6 +225,26 @@ public class ChatServer {
 
         mChatServer.setManage(contentJson, c);
     }
+
+    //消息提醒
+//    private void onSystemNotice(JSONObject contentJson) throws JSONException {
+//        SpannableStringBuilder msg = new SpannableStringBuilder("欢迎各位主播宝宝前来试播，对于平台内的一些小bug还请多多担待，同时希望试播的主播们能积极反馈问题，我们的程序猿哥哥会加快解决！");
+//
+//        SpannableStringBuilder name = new SpannableStringBuilder("系统消息:");
+//        name.setSpan(new ForegroundColorSpan(Color.rgb(252, 221, 128)), 0, name.length(),
+//                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//        ChatBean c = new ChatBean();
+//        c.setType(13);
+//        c.setSendChatMsg(msg);
+//        c.setUserNick(name);
+//        c.setVip_type("0");
+//        c.setIsmanage(0);
+////        KLog.json(contentJson.toString());
+//
+//        mChatServer.setManage(contentJson, c);
+//    }
+
 
     //礼物信息
     private void onSendGift(JSONObject contentJson) throws JSONException {
@@ -353,6 +382,87 @@ public class ChatServer {
         mChatServer.onMessageListen(2, c);
     }
 
+    //分享操作
+    private void onShareMessage(String res, JSONObject contentJson) throws JSONException {
+        String ct = contentJson.getString("ct");
+
+        ChatBean c = new ChatBean();
+        c.setId(contentJson.getInt("uid"));
+        c.setSignature(contentJson.getString("usign"));
+        c.setLevel(contentJson.getInt("level"));
+        c.setUser_nicename(contentJson.getString("uname"));
+        c.setCity(contentJson.getString("city"));
+        c.setSex(contentJson.getInt("sex"));
+        c.setAvatar(contentJson.getString("uhead"));
+
+        KLog.json(contentJson.toString());
+
+
+        c.setVip_type(contentJson.getString("vip_type"));
+
+//        c.setViplevel(contentJson.getString("viplevel"));
+
+//        KLog.json(contentJson.toString());
+
+//        String vip_level = contentJson.getString("viplevel");
+
+        int level = c.getLevel();
+
+        String uname = "_ " + c.getUser_nicename() + ":";
+
+        SpannableStringBuilder msg = new SpannableStringBuilder(ct);
+        SpannableStringBuilder name = new SpannableStringBuilder(uname);
+        //添加等级图文混合
+        Drawable levelDrawable;
+
+//        KLog.d("" + vip_level + "vipthumb" + c.getVipthumb() + "viptype"+c.getVip_type());
+
+        int viptype = Integer.parseInt(c.getVip_type());
+
+        if (viptype == 1) {
+            levelDrawable = ContextCompat.getDrawable(context,DrawableRes.LevelVipImg[(level != 0 ? level - 1 : 0)]);
+            levelDrawable.setBounds(0, (int) TDevice.dpToPixel(5), (int) TDevice.dpToPixel(40), (int) TDevice.dpToPixel(18));
+        } else {
+            levelDrawable = ContextCompat.getDrawable(context,DrawableRes.LevelImg[(level != 0 ? level - 1 : 0)]);
+            levelDrawable.setBounds((int) TDevice.dpToPixel(10), (int) TDevice.dpToPixel(5), (int) TDevice.dpToPixel(40), (int) TDevice.dpToPixel(18));
+        }
+
+        ImageSpan levelImage = new ImageSpan(levelDrawable, ImageSpan.ALIGN_BASELINE);
+
+
+        name.setSpan(new ForegroundColorSpan(Color.rgb(252, 221, 128)), 1, name.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        msg.setSpan(new ForegroundColorSpan(Color.rgb(0, 252, 255)), 0, msg.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        name.setSpan(levelImage, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //获取被@用户id
+        String touid = contentJson.getString("touid");
+        //判断如果是@方式聊天,被@方用户显示粉色字体
+        if ((!touid.equals("0") && (Integer.parseInt(touid) == AppContext.getInstance().getLoginUid()
+   /* || c.getId() == AppContext.getInstance().getLoginUid()*/))) {
+            msg.setSpan(new ForegroundColorSpan(Color.rgb(249, 149, 255)), 0, msg.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        //判断是否是点亮
+        if (res.indexOf("heart") > 0) {
+            //int[] heartImg = new int[]{Color.rgb(30,190,204),Color.rgb(241,96,246),Color.rgb(218,53,42),Color.rgb(205,203,49)};
+            int index = contentJson.getInt("heart");
+            msg.append("❤");
+            //添加点亮图文混合
+            Drawable hearDrawable = ContextCompat.getDrawable(context,heartImg[index]);
+            hearDrawable.setBounds(0, 0, (int) TDevice.dpToPixel(10), (int) TDevice.dpToPixel(10));
+            ImageSpan hearImage = new ImageSpan(hearDrawable, ImageSpan.ALIGN_BASELINE);
+            msg.setSpan(hearImage, msg.length() - 1, msg.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        c.setSendChatMsg(msg);
+        c.setUserNick(name);
+
+
+        mChatServer.onMessageListen(2, c);
+    }
 
     //服务器连接结果监听
     private Emitter.Listener onConn = new Emitter.Listener() {
@@ -656,6 +766,36 @@ public class ChatServer {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @param user    用户信息
+     * @dw 分享
+     */
+    public void doSendShareEvent( UserBean user, int reply) {
+        if (null == mSocket) {
+            return;
+        }
+        SendSocketMessageBean socketMessageBean = new SendSocketMessageBean();
+        List<SendSocketMessageBean.MsgBean> msgBeanList = new ArrayList<>();
+        SendSocketMessageBean.MsgBean msgBean = getMsgBean("SendMsg", "分享了主播，表达了对主播浓浓的爱", "21", "2", reply, user);
+        msgBean.setTougood("");
+        msgBean.setTouid(reply);
+        msgBean.setTouname("");
+        msgBean.setUgood("");
+        //判断是否为VIP会员
+        msgBean.setVip_type(user.getVip_type());
+        msgBeanList.add(msgBean);
+        socketMessageBean.setMsg(msgBeanList);
+        socketMessageBean.setRetcode("000000");
+        socketMessageBean.setRetmsg("ok");
+        String json = mGson.toJson(socketMessageBean);
+        try {
+            mSocket.emit(EVENT_NAME, new JSONObject(json));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * @param index

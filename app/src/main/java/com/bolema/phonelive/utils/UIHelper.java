@@ -212,7 +212,7 @@ public class UIHelper {
      *
      * @return
      */
-    public static void showLookLiveActivity(Context context, Bundle bundle) {
+    public static void  showLookLiveActivity(Context context, Bundle bundle) {
         Intent intent = new Intent(context, VideoPlayerActivity.class);
         intent.putExtra(VideoPlayerActivity.USER_INFO,bundle);
         context.startActivity(intent);

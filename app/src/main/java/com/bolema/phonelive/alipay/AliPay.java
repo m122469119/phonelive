@@ -11,6 +11,10 @@ import com.bolema.phonelive.AppContext;
 import com.bolema.phonelive.api.remote.PhoneLiveApi;
 import com.bolema.phonelive.ui.UserDiamondsActivity;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import okhttp3.Call;
@@ -32,7 +36,7 @@ public class AliPay{
         this.mPayActivity = payActivity;
     }
 
-    public void initPay(String money,String num){
+    public void initPay(final String money, final String num){
         rechargeNum = num;
         final  String subject = num + "播币";
         final String body = num +"播币";
@@ -51,9 +55,17 @@ public class AliPay{
 
             @Override
             public void onResponse(String response) {
-                String res = ApiUtils.checkIsSuccess(response);
+
+
+                    String res = ApiUtils.getResponse(response);
+
+//                    int code = data.getInt("code");
+                try {
                 if(null != res){
-                    mOut_trade_no = res.trim();
+
+                    JSONObject data = new JSONObject(res);
+
+                    mOut_trade_no = data.getString("info");
                     String orderInfo = getOrderInfo(mOut_trade_no,subject, body,total_fee,url);
                     String sign = sign(orderInfo);
                     try {
@@ -71,6 +83,10 @@ public class AliPay{
                 }else{
                     AppContext.showToastAppMsg(mPayActivity,"支付失败");
                 }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             }
         };

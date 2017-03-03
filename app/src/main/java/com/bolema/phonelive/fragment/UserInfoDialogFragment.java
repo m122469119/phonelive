@@ -209,10 +209,12 @@ public class UserInfoDialogFragment extends DialogFragment {
                                 mIsAttentionListener.isAttention();
                             }
                         });
-                    } else {
-                        mTvFollowBtn.setText(getString(R.string.alreadyfollow));
-                        mTvFollowBtn.setEnabled(false);
-                        mTvFollowBtn.setTextColor(getResources().getColor(R.color.gray));
+                    } else  {
+                        if (isAdded()) {
+                            mTvFollowBtn.setText(getString(R.string.alreadyfollow));
+                            mTvFollowBtn.setEnabled(false);
+                            mTvFollowBtn.setTextColor(getResources().getColor(R.color.gray));
+                        }
                     }
                 }
             }

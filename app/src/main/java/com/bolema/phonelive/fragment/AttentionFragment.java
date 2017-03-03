@@ -122,8 +122,12 @@ public class AttentionFragment extends BaseFragment {
 
         @Override
         public void onResponse(String response) {
-            if (mRefresh.isRefreshing()) {
-                mRefresh.setRefreshing(false);
+            try {
+                if (mRefresh.isRefreshing()) {
+                    mRefresh.setRefreshing(false);
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
             String res = ApiUtils.checkIsSuccess(response);
             if (null != res) {

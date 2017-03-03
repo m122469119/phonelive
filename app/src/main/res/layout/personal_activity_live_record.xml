@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    android:id="@+id/live_record_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:slide="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+        <com.bolema.phonelive.widget.slidelistview.SlideListView
+            android:id="@+id/lv_live_record"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@color/transparent"
+            slide:slideAnimationTime="200"
+            slide:slideLeftAction="scroll"
+            slide:slideMode="both"
+            slide:slideRightAction="scroll">
+
+        </com.bolema.phonelive.widget.slidelistview.SlideListView>
+
+</com.zhy.autolayout.AutoLinearLayout>

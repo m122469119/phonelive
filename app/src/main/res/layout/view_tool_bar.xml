@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_layout"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
 
@@ -9,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_50"
         app:contentInsetStart="0dp"
+
         android:background="@color/global">
 
         <com.zhy.autolayout.AutoRelativeLayout

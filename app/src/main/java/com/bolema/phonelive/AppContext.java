@@ -380,8 +380,12 @@ public class AppContext extends BaseApplication {
                 setProperty("user.level", String.valueOf(user.getLevel()));
                 setProperty("user.birthday", String.valueOf(user.getBirthday()));
 
-                setProperty("user.viptype", user.getVip_type());
-                setProperty("user.ismanage", String.valueOf(user.getIsmanage()));
+                try {
+                    setProperty("user.ismanage", String.valueOf(user.getIsmanage()));
+                    setProperty("user.viptype", user.getVip_type());
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

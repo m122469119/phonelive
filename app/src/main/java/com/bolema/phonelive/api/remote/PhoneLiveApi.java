@@ -539,7 +539,7 @@ public class PhoneLiveApi {
     public static void getAliPayOrderNum(int uid, String token, StringCallback callback) {
         OkHttpUtils.get()
                 .url(AppConfig.MAIN_URL)
-                .addParams("service", "User.getAliOrderId")
+                .addParams("service", "Music.getAliOrderId")
                 .addParams("uid", String.valueOf(uid))
                 .addParams("money", "1")
                 .addParams("token", token)
@@ -660,7 +660,7 @@ public class PhoneLiveApi {
     public static void wxPay(int uid, String token, String price, StringCallback callback) {
         OkHttpUtils.get()
                 .url(AppConfig.MAIN_URL)
-                .addParams("service", "User.getWxOrderId")
+                .addParams("service", "Music.getWxOrderId")
                 .addParams("uid", String.valueOf(uid))
                 .addParams("token", token)
                 .addParams("money", price)
@@ -1151,6 +1151,22 @@ public class PhoneLiveApi {
         OkHttpUtils.get()
                 .url(AppConfig.MAIN_URL)
                 .addParams("service", "Zhijin.getByUserList")
+                .build()
+                .execute(callback);
+    }
+
+    public static void getLiveRecorded(StringCallback callback) {
+        OkHttpUtils.get()
+                .url(AppConfig.MAIN_URL)
+                .addParams("service","Music.getzjvedio")
+                .build()
+                .execute(callback);
+    }
+
+    public static void getZhijinBanner(StringCallback callback) {
+        OkHttpUtils.get()
+                .url(AppConfig.MAIN_URL)
+                .addParams("service","User.getSlide&mark=zj_")
                 .build()
                 .execute(callback);
     }

@@ -152,8 +152,8 @@ public class IndexPagerFragment extends BaseFragment implements ListenMessage{
         viewPageFragmentAdapter.addTab(getString(R.string.attention), "gz", AttentionFragment.class, getBundle());
         viewPageFragmentAdapter.addTab(getString(R.string.hot), "rm", HotFragment.class, getBundle());
         viewPageFragmentAdapter.addTab(getString(R.string.daren), "dr", NewestFragment.class, getBundle());
-        viewPageFragmentAdapter.addTab("话题", "ht", TopicSquaresFragment.class, getBundle());
         viewPageFragmentAdapter.addTab("知晋", "zj", ZhiJinFragment.class, getBundle());
+        viewPageFragmentAdapter.addTab("话题", "ht", TopicSquaresFragment.class, getBundle());
 
         pager.setAdapter(viewPageFragmentAdapter);
 
